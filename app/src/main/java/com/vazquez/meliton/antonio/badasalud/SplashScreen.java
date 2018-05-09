@@ -27,7 +27,7 @@ public class SplashScreen extends Activity {
             @Override
             public void run() {
                 //CON UN INTENT ENVIO DEL SPLASHSCREEN AL MENÚ INICIAL
-                Intent intent = new Intent(SplashScreen.this, MainActivity.class);
+                Intent intent = new Intent(SplashScreen.this, LoginActivity.class);
                 startActivity(intent);
                 //usamos finish para evitar volver a la pantalla de carga
                 finish();
