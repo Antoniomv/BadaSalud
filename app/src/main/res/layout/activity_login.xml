@@ -10,15 +10,15 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="#5eda90"
+    android:background="@drawable/fondo"
     tools:context=".LoginActivity">
 
     <!-- Login progress -->
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="384dp"
-        android:layout_height="225dp"
-        android:contentDescription="BadaSalud"
+        android:layout_height="252dp"
+        android:contentDescription="@string/app_name"
         android:paddingBottom="20dp"
         android:paddingTop="20dp"
         app:srcCompat="@drawable/iconofinal" />
@@ -33,6 +33,7 @@
 
     <ScrollView
         android:id="@+id/login_form"
+        android:layout_marginTop="40dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -78,11 +79,10 @@
 
             <Button
                 android:id="@+id/email_sign_in_button"
-
                 android:background="#01d256"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="70dp"
+                android:layout_marginTop="50dp"
                 android:text="@string/action_sign_in"
                 android:textStyle="bold"
                 />
