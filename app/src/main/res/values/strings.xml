@@ -13,4 +13,5 @@
     <string name="error_incorrect_password">La contraseña es incorrecta</string>
     <string name="error_field_required">Casilla requerida</string>
     <string name="permission_rationale">"Los permisos de contactos son necesarios para proporcionar terminaciones de correo electrónico."</string>
+    <string name="reg_strate_gratis">Regístrate gratis!</string>
 </resources>

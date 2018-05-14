@@ -51,8 +51,8 @@
                     android:id="@+id/email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/prompt_email"
                     android:layout_marginTop="20dp"
+                    android:hint="@string/prompt_email"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:singleLine="true" />
@@ -82,10 +82,18 @@
                 android:background="#01d256"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="30dp"
                 android:text="@string/action_sign_in"
                 android:textStyle="bold"
                 />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:layout_marginTop="15dp"
+                android:text="@string/reg_strate_gratis"
+                android:textAlignment="center" />
 
         </LinearLayout>
     </ScrollView>
