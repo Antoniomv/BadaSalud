@@ -12,16 +12,16 @@ public class Cita implements Serializable {
     private Date fechayhora;
     private int usuario_id;
     private int hospital_id;
-    private ArrayList<String> hospitales;
+    private ArrayList<String> citas;
 
     //llenamos constructor
-    public Cita(int id, String nombre, Date fechayhora, int usuario_id, int hospital_id, ArrayList<String> hospitales) {
+    public Cita(int id, String nombre, Date fechayhora, int usuario_id, int hospital_id, ArrayList<String> citas) {
         this.id = id;
         this.nombre = nombre;
         this.fechayhora = fechayhora;
         this.usuario_id = usuario_id;
         this.hospital_id = hospital_id;
-        this.hospitales = hospitales;
+        this.citas = citas;
     }
 
 
@@ -71,11 +71,11 @@ public class Cita implements Serializable {
         this.hospital_id = hospital_id;
     }
 
-    public ArrayList<String> getHospitales() {
-        return hospitales;
+    public ArrayList<String> getCitas() {
+        return citas;
     }
 
-    public void setHospitales(ArrayList<String> hospitales) {
-        this.hospitales = hospitales;
+    public void setCitas(ArrayList<String> citas) {
+        this.citas = citas;
     }
 }
