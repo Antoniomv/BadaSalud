@@ -22,7 +22,7 @@
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
-            android:layout_height="158dp"
+            android:layout_height="215dp"
             android:contentDescription="@string/app_name"
             android:paddingBottom="20dp"
             android:paddingTop="20dp"
@@ -33,6 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Nombre"
+            android:textColor="@android:color/black"
             android:textStyle="bold" />
 
         <EditText
@@ -49,6 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="Apellidos"
+            android:textColor="@android:color/black"
             android:textStyle="bold" />
 
         <EditText
@@ -66,6 +68,7 @@
             android:layout_marginTop="10dp"
             android:text="Email"
             android:textAlignment="textStart"
+            android:textColor="@android:color/black"
             android:textStyle="bold" />
 
         <EditText
@@ -81,6 +84,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="Contraseña"
+            android:textColor="@android:color/black"
             android:textStyle="bold" />
 
         <EditText
@@ -92,9 +96,9 @@
 
         <Button
             android:id="@+id/button"
-            android:layout_width="353dp"
+            android:layout_width="330dp"
             android:layout_height="wrap_content"
-            android:background="#01d256"
+            android:background="@drawable/boton"
             android:text="REGISTRATE"
             android:textAlignment="center" />
     </GridLayout>
