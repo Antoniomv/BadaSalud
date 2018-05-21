@@ -9,97 +9,152 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <GridLayout
+    <!--android:layout_marginBottom="5dp"-->
+    <!--android:layout_marginLeft="10dp"-->
+    <!--android:layout_marginRight="10dp"-->
+    <!--android:layout_marginTop="5dp"-->
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:background="@drawable/borde"
-        android:orientation="vertical">
+        android:background="#ffffff"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/et_nombre"
+        app:layout_constraintTop_toBottomOf="@+id/et_nombre">
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="match_parent"
-            android:layout_height="215dp"
+            android:layout_width="0dp"
+            android:layout_height="134dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
             android:contentDescription="@string/app_name"
             android:paddingBottom="20dp"
             android:paddingTop="20dp"
-            app:srcCompat="@drawable/iconofinal" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/iconofinal"
+            tools:ignore="NotSibling,UnknownId" />
+
 
         <TextView
             android:id="@+id/text_nombre"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="54dp"
+            android:layout_height="22dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginTop="40dp"
+            android:layout_weight="1"
             android:text="Nombre"
             android:textColor="@android:color/black"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/text_apellidos"
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            tools:ignore="NotSibling" />
 
         <EditText
             android:id="@+id/et_nombre"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="40dp"
+            android:layout_weight="1"
             android:ems="10"
             android:inputType="textPersonName"
-            android:textAlignment="textStart" />
+            android:textAlignment="textStart"
+            android:textColor="@android:color/black"
+            app:layout_constraintBottom_toTopOf="@+id/text_apellidos"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_nombre" />
 
         <TextView
             android:id="@+id/text_apellidos"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_weight="1"
             android:text="Apellidos"
             android:textColor="@android:color/black"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/et_apellidos"
+            app:layout_constraintStart_toStartOf="@+id/et_apellidos"
+            app:layout_constraintTop_toBottomOf="@+id/et_nombre" />
 
         <EditText
             android:id="@+id/et_apellidos"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="40dp"
+            android:layout_weight="1"
             android:ems="10"
             android:inputType="textPersonName"
-            android:textAlignment="viewStart" />
+            android:textAlignment="viewStart"
+            android:textColor="@android:color/black"
+            app:layout_constraintBottom_toTopOf="@+id/text_email"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_apellidos" />
 
         <TextView
             android:id="@+id/text_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_weight="1"
             android:text="Email"
             android:textAlignment="textStart"
             android:textColor="@android:color/black"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/et_email"
+            app:layout_constraintTop_toBottomOf="@+id/et_apellidos"
+            tools:layout_editor_absoluteX="40dp" />
 
         <EditText
             android:id="@+id/et_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
             android:ems="10"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            android:textColor="@android:color/black"
+            app:layout_constraintBottom_toTopOf="@+id/text_password"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_email" />
 
         <TextView
             android:id="@+id/text_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_weight="1"
             android:text="Contraseña"
             android:textColor="@android:color/black"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/et_password"
+            app:layout_constraintStart_toStartOf="@+id/et_password"
+            app:layout_constraintTop_toBottomOf="@+id/et_email" />
 
         <EditText
             android:id="@+id/et_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="79dp"
+            android:layout_marginStart="40dp"
+            android:layout_weight="1"
             android:ems="10"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:textColor="@android:color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_password" />
 
         <Button
             android:id="@+id/button"
-            android:layout_width="330dp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_weight="1"
             android:background="@drawable/boton"
             android:text="REGISTRATE"
-            android:textAlignment="center" />
-    </GridLayout>
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
 </FrameLayout>
