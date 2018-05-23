@@ -13,6 +13,7 @@
     <!--android:layout_marginLeft="10dp"-->
     <!--android:layout_marginRight="10dp"-->
     <!--android:layout_marginTop="5dp"-->
+
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -21,9 +22,10 @@
         app:layout_constraintBottom_toBottomOf="@+id/et_nombre"
         app:layout_constraintTop_toBottomOf="@+id/et_nombre">
 
+
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="134dp"
             android:layout_marginEnd="5dp"
             android:layout_marginStart="5dp"
@@ -35,7 +37,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/iconofinal"
             tools:ignore="NotSibling,UnknownId" />
-
 
         <TextView
             android:id="@+id/text_nombre"
