@@ -16,15 +16,21 @@
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Panel de Control" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="FAQ" />
-        <item
-            android:id="@+id/nav_send"
-            android:icon="@drawable/ic_menu_send"
-            android:title="Cerrar Sesion" />
     </group>
 
+    <item
+        android:id="@+id/navigation_subheader"
+        android:title="@string/Otras_Opciones">
+        <menu>
+    <item
+        android:id="@+id/nav_manage"
+        android:icon="@drawable/ic_menu_manage"
+        android:title="FAQ" />
+    <item
+        android:id="@+id/nav_send"
+        android:icon="@drawable/ic_menu_send"
+        android:title="Cerrar Sesion" />
+        </menu>
+    </item>
 
 </menu>
