@@ -6,6 +6,10 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <!-- -añadimos permisos de uso de telefono -->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <!-- Y para acceder a internet -->
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -14,21 +18,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"
-                  android:theme="@style/Theme.AppCompat.NoActionBar">
-        </activity>
         <activity
-            android:name=".Inicio.SplashScreen"
-            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
+            android:name=".MainActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".SplashScreen"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Principal"
+            android:label="@string/title_activity_principal"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
-    <!---añadimos permisos de uso de telefono-->
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
-    <!-- Y para acceder a internet -->
-    <uses-permission android:name="android.permission.INTERNET" />
+
 </manifest>

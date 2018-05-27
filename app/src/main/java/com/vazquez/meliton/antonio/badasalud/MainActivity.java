@@ -1,6 +1,5 @@
 package com.vazquez.meliton.antonio.badasalud;
 
-import android.app.Activity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.net.Uri;

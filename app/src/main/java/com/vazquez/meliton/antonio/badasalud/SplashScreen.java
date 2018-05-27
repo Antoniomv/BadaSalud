@@ -1,4 +1,4 @@
-package com.vazquez.meliton.antonio.badasalud.Inicio;
+package com.vazquez.meliton.antonio.badasalud;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,9 +7,6 @@ import android.os.Bundle;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-
-import com.vazquez.meliton.antonio.badasalud.MainActivity;
-import com.vazquez.meliton.antonio.badasalud.R;
 
 //extendemos a Activity para poder usar otros themes en el manifest
 public class SplashScreen extends Activity {
@@ -30,7 +27,7 @@ public class SplashScreen extends Activity {
             @Override
             public void run() {
                 //CON UN INTENT ENVIO DEL SPLASHSCREEN AL MENÚ INICIAL
-                Intent intent = new Intent(SplashScreen.this, MainActivity.class);
+                Intent intent = new Intent(SplashScreen.this, Principal.class);
                 startActivity(intent);
                 //usamos finish para evitar volver a la pantalla de carga
                 finish();
