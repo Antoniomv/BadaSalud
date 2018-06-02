@@ -1,14 +1,29 @@
 package com.vazquez.meliton.antonio.badasalud.Fragmentos;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.vazquez.meliton.antonio.badasalud.Entidad.Usuario;
+import com.vazquez.meliton.antonio.badasalud.Principal;
 import com.vazquez.meliton.antonio.badasalud.R;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,7 +33,7 @@ import com.vazquez.meliton.antonio.badasalud.R;
  * Use the {@link LoginFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class LoginFragment extends Fragment {
+public class LoginFragment extends Fragment implements Response.Listener<JSONObject>, Response.ErrorListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -29,6 +44,13 @@ public class LoginFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    //Declaramos valores
+    RequestQueue request;
+    JsonObjectRequest jsonObject;
+
+    EditText loginEmail,loginPassword;
+    Button entrarLogin;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -65,7 +87,31 @@ public class LoginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false);
+        View view = inflater.inflate(R.layout.fragment_login, container, false);
+
+        //Damos valor a las variables
+        loginEmail = (EditText) view.findViewById(R.id.et_loginEmail);
+        loginPassword = (EditText) view.findViewById(R.id.et_LoginPassword);
+        entrarLogin = (Button) view.findViewById(R.id.entrarLogin);
+
+        //ejecutamos botón
+        entrarLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                iniciarSesion();
+            }
+        });
+
+        return view;
+    }
+
+    //método para iniciar sesión
+    private void iniciarSesion() {
+        //capturamos url
+        String url ="http://badasalud.es/webservice/login.php?email="+loginEmail.getText().toString()+"&password="+loginPassword.getText().toString();
+        jsonObject = new JsonObjectRequest(Request.Method.GET,url,null, this,this);
+        request.add(jsonObject);
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -90,6 +136,32 @@ public class LoginFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        Toast.makeText(getContext(), "El Usuario no existe en la base de datos" + error.toString(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onResponse(JSONObject response) {
+        Usuario usuario = new Usuario();
+
+        Toast.makeText(getContext(), "Conexión Establecida con éxito" +  loginEmail.getText().toString(), Toast.LENGTH_SHORT).show();
+        JSONArray jsonArray = response.optJSONArray("datos");
+        JSONObject jsonObjetos = null;
+
+        try {
+            jsonObjetos = jsonArray.getJSONObject(0);
+            usuario.setEmail(jsonObjetos.optString("email"));
+            usuario.setPassword(jsonObjetos.optString("password"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        //abrimos la actividad con el listado
+        Intent intent = new Intent(getContext(), Principal.class);
+        startActivity(intent);
     }
 
     /**
