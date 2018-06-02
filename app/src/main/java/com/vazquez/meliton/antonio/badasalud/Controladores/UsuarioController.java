@@ -45,7 +45,7 @@ public class UsuarioController {
 
         //lanzamos volley para procesar su insercción
         VolleySingleton.getInstance(context).addToRequestQueue(
-                new JsonObjectRequest(Request.Method.POST, Constantes.INSERT, jsonObject,
+                new JsonObjectRequest(Request.Method.POST, Constantes.INSERT_USUARIO, jsonObject,
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
@@ -99,7 +99,7 @@ public class UsuarioController {
 
         //lanzamos volley para procesar su insercción
         VolleySingleton.getInstance(context).addToRequestQueue(
-                new JsonObjectRequest(Request.Method.POST, Constantes.UPDATE, jsonObject,
+                new JsonObjectRequest(Request.Method.POST, Constantes.UPDATE_USUARIO, jsonObject,
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
