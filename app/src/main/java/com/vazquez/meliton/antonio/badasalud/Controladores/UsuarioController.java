@@ -1,7 +1,6 @@
 package com.vazquez.meliton.antonio.badasalud.Controladores;
 
 import android.content.Context;
-import android.text.Editable;
 import android.view.View;
 import android.webkit.ConsoleMessage;
 import android.widget.Toast;
@@ -10,7 +9,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.vazquez.meliton.antonio.badasalud.Constantes.ConstantesUsuarios;
+import com.vazquez.meliton.antonio.badasalud.Constantes.Constantes;
 import com.vazquez.meliton.antonio.badasalud.Constantes.VolleySingleton;
 
 import org.json.JSONException;
@@ -32,9 +31,9 @@ public class UsuarioController {
     }
 
     //Mapeamos para traernos los datos del formulario y poder crear usuario y guardarlo
-    public void nuevoUsuario(Editable nombre, Editable apellidos, Editable telefono, Editable email, Editable password) {
+    public void nuevoUsuario(String nombre, String apellidos, String telefono, String email, String password) {
         //inicio mapeo de guardado
-        final HashMap<String, Editable> map = new HashMap<>();
+        final HashMap<String, Object> map = new HashMap<>();
         map.put("nombre", nombre);
         map.put("apellidos", apellidos);
         map.put("telefono", telefono);
@@ -46,7 +45,7 @@ public class UsuarioController {
 
         //lanzamos volley para procesar su insercción
         VolleySingleton.getInstance(context).addToRequestQueue(
-                new JsonObjectRequest(Request.Method.POST, ConstantesUsuarios.INSERT, jsonObject,
+                new JsonObjectRequest(Request.Method.POST, Constantes.INSERT, jsonObject,
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
@@ -100,7 +99,7 @@ public class UsuarioController {
 
         //lanzamos volley para procesar su insercción
         VolleySingleton.getInstance(context).addToRequestQueue(
-                new JsonObjectRequest(Request.Method.POST, ConstantesUsuarios.UPDATE, jsonObject,
+                new JsonObjectRequest(Request.Method.POST, Constantes.UPDATE, jsonObject,
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {

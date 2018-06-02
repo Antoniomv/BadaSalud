@@ -114,7 +114,7 @@ public class RegistroFragmento extends Fragment {
         //importamos el controllador
         UsuarioController usuarioController = new UsuarioController(getContext(), view);
         //insertamos valores y los transformamos en String
-        usuarioController.nuevoUsuario(nombre.getText(), apellidos.getText(), telefono.getText(), email.getText(), password.getText());
+        usuarioController.nuevoUsuario(nombre.getText().toString(), apellidos.getText().toString(), telefono.getText().toString(), email.getText().toString(), password.getText().toString());
 
 
     }
