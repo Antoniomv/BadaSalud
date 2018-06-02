@@ -21,7 +21,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
-public class UsuarioController{
+public class UsuarioController {
 
     //nos traemos el contexto y la vista
     private Context context;
@@ -90,7 +90,7 @@ public class UsuarioController{
 
     //método para pasar al fragmento login una vez esté registrado con éxito
     private void trasladoLogin() {
-//        FragmentManager fm = getSupportFragmentManager();
+//        FragmentManager fm = get;
 //        FragmentTransaction ft = fm.beginTransaction();
 //
 //        LoginFragment loginFragment = new LoginFragment();

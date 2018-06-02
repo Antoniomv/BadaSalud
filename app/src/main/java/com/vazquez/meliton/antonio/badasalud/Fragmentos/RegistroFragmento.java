@@ -18,8 +18,6 @@ import android.widget.TextView;
 import com.vazquez.meliton.antonio.badasalud.Controladores.UsuarioController;
 import com.vazquez.meliton.antonio.badasalud.R;
 
-import org.json.JSONObject;
-
 
 /**
  * A simple {@link Fragment} subclass.
@@ -129,23 +127,30 @@ public class RegistroFragmento extends Fragment {
         //importamos el controllador
         UsuarioController usuarioController = new UsuarioController(getContext(), view);
         //insertamos valores y los transformamos en String
-        usuarioController.nuevoUsuario(nombre.getText().toString(), apellidos.getText().toString(), telefono.getText().toString(), email.getText().toString(), password.getText().toString());
-        //Evidamos que se manden datos vacíos
-        if(TextUtils.isEmpty(nombre.getText().toString())) {
+        String nombreGuardar = nombre.getText().toString();
+        String apellidosGuardar = apellidos.getText().toString();
+        String telefonoGuardar = telefono.getText().toString();
+        String emailGuardar = email.getText().toString();
+        String passwordGuardar = password.getText().toString();
+
+
+        //Evitamos que se manden datos vacíos
+        if (TextUtils.isEmpty(nombreGuardar)) {
             nombre.setError("El nombre no puede estar vacío");
         }
-        if(TextUtils.isEmpty(apellidos.getText().toString())) {
+        if (TextUtils.isEmpty(apellidosGuardar)) {
             apellidos.setError("El apellidos no puede estar vacío");
         }
-        if(TextUtils.isEmpty(telefono.getText().toString())) {
+        if (TextUtils.isEmpty(telefonoGuardar)) {
             telefono.setError("El telefono no puede estar vacío");
         }
-        if(TextUtils.isEmpty(email.getText().toString())) {
+        if (TextUtils.isEmpty(emailGuardar)) {
             email.setError("El email no puede estar vacío");
         }
-        if(TextUtils.isEmpty(password.getText().toString())) {
+        if (TextUtils.isEmpty(passwordGuardar)) {
             password.setError("El password no puede estar vacío");
         }
+        usuarioController.nuevoUsuario(nombreGuardar, apellidosGuardar, telefonoGuardar, emailGuardar, passwordGuardar);
     }
 
     //método para limpiar registro
