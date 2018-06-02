@@ -12,15 +12,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
+import com.vazquez.meliton.antonio.badasalud.Controladores.UsuarioController;
 import com.vazquez.meliton.antonio.badasalud.R;
 
 import org.json.JSONObject;
-
 
 
 /**
@@ -31,24 +28,21 @@ import org.json.JSONObject;
  * Use the {@link RegistroFragmento#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class RegistroFragmento extends Fragment implements Response.Listener<JSONObject>, Response.ErrorListener {
+public class RegistroFragmento extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    private OnFragmentInteractionListener mListener;
-
     //referencio
     EditText nombre, apellidos, telefono, email, password;
     Button registro;
     TextView login;
     //ventana de progreso en caso de que tarde en cargar
     ProgressDialog progress;
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
+    private OnFragmentInteractionListener mListener;
 
 
     public RegistroFragmento() {
@@ -86,7 +80,7 @@ public class RegistroFragmento extends Fragment implements Response.Listener<JSO
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_registro, container, false);
+        final View view = inflater.inflate(R.layout.fragment_registro, container, false);
 
         //Doy valor a las variables
         nombre = (EditText) view.findViewById(R.id.et_nombre);
@@ -103,12 +97,35 @@ public class RegistroFragmento extends Fragment implements Response.Listener<JSO
         registro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //insertamos usuario
+                nuevoUsuario(view);
+                //Limpiamos el formulario
+                limpiarRegistro();
             }
         });
 
 
-
         return view;
+    }
+
+    //método para añadir nuevo usuario
+    private void nuevoUsuario(View view) {
+
+        //importamos el controllador
+        UsuarioController usuarioController = new UsuarioController(getContext(), view);
+        //insertamos valores y los transformamos en String
+        usuarioController.nuevoUsuario(nombre.getText(), apellidos.getText(), telefono.getText(), email.getText(), password.getText());
+
+
+    }
+
+    //método para limpiar registro
+    private void limpiarRegistro() {
+        nombre.setText("");
+        apellidos.setText("");
+        telefono.setText("");
+        email.setText("");
+        password.setText("");
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -133,16 +150,6 @@ public class RegistroFragmento extends Fragment implements Response.Listener<JSO
     public void onDetach() {
         super.onDetach();
         mListener = null;
-    }
-
-    @Override
-    public void onErrorResponse(VolleyError error) {
-
-    }
-
-    @Override
-    public void onResponse(JSONObject response) {
-
     }
 
     /**

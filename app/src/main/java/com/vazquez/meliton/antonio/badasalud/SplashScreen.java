@@ -2,8 +2,8 @@ package com.vazquez.meliton.antonio.badasalud;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Handler;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -32,7 +32,7 @@ public class SplashScreen extends Activity {
                 //usamos finish para evitar volver a la pantalla de carga
                 finish();
             }
-        },1550);
+        }, 1550);
     }
 
     //MÉTODO ROTACIÓN IMAGEN INICIAL

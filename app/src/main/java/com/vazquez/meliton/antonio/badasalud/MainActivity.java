@@ -1,10 +1,10 @@
 package com.vazquez.meliton.antonio.badasalud;
 
+import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
 import com.vazquez.meliton.antonio.badasalud.Fragmentos.RegistroFragmento;
 
@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity implements RegistroFragmento
     }
 
     private void cargarInicio() {
-        FragmentManager fragmentManager =  getSupportFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
         RegistroFragmento registroFragmento = new RegistroFragmento();

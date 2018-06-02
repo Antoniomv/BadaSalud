@@ -18,7 +18,7 @@ public class Especialidad implements Serializable {
     }
 
     //creo constructor vacio
-    public Especialidad(){
+    public Especialidad() {
 
     }
 

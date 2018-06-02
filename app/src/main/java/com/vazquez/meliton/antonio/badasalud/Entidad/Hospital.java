@@ -25,7 +25,7 @@ public class Hospital implements Serializable {
     }
 
     //creo constructor vacio
-    public Hospital(){
+    public Hospital() {
 
     }
 

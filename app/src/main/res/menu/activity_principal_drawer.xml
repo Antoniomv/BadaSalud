@@ -22,18 +22,18 @@
         android:id="@+id/navigation_subheader"
         android:title="@string/Otras_Opciones">
         <menu>
-    <item
-        android:id="@+id/nav_manage"
-        android:icon="@drawable/icon_faq"
-        android:title="FAQ" />
-    <item
-        android:id="@+id/nav_desarrollador"
-        android:icon="@drawable/icon_desarrollador"
-        android:title="Desarrollador" />
-    <item
-        android:id="@+id/nav_send"
-        android:icon="@drawable/icon_logout"
-        android:title="Cerrar Sesion" />
+            <item
+                android:id="@+id/nav_manage"
+                android:icon="@drawable/icon_faq"
+                android:title="FAQ" />
+            <item
+                android:id="@+id/nav_desarrollador"
+                android:icon="@drawable/icon_desarrollador"
+                android:title="Desarrollador" />
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@drawable/icon_logout"
+                android:title="Cerrar Sesion" />
         </menu>
     </item>
 

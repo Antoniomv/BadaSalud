@@ -27,7 +27,7 @@ public class Usuario implements Serializable {
     }
 
     //genero constructor vacio
-    public Usuario(){
+    public Usuario() {
 
     }
 

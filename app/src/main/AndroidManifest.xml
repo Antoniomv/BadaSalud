@@ -38,7 +38,7 @@
         </activity>
     </application>
     <!---añadimos permisos de uso de telefono-->
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <!-- Y para acceder a internet -->
     <uses-permission android:name="android.permission.INTERNET" />
 </manifest>
