@@ -5,13 +5,15 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
 
 import com.vazquez.meliton.antonio.badasalud.Controladores.UsuarioController;
 import com.vazquez.meliton.antonio.badasalud.R;
@@ -103,6 +105,20 @@ public class RegistroFragmento extends Fragment {
             }
         });
 
+        //creamos método para ir al login
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = getFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+
+                LoginFragment loginFragment = new LoginFragment();
+                ft.replace(R.id.fragment_container, loginFragment);
+                ft.addToBackStack(null);
+                ft.commit();
+            }
+        });
+
 
         return view;
     }
@@ -114,8 +130,22 @@ public class RegistroFragmento extends Fragment {
         UsuarioController usuarioController = new UsuarioController(getContext(), view);
         //insertamos valores y los transformamos en String
         usuarioController.nuevoUsuario(nombre.getText().toString(), apellidos.getText().toString(), telefono.getText().toString(), email.getText().toString(), password.getText().toString());
-
-
+        //Evidamos que se manden datos vacíos
+        if(TextUtils.isEmpty(nombre.getText().toString())) {
+            nombre.setError("El nombre no puede estar vacío");
+        }
+        if(TextUtils.isEmpty(apellidos.getText().toString())) {
+            apellidos.setError("El apellidos no puede estar vacío");
+        }
+        if(TextUtils.isEmpty(telefono.getText().toString())) {
+            telefono.setError("El telefono no puede estar vacío");
+        }
+        if(TextUtils.isEmpty(email.getText().toString())) {
+            email.setError("El email no puede estar vacío");
+        }
+        if(TextUtils.isEmpty(password.getText().toString())) {
+            password.setError("El password no puede estar vacío");
+        }
     }
 
     //método para limpiar registro

@@ -1,7 +1,6 @@
 package com.vazquez.meliton.antonio.badasalud.Controladores;
 
 import android.content.Context;
-import android.net.Uri;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -22,7 +21,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
-public class UsuarioController implements LoginFragment.OnFragmentInteractionListener {
+public class UsuarioController{
 
     //nos traemos el contexto y la vista
     private Context context;
@@ -91,13 +90,13 @@ public class UsuarioController implements LoginFragment.OnFragmentInteractionLis
 
     //método para pasar al fragmento login una vez esté registrado con éxito
     private void trasladoLogin() {
-//        FragmentManager fragmentManager = getFragmentManager();
-//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//        FragmentManager fm = getSupportFragmentManager();
+//        FragmentTransaction ft = fm.beginTransaction();
 //
 //        LoginFragment loginFragment = new LoginFragment();
-//        fragmentTransaction.replace(R.id.fragment_container, loginFragment);
-//        fragmentTransaction.addToBackStack(null);
-//        fragmentTransaction.commit();
+//        ft.replace(R.id.fragment_container, loginFragment);
+//        ft.addToBackStack(null);
+//        ft.commit();
     }
 
 
@@ -154,8 +153,4 @@ public class UsuarioController implements LoginFragment.OnFragmentInteractionLis
 
     }
 
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
-    }
 }

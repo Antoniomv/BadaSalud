@@ -6,9 +6,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
+import com.vazquez.meliton.antonio.badasalud.Fragmentos.LoginFragment;
 import com.vazquez.meliton.antonio.badasalud.Fragmentos.RegistroFragmento;
 
-public class MainActivity extends AppCompatActivity implements RegistroFragmento.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements RegistroFragmento.OnFragmentInteractionListener, LoginFragment.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
