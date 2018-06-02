@@ -1,6 +1,9 @@
 package com.vazquez.meliton.antonio.badasalud.Controladores;
 
 import android.content.Context;
+import android.net.Uri;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.webkit.ConsoleMessage;
 import android.widget.Toast;
@@ -11,13 +14,15 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.vazquez.meliton.antonio.badasalud.Constantes.Constantes;
 import com.vazquez.meliton.antonio.badasalud.Constantes.VolleySingleton;
+import com.vazquez.meliton.antonio.badasalud.Fragmentos.LoginFragment;
+import com.vazquez.meliton.antonio.badasalud.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 
-public class UsuarioController {
+public class UsuarioController implements LoginFragment.OnFragmentInteractionListener {
 
     //nos traemos el contexto y la vista
     private Context context;
@@ -75,12 +80,24 @@ public class UsuarioController {
         switch (estado) {
             case "1": // Ok
                 Toast.makeText(context, "usuario agregado correctamente", Toast.LENGTH_LONG).show();
+                trasladoLogin();
                 break;
             case "2": // error
                 Toast.makeText(context, response.getString("mensaje"), Toast.LENGTH_LONG).show();
                 break;
         }
 
+    }
+
+    //método para pasar al fragmento login una vez esté registrado con éxito
+    private void trasladoLogin() {
+//        FragmentManager fragmentManager = getFragmentManager();
+//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//
+//        LoginFragment loginFragment = new LoginFragment();
+//        fragmentTransaction.replace(R.id.fragment_container, loginFragment);
+//        fragmentTransaction.addToBackStack(null);
+//        fragmentTransaction.commit();
     }
 
 
@@ -137,4 +154,8 @@ public class UsuarioController {
 
     }
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
 }
