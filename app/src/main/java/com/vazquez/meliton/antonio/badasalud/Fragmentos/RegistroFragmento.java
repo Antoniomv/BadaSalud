@@ -4,10 +4,10 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.vazquez.meliton.antonio.badasalud.Controladores.UsuarioController;
 import com.vazquez.meliton.antonio.badasalud.R;
+
 
 
 /**
@@ -35,7 +36,8 @@ public class RegistroFragmento extends Fragment {
     //referencio
     EditText nombre, apellidos, telefono, email, password;
     Button registro;
-    TextView login;
+    TextView login, advertencia;
+    private UsuarioController usuarioController;
     //ventana de progreso en caso de que tarde en cargar
     ProgressDialog progress;
     // TODO: Rename and change types of parameters
@@ -76,7 +78,7 @@ public class RegistroFragmento extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_registro, container, false);
@@ -88,6 +90,7 @@ public class RegistroFragmento extends Fragment {
         email = (EditText) view.findViewById(R.id.et_email);
         password = (EditText) view.findViewById(R.id.et_password);
 
+        advertencia = (TextView) view.findViewById(R.id.advertencia);
         registro = (Button) view.findViewById(R.id.registro);
         login = (TextView) view.findViewById(R.id.login);
 
@@ -98,6 +101,7 @@ public class RegistroFragmento extends Fragment {
             public void onClick(View v) {
                 //insertamos usuario
                 nuevoUsuario(view);
+
                 //Limpiamos el formulario
                 limpiarRegistro();
             }
@@ -124,8 +128,9 @@ public class RegistroFragmento extends Fragment {
     //método para añadir nuevo usuario
     private void nuevoUsuario(View view) {
 
+
         //importamos el controllador
-        UsuarioController usuarioController = new UsuarioController(getContext(), view);
+        usuarioController = new UsuarioController(getContext(), view);
         //insertamos valores y los transformamos en String
         String nombreGuardar = nombre.getText().toString();
         String apellidosGuardar = apellidos.getText().toString();
@@ -133,24 +138,50 @@ public class RegistroFragmento extends Fragment {
         String emailGuardar = email.getText().toString();
         String passwordGuardar = password.getText().toString();
 
-
         //Evitamos que se manden datos vacíos
-        if (TextUtils.isEmpty(nombreGuardar)) {
-            nombre.setError("El nombre no puede estar vacío");
+        Boolean ok = true;
+        Boolean entrarLogin = false;
+        if ((nombreGuardar.isEmpty()) || (apellidosGuardar.isEmpty()) || (telefonoGuardar.isEmpty()) || (emailGuardar.isEmpty()) || (passwordGuardar.isEmpty())) {
+
+            //se puede mejorar poniendo if 1 a 1
+            if (nombreGuardar.isEmpty()) {
+                nombre.setError("El nombre no puede estar vacío");
+            }
+            if (apellidosGuardar.isEmpty()) {
+                apellidos.setError("El apellidos no puede estar vacío");
+            }
+            if (telefonoGuardar.isEmpty()) {
+                telefono.setError("El telefono no puede estar vacío");
+            }
+            if (emailGuardar.isEmpty()) {
+                email.setError("El email no puede estar vacío");
+            }
+            if (passwordGuardar.isEmpty()) {
+                password.setError("El password no puede estar vacío");
+            }
+            ok = false;
         }
-        if (TextUtils.isEmpty(apellidosGuardar)) {
-            apellidos.setError("El apellidos no puede estar vacío");
+
+        if (ok) {
+            usuarioController.nuevoUsuario(nombreGuardar, apellidosGuardar, telefonoGuardar, emailGuardar, passwordGuardar);
+            entrarLogin = true;
         }
-        if (TextUtils.isEmpty(telefonoGuardar)) {
-            telefono.setError("El telefono no puede estar vacío");
+        if (entrarLogin) {
+            Handler handler = new Handler();
+            Runnable runnable = new Runnable() {
+                @Override
+                public void run() {
+                    FragmentManager fm = getFragmentManager();
+                    FragmentTransaction ft = fm.beginTransaction();
+
+                    LoginFragment loginFragment = new LoginFragment();
+                    ft.replace(R.id.fragment_container, loginFragment);
+                    ft.addToBackStack(null);
+                    ft.commit();
+                }
+            };
+            handler.postDelayed(runnable, 3000);
         }
-        if (TextUtils.isEmpty(emailGuardar)) {
-            email.setError("El email no puede estar vacío");
-        }
-        if (TextUtils.isEmpty(passwordGuardar)) {
-            password.setError("El password no puede estar vacío");
-        }
-        usuarioController.nuevoUsuario(nombreGuardar, apellidosGuardar, telefonoGuardar, emailGuardar, passwordGuardar);
     }
 
     //método para limpiar registro

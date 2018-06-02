@@ -1,8 +1,6 @@
 package com.vazquez.meliton.antonio.badasalud.Controladores;
 
 import android.content.Context;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.webkit.ConsoleMessage;
 import android.widget.Toast;
@@ -13,8 +11,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.vazquez.meliton.antonio.badasalud.Constantes.Constantes;
 import com.vazquez.meliton.antonio.badasalud.Constantes.VolleySingleton;
-import com.vazquez.meliton.antonio.badasalud.Fragmentos.LoginFragment;
-import com.vazquez.meliton.antonio.badasalud.R;
+
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,6 +30,7 @@ public class UsuarioController {
         this.context = context;
         this.view = view;
     }
+
 
     //Mapeamos para traernos los datos del formulario y poder crear usuario y guardarlo
     public void nuevoUsuario(String nombre, String apellidos, String telefono, String email, String password) {
@@ -66,7 +64,6 @@ public class UsuarioController {
                             public void onErrorResponse(VolleyError error) {
                                 ConsoleMessage.MessageLevel.valueOf("Error: " + error.getMessage());
                                 Toast.makeText(context, map.toString(), Toast.LENGTH_SHORT).show();
-
                             }
                         })
         );
@@ -152,5 +149,4 @@ public class UsuarioController {
         }
 
     }
-
 }
