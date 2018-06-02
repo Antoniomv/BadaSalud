@@ -1,5 +1,6 @@
 package com.vazquez.meliton.antonio.badasalud.Fragmentos;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -7,8 +8,19 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.vazquez.meliton.antonio.badasalud.R;
+
+import org.json.JSONObject;
+
 
 
 /**
@@ -19,7 +31,7 @@ import com.vazquez.meliton.antonio.badasalud.R;
  * Use the {@link RegistroFragmento#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class RegistroFragmento extends Fragment {
+public class RegistroFragmento extends Fragment implements Response.Listener<JSONObject>, Response.ErrorListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -30,6 +42,14 @@ public class RegistroFragmento extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    //referencio
+    EditText nombre, apellidos, telefono, email, password;
+    Button registro;
+    TextView login;
+    //ventana de progreso en caso de que tarde en cargar
+    ProgressDialog progress;
+
 
     public RegistroFragmento() {
         // Required empty public constructor
@@ -68,6 +88,26 @@ public class RegistroFragmento extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_registro, container, false);
 
+        //Doy valor a las variables
+        nombre = (EditText) view.findViewById(R.id.et_nombre);
+        apellidos = (EditText) view.findViewById(R.id.et_apellidos);
+        telefono = (EditText) view.findViewById(R.id.et_telefono);
+        email = (EditText) view.findViewById(R.id.et_email);
+        password = (EditText) view.findViewById(R.id.et_password);
+
+        registro = (Button) view.findViewById(R.id.registro);
+        login = (TextView) view.findViewById(R.id.login);
+
+
+        //creamos método para el botón
+        registro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+
+
+
         return view;
     }
 
@@ -93,6 +133,16 @@ public class RegistroFragmento extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onErrorResponse(VolleyError error) {
+
+    }
+
+    @Override
+    public void onResponse(JSONObject response) {
+
     }
 
     /**

@@ -18,10 +18,10 @@
         android:id="@+id/linear_registro"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/borde"
         android:backgroundTint="#FFF"
         android:orientation="vertical">
@@ -116,12 +116,12 @@
             android:background="?android:attr/listDivider" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/registro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/boton"
-            android:textStyle="bold"
-            android:text="Registrarse" />
+            android:text="Registrarse"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/login"
