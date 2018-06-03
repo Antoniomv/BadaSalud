@@ -124,6 +124,8 @@ public class LoginFragment extends Fragment{
                         intent.putExtra("nombre", nombre);
                         intent.putExtra("apellidos", apellidos);
                         intent.putExtra("telefono", telefono);
+                        intent.putExtra("email", email);
+                        intent.putExtra("password", password);
                         LoginFragment.this.startActivity(intent);
 
                     }else{

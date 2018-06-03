@@ -1,5 +1,6 @@
 package com.vazquez.meliton.antonio.badasalud;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -13,9 +14,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 public class Principal extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    TextView titulo, emailTitulo;
 
 
     @Override
@@ -42,6 +45,16 @@ public class Principal extends AppCompatActivity implements NavigationView.OnNav
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        titulo = findViewById(R.id.menu_titulo);
+        emailTitulo = findViewById(R.id.menu_email);
+
+        Intent intent = getIntent();
+        String tituloPrincipal = intent.getStringExtra("nombre");
+        String emailPrincipal = intent.getStringExtra("email");
+
+        titulo.setText(tituloPrincipal);
+        emailTitulo.setText(emailPrincipal);
     }
 
     @Override
