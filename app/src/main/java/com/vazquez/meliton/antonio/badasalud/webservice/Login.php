@@ -1,6 +1,9 @@
 <?php
 
-    require 'Database.php';
+    $hostname="qzn038.badasalud.es";
+    $database="qzn038";
+    $username="qzn038";
+    $password="Adrian22";
 
     $username = $_POST["email"];
     $password = $_POST["password"];

@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.vazquez.meliton.antonio.badasalud.Controladores.UsuarioController;
 import com.vazquez.meliton.antonio.badasalud.Entidad.Usuario;
 import com.vazquez.meliton.antonio.badasalud.Principal;
@@ -50,6 +53,7 @@ public class LoginFragment extends Fragment{
     //Declaramos valores
     EditText loginEmail,loginPassword;
     Button entrarLogin;
+    JSONObject jsonObject=null;
     private UsuarioController usuarioController;
 
 
@@ -99,51 +103,90 @@ public class LoginFragment extends Fragment{
         entrarLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                iniciarSesion(view);
-            }
+                iniciarSesion("http://badasalud.es/webservice/usuarios/get_usuario_login.php?email="+loginEmail.getText().toString()+"&password="+loginPassword.getText().toString());            }
         });
 
         return view;
     }
 
     //método para iniciar sesión
-    public void iniciarSesion(View view) {
-    //importamos el controllador
-        usuarioController = new UsuarioController(getContext(),view);
-        //insertamos valores y los transformamos en String
-        String emailGuardar = loginEmail.getText().toString();
-        String passwordGuardar = loginPassword.getText().toString();
+    public void iniciarSesion(String URL) {
+        Log.i("url",""+URL);
 
-        //Evitamos que se manden datos vacíos
-        Boolean ok = true;
-        Boolean entrarLogin = false;
-        if ((emailGuardar.isEmpty()) || (passwordGuardar.isEmpty())) {
+        RequestQueue queue = Volley.newRequestQueue(getContext());
+        final StringRequest stringRequest =  new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+//                    jsonArray = new JSONArray(response);
+                    jsonObject = new JSONObject(response);
+//                    String ema = jsonArray.getString(0);
+                    String ema = jsonObject.getString("Email");
 
-            if (emailGuardar.isEmpty()) {
-                loginEmail.setError("El email no puede estar vacío");
-            }
-            if (passwordGuardar.isEmpty()) {
-                loginPassword.setError("El password no puede estar vacío");
-            }
-            ok = false;
-        }
+                    if((ema.equals(loginEmail.getText().toString()))){
 
-        //si la comprobación es correcta, comparamos los datos con la Base de datos
-        if (ok) {
-            usuarioController.trasladoLogin(emailGuardar, passwordGuardar);
-            entrarLogin = true;
-        }
-        if (entrarLogin) {
-            Handler handler = new Handler();
-            Runnable runnable = new Runnable() {
-                @Override
-                public void run() {
-                    Intent intent = new Intent(getContext(), Principal.class);
-                    startActivity(intent);
+                        Toast.makeText(getContext(),"Bienvenido",Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getContext(), Principal.class);
+                        startActivity(intent);
+
+                    }else{
+                        Toast.makeText(getContext(),"verifique su contraseña",Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+
+                    Toast.makeText(getContext(),"El usuario no existe en la base de datos",Toast.LENGTH_LONG).show();
                 }
-            };
-            handler.postDelayed(runnable, 1500);
-        }
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        queue.add(stringRequest);
+
+
+//    //importamos el controllador
+//        usuarioController = new UsuarioController(getContext(),view);
+//        //insertamos valores y los transformamos en String
+//        String emailGuardar = loginEmail.getText().toString();
+//        String passwordGuardar = loginPassword.getText().toString();
+//
+//        //Evitamos que se manden datos vacíos
+//        Boolean ok = true;
+//        Boolean entrarLogin = false;
+//        if ((emailGuardar.isEmpty()) || (passwordGuardar.isEmpty())) {
+//
+//            if (emailGuardar.isEmpty()) {
+//                loginEmail.setError("El email no puede estar vacío");
+//            }
+//            if (passwordGuardar.isEmpty()) {
+//                loginPassword.setError("El password no puede estar vacío");
+//            }
+//            ok = false;
+//        }
+//
+//        //si la comprobación es correcta, comparamos los datos con la Base de datos
+//        if (ok) {
+//            usuarioController.trasladoLogin(emailGuardar, passwordGuardar);
+//            entrarLogin = true;
+//        }
+//        if (entrarLogin) {
+//            Handler handler = new Handler();
+//            Runnable runnable = new Runnable() {
+//                @Override
+//                public void run() {
+//                    Intent intent = new Intent(getContext(), Principal.class);
+//                    startActivity(intent);
+//                }
+//            };
+//            handler.postDelayed(runnable, 1500);
+//        }
 
     }
 
