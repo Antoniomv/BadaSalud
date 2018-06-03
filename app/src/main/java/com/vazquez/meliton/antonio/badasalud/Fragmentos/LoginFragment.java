@@ -107,39 +107,28 @@ public class LoginFragment extends Fragment{
         final String email = loginEmail.getText().toString();
         final String password = loginPassword.getText().toString();
 
-    //importamos el controllador
+        //importamos el controllador
         usuarioController = new UsuarioController(getContext(),getView());
+
         //insertamos valores y los transformamos en String
         String emailGuardar = loginEmail.getText().toString();
         String passwordGuardar = loginPassword.getText().toString();
-
-        List<Usuario> listaTemporal= usuarioController.getUsuarios();
-        
-        //Evitamos que se manden datos vacíos
         Boolean ok = true;
         Boolean entrarLogin = false;
-        if ((emailGuardar.isEmpty()) || (passwordGuardar.isEmpty())) {
 
-            if (emailGuardar.isEmpty()) {
-                loginEmail.setError("El email no puede estar vacío");
+        List<Usuario> listaTemporal= usuarioController.getUsuarios();
+        for(int i = 0; i<= listaTemporal.size(); i++){
+            if((listaTemporal.get(i).getEmail().equals(emailGuardar))&& (listaTemporal.get(i).getPassword().equals(passwordGuardar))){
+                entrarLogin = true;
             }
-            if (passwordGuardar.isEmpty()) {
-                loginPassword.setError("El password no puede estar vacío");
-            }
-            ok = false;
         }
 
-        //si la comprobación es correcta, comparamos los datos con la Base de datos
-        if (ok) {
-            usuarioController.trasladoLogin(emailGuardar, passwordGuardar);
-            entrarLogin = true;
-        }
         if (entrarLogin) {
             Handler handler = new Handler();
             Runnable runnable = new Runnable() {
                 @Override
                 public void run() {
-                    Intent intent = new Intent(getContext(), Principal.class);
+                    Intent intent = new Intent(getView().getContext(), Principal.class);
                     startActivity(intent);
                 }
             };
@@ -147,6 +136,51 @@ public class LoginFragment extends Fragment{
         }
 
     }
+
+//    //método para iniciar sesión
+//    public void iniciarSesion() {
+//        final String email = loginEmail.getText().toString();
+//        final String password = loginPassword.getText().toString();
+//
+//    //importamos el controllador
+//        usuarioController = new UsuarioController(getContext(),getView());
+//        //insertamos valores y los transformamos en String
+//        String emailGuardar = loginEmail.getText().toString();
+//        String passwordGuardar = loginPassword.getText().toString();
+//        Boolean ok = true;
+//        Boolean entrarLogin = false;
+//
+//        List<Usuario> listaTemporal= usuarioController.getUsuarios();
+//        for(int i = 0; i<= listaTemporal.size(); i++){
+//            if(listaTemporal.get(i).getEmail().equals(emailGuardar)){
+//                entrarLogin = true;
+//            }
+//        }
+//        //Evitamos que se manden datos vacíos
+//        if ((emailGuardar.isEmpty()) || (passwordGuardar.isEmpty())) {
+//
+//            if (emailGuardar.isEmpty()) {
+//                loginEmail.setError("El email no puede estar vacío");
+//            }
+//            if (passwordGuardar.isEmpty()) {
+//                loginPassword.setError("El password no puede estar vacío");
+//            }
+//            ok = false;
+//        }
+//
+//        if (entrarLogin) {
+//            Handler handler = new Handler();
+//            Runnable runnable = new Runnable() {
+//                @Override
+//                public void run() {
+//                    Intent intent = new Intent(getContext(), Principal.class);
+//                    startActivity(intent);
+//                }
+//            };
+//            handler.postDelayed(runnable, 1500);
+//        }
+//
+//    }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

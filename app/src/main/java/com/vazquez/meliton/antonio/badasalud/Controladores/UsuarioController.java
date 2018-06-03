@@ -90,58 +90,6 @@ public class UsuarioController {
 
     }
 
-    //método para pasar al fragmento login una vez esté registrado con éxito
-    public void trasladoLogin(String email, String password) {
-
-        //iniciamos mapeo
-        final HashMap<String, String> map = new HashMap<>();
-        map.put("email", email);
-        map.put("password", password);
-
-        //creamos un objeto JSON dándole los datos del mapeo
-        final JSONObject jsonObject = new JSONObject(map);
-
-        //lanzamos volley para traernos los datos y comprobarlos
-        VolleySingleton.getInstance(context).addToRequestQueue(
-                new JsonObjectRequest(Request.Method.GET, Constantes.GET_USUARIO, jsonObject,
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                try {
-                                    procesadoLogin(response); // Procesar la respuesta Json
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                                Toast.makeText(context, "Logueado con Éxito", Toast.LENGTH_SHORT).show();
-                            }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                ConsoleMessage.MessageLevel.valueOf("Error: " + error.getMessage());
-                                Toast.makeText(context, map.toString(), Toast.LENGTH_SHORT).show();
-
-                            }
-                        })
-        );
-    }
-
-    //Procesado realizado por JSON
-    public void procesadoLogin(JSONObject response) throws JSONException {
-        // Obtener valor de estado
-        String estado = response.getString("estado");
-        switch (estado) {
-            case "1": // Ok
-                Toast.makeText(context, "ha entrado correctamente", Toast.LENGTH_LONG).show();
-                break;
-            case "2": // error
-                Toast.makeText(context, response.getString("usuario no encontrado"), Toast.LENGTH_LONG).show();
-                break;
-        }
-
-    }
-
-
     //Mapeamos, actualizamos datos, procesamos y guardamos
     public void ActualizarUsuario(String nombre, String apellidos, String telefono, String email, String password) {
         //inicio mapeo de guardado
