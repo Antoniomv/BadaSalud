@@ -1,10 +1,10 @@
 package com.vazquez.meliton.antonio.badasalud.Fragmentos;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,16 +12,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.android.volley.Response;
-import com.vazquez.meliton.antonio.badasalud.Controladores.LoginController;
 import com.vazquez.meliton.antonio.badasalud.Controladores.UsuarioController;
+import com.vazquez.meliton.antonio.badasalud.Entidad.Usuario;
 import com.vazquez.meliton.antonio.badasalud.Principal;
 import com.vazquez.meliton.antonio.badasalud.R;
 
-import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -108,117 +107,44 @@ public class LoginFragment extends Fragment{
         final String email = loginEmail.getText().toString();
         final String password = loginPassword.getText().toString();
 
-        Response.Listener<String> responsListener = new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    Boolean success = jsonObject.getBoolean("success");
-                    if(success){
-                        String nombre=jsonObject.getString("nombre");
-                        String apellidos=jsonObject.getString("apellidos");
-                        String telefono=jsonObject.getString("telefono");
+    //importamos el controllador
+        usuarioController = new UsuarioController(getContext(),getView());
+        //insertamos valores y los transformamos en String
+        String emailGuardar = loginEmail.getText().toString();
+        String passwordGuardar = loginPassword.getText().toString();
 
-                        Toast.makeText(getContext(),"Bienvenido",Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getContext(), Principal.class);
-                        intent.putExtra("nombre", nombre);
-                        intent.putExtra("apellidos", apellidos);
-                        intent.putExtra("telefono", telefono);
-                        intent.putExtra("email", email);
-                        intent.putExtra("password", password);
-                        LoginFragment.this.startActivity(intent);
+        List<Usuario> listaTemporal= usuarioController.getUsuarios();
+        
+        //Evitamos que se manden datos vacíos
+        Boolean ok = true;
+        Boolean entrarLogin = false;
+        if ((emailGuardar.isEmpty()) || (passwordGuardar.isEmpty())) {
 
-                    }else{
-                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                        builder.setMessage("error Login")
-                                .setNegativeButton("Retry", null)
-                                .create().show();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+            if (emailGuardar.isEmpty()) {
+                loginEmail.setError("El email no puede estar vacío");
             }
-        };
+            if (passwordGuardar.isEmpty()) {
+                loginPassword.setError("El password no puede estar vacío");
+            }
+            ok = false;
+        }
 
-        LoginController loginController = new LoginController(email,password, responsListener);
-
-
-//        Log.i("url",""+URL);
-//
-//        RequestQueue queue = Volley.newRequestQueue(getContext());
-//        final StringRequest stringRequest =  new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
-//            @Override
-//            public void onResponse(String response) {
-//                try {
-////                    jsonArray = new JSONArray(response);
-//                    jsonObject = new JSONObject(response);
-////                    String ema = jsonArray.getString(0);
-//                    String ema = jsonObject.getString("Email");
-//
-//                    if((ema.equals(loginEmail.getText().toString()))){
-//
-//                        Toast.makeText(getContext(),"Bienvenido",Toast.LENGTH_SHORT).show();
-//                        Intent intent = new Intent(getContext(), Principal.class);
-//                        startActivity(intent);
-//
-//                    }else{
-//                        Toast.makeText(getContext(),"verifique su contraseña",Toast.LENGTH_SHORT).show();
-//                    }
-//
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//
-//                    Toast.makeText(getContext(),"El usuario no existe en la base de datos",Toast.LENGTH_LONG).show();
-//                }
-//
-//
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//
-//            }
-//        });
-//
-//        queue.add(stringRequest);
-
-
-//    //importamos el controllador
-//        usuarioController = new UsuarioController(getContext(),view);
-//        //insertamos valores y los transformamos en String
-//        String emailGuardar = loginEmail.getText().toString();
-//        String passwordGuardar = loginPassword.getText().toString();
-//
-//        //Evitamos que se manden datos vacíos
-//        Boolean ok = true;
-//        Boolean entrarLogin = false;
-//        if ((emailGuardar.isEmpty()) || (passwordGuardar.isEmpty())) {
-//
-//            if (emailGuardar.isEmpty()) {
-//                loginEmail.setError("El email no puede estar vacío");
-//            }
-//            if (passwordGuardar.isEmpty()) {
-//                loginPassword.setError("El password no puede estar vacío");
-//            }
-//            ok = false;
-//        }
-//
-//        //si la comprobación es correcta, comparamos los datos con la Base de datos
-//        if (ok) {
-//            usuarioController.trasladoLogin(emailGuardar, passwordGuardar);
-//            entrarLogin = true;
-//        }
-//        if (entrarLogin) {
-//            Handler handler = new Handler();
-//            Runnable runnable = new Runnable() {
-//                @Override
-//                public void run() {
-//                    Intent intent = new Intent(getContext(), Principal.class);
-//                    startActivity(intent);
-//                }
-//            };
-//            handler.postDelayed(runnable, 1500);
-//        }
+        //si la comprobación es correcta, comparamos los datos con la Base de datos
+        if (ok) {
+            usuarioController.trasladoLogin(emailGuardar, passwordGuardar);
+            entrarLogin = true;
+        }
+        if (entrarLogin) {
+            Handler handler = new Handler();
+            Runnable runnable = new Runnable() {
+                @Override
+                public void run() {
+                    Intent intent = new Intent(getContext(), Principal.class);
+                    startActivity(intent);
+                }
+            };
+            handler.postDelayed(runnable, 1500);
+        }
 
     }
 

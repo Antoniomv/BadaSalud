@@ -136,7 +136,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/tabla"
                 android:ems="10"
-                android:hint="@string/introduce_tu_string_email"
+                android:hint="@string/introduce_tu_email"
                 android:inputType="textEmailAddress"
                 android:textColor="#000" />
 
@@ -161,7 +161,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/tabla"
                 android:ems="10"
-                android:hint="@string/introduce_tu_string_password"
+                android:hint="@string/introduce_tu_password"
                 android:inputType="textPassword"
                 android:textColor="#000" />
 

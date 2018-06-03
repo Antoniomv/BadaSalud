@@ -2,6 +2,7 @@ package com.vazquez.meliton.antonio.badasalud.Fragmentos;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,6 +17,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.vazquez.meliton.antonio.badasalud.Controladores.UsuarioController;
+import com.vazquez.meliton.antonio.badasalud.Principal;
 import com.vazquez.meliton.antonio.badasalud.R;
 
 
@@ -170,13 +172,8 @@ public class RegistroFragmento extends Fragment {
             Runnable runnable = new Runnable() {
                 @Override
                 public void run() {
-                    FragmentManager fm = getFragmentManager();
-                    FragmentTransaction ft = fm.beginTransaction();
-
-                    LoginFragment loginFragment = new LoginFragment();
-                    ft.replace(R.id.fragment_container, loginFragment);
-                    ft.addToBackStack(null);
-                    ft.commit();
+                    Intent intent = new Intent(getContext(), Principal.class);
+                    startActivity(intent);
                 }
             };
             handler.postDelayed(runnable, 2000);

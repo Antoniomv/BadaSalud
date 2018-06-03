@@ -9,20 +9,26 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.gson.Gson;
 import com.vazquez.meliton.antonio.badasalud.Constantes.Constantes;
 import com.vazquez.meliton.antonio.badasalud.Constantes.VolleySingleton;
+import com.vazquez.meliton.antonio.badasalud.Entidad.Usuario;
 
-
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 public class UsuarioController {
 
     //nos traemos el contexto y la vista
     private Context context;
     private View view;
+    private Gson gson;
 
 
     //inicializamos constructor
@@ -187,5 +193,51 @@ public class UsuarioController {
                 break;
         }
 
+    }
+
+    public List<Usuario> getUsuarios() {
+
+        VolleySingleton.getInstance(context).addToRequestQueue(
+                new JsonObjectRequest(Request.Method.GET,Constantes.GET_USUARIO,null,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                procesarUsuarios(response);
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                            }
+                        }
+
+                )
+        );
+        return null;
+    }
+
+    private List<Usuario> procesarUsuarios(JSONObject response) {
+        try {
+            String estado = response.getString("estado");  // Obtener atributo "estado"
+
+            switch (estado) {
+                case "1": // EXITO
+                    JSONArray usuario = response.getJSONArray("usuario");
+                    Usuario[] usuarios = gson.fromJson(usuario.toString(), Usuario[].class); // Parsear con Gson
+                    List<Usuario> lista = new ArrayList<>(Arrays.asList(usuarios));
+                    return lista;
+                case "2": // FALLIDO
+                    String mensaje2 = response.getString("mensaje");
+                    Toast.makeText(
+                            context,
+                            mensaje2,
+                            Toast.LENGTH_LONG).show();
+                    break;
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

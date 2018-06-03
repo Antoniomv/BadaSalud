@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/tabla"
             android:ems="10"
-            android:hint="@string/introduce_tu_string_email"
+            android:hint="@string/introduce_tu_email"
             android:inputType="textEmailAddress"
             android:textAlignment="center"
             android:textColor="@android:color/black" />
@@ -55,7 +55,7 @@
             android:id="@+id/passwordLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/password"
+            android:text="@string/password_tx"
             android:textAlignment="center"
             android:textColor="@android:color/black"
             android:textStyle="bold" />
@@ -67,7 +67,7 @@
             android:layout_marginBottom="30dp"
             android:background="@drawable/tabla"
             android:ems="10"
-            android:hint="@string/introduce_tu_string_password"
+            android:hint="@string/introduce_tu_password"
             android:inputType="textPassword"
             android:textAlignment="center"
             android:textColor="@android:color/black" />
@@ -76,9 +76,9 @@
             android:id="@+id/entrarLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:background="@drawable/boton"
-            android:text="@string/entrar"
-            android:textStyle="bold"
-            android:layout_marginBottom="10dp" />
+            android:text="@string/entrar_tx"
+            android:textStyle="bold" />
     </LinearLayout>
 </FrameLayout>
