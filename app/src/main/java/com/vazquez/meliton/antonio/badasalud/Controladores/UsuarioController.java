@@ -143,14 +143,14 @@ public class UsuarioController {
 
     }
 
-    public List<Usuario> getUsuarios() {
+    public void getUsuarios(final List<Usuario> lista) {
 
         VolleySingleton.getInstance(context).addToRequestQueue(
                 new JsonObjectRequest(Request.Method.GET,Constantes.GET_USUARIO,null,
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
-                                procesarUsuarios(response);
+                                procesarUsuarios(response, lista);
                             }
                         },
                         new Response.ErrorListener() {
@@ -161,10 +161,10 @@ public class UsuarioController {
 
                 )
         );
-        return null;
     }
 
-    private List<Usuario> procesarUsuarios(JSONObject response) {
+    private void procesarUsuarios(JSONObject response, List<Usuario> lista) {
+        lista = null;
         try {
             String estado = response.getString("estado");  // Obtener atributo "estado"
 
@@ -172,8 +172,8 @@ public class UsuarioController {
                 case "1": // EXITO
                     JSONArray usuario = response.getJSONArray("usuario");
                     Usuario[] usuarios = gson.fromJson(usuario.toString(), Usuario[].class); // Parsear con Gson
-                    List<Usuario> lista = new ArrayList<>(Arrays.asList(usuarios));
-                    return lista;
+                    lista = new ArrayList<>(Arrays.asList(usuarios));
+                    break;
                 case "2": // FALLIDO
                     String mensaje2 = response.getString("mensaje");
                     Toast.makeText(
@@ -186,6 +186,5 @@ public class UsuarioController {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return null;
     }
 }

@@ -20,6 +20,7 @@ import com.vazquez.meliton.antonio.badasalud.R;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -113,10 +114,11 @@ public class LoginFragment extends Fragment{
         //insertamos valores y los transformamos en String
         String emailGuardar = loginEmail.getText().toString();
         String passwordGuardar = loginPassword.getText().toString();
-        Boolean ok = true;
+
         Boolean entrarLogin = false;
 
-        List<Usuario> listaTemporal= usuarioController.getUsuarios();
+        List<Usuario> listaTemporal= new ArrayList<>();
+        usuarioController.getUsuarios(listaTemporal);
         for(int i = 0; i<= listaTemporal.size(); i++){
             if((listaTemporal.get(i).getEmail().equals(emailGuardar))&& (listaTemporal.get(i).getPassword().equals(passwordGuardar))){
                 entrarLogin = true;
