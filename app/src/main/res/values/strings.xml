@@ -8,4 +8,17 @@
     <string name="nav_header_subtitle">info@badasalud.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="Otras_Opciones">Otras Opciones</string>
+    <string name="introduce_tu_string_email">introduce tu @string/email</string>
+    <string name="introduce_tu_string_password">introduce tu @string/password</string>
+    <string name="nombre">Nombre</string>
+    <string name="apellidos">Apellidos</string>
+    <string name="tel_fono">Teléfono</string>
+    <string name="email_tx">Email</string>
+    <string name="password_tx">Password</string>
+    <string name="registrarse">Registrarse</string>
+    <string name="logueate_si_ya_teines_una_cuenta">Logueate si ya teines una cuenta</string>
+    <string name="todo">TODO</string>
+    <string name="introduce_tu_string_nombre">introduce tu @string/nombre</string>
+    <string name="introduce_tu_string_apellidos">introduce tu @string/apellidos</string>
+    <string name="introduce_tu_telefono">introduce tu telefono</string>
 </resources>
