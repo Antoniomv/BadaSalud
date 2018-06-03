@@ -1,12 +1,12 @@
 package com.vazquez.meliton.antonio.badasalud.Fragmentos;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,19 +14,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
+import com.vazquez.meliton.antonio.badasalud.Controladores.LoginController;
 import com.vazquez.meliton.antonio.badasalud.Controladores.UsuarioController;
-import com.vazquez.meliton.antonio.badasalud.Entidad.Usuario;
 import com.vazquez.meliton.antonio.badasalud.Principal;
 import com.vazquez.meliton.antonio.badasalud.R;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -89,66 +82,103 @@ public class LoginFragment extends Fragment{
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_login, container, false);
 
         //Damos valor a las variables
-        loginEmail = (EditText) view.findViewById(R.id.et_loginEmail);
-        loginPassword = (EditText) view.findViewById(R.id.et_LoginPassword);
-        entrarLogin = (Button) view.findViewById(R.id.entrarLogin);
+        loginEmail = view.findViewById(R.id.et_loginEmail);
+        loginPassword = view.findViewById(R.id.et_LoginPassword);
+        entrarLogin = view.findViewById(R.id.entrarLogin);
 
         //ejecutamos botón
         entrarLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                iniciarSesion("http://badasalud.es/webservice/usuarios/get_usuario_login.php?email="+loginEmail.getText().toString()+"&password="+loginPassword.getText().toString());            }
+                iniciarSesion();
+            }
         });
 
         return view;
     }
 
     //método para iniciar sesión
-    public void iniciarSesion(String URL) {
-        Log.i("url",""+URL);
+    public void iniciarSesion() {
+        final String email = loginEmail.getText().toString();
+        final String password = loginPassword.getText().toString();
 
-        RequestQueue queue = Volley.newRequestQueue(getContext());
-        final StringRequest stringRequest =  new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
+        Response.Listener<String> responsListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
-//                    jsonArray = new JSONArray(response);
-                    jsonObject = new JSONObject(response);
-//                    String ema = jsonArray.getString(0);
-                    String ema = jsonObject.getString("Email");
-
-                    if((ema.equals(loginEmail.getText().toString()))){
+                    JSONObject jsonObject = new JSONObject(response);
+                    Boolean success = jsonObject.getBoolean("success");
+                    if(success){
+                        String nombre=jsonObject.getString("nombre");
+                        String apellidos=jsonObject.getString("apellidos");
+                        String telefono=jsonObject.getString("telefono");
 
                         Toast.makeText(getContext(),"Bienvenido",Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getContext(), Principal.class);
-                        startActivity(intent);
+                        intent.putExtra("nombre", nombre);
+                        intent.putExtra("apellidos", apellidos);
+                        intent.putExtra("telefono", telefono);
+                        LoginFragment.this.startActivity(intent);
 
                     }else{
-                        Toast.makeText(getContext(),"verifique su contraseña",Toast.LENGTH_SHORT).show();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder.setMessage("error Login")
+                                .setNegativeButton("Retry", null)
+                                .create().show();
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
-
-                    Toast.makeText(getContext(),"El usuario no existe en la base de datos",Toast.LENGTH_LONG).show();
                 }
-
-
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
+        };
 
-            }
-        });
+        LoginController loginController = new LoginController(email,password, responsListener);
 
-        queue.add(stringRequest);
+
+//        Log.i("url",""+URL);
+//
+//        RequestQueue queue = Volley.newRequestQueue(getContext());
+//        final StringRequest stringRequest =  new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
+//            @Override
+//            public void onResponse(String response) {
+//                try {
+////                    jsonArray = new JSONArray(response);
+//                    jsonObject = new JSONObject(response);
+////                    String ema = jsonArray.getString(0);
+//                    String ema = jsonObject.getString("Email");
+//
+//                    if((ema.equals(loginEmail.getText().toString()))){
+//
+//                        Toast.makeText(getContext(),"Bienvenido",Toast.LENGTH_SHORT).show();
+//                        Intent intent = new Intent(getContext(), Principal.class);
+//                        startActivity(intent);
+//
+//                    }else{
+//                        Toast.makeText(getContext(),"verifique su contraseña",Toast.LENGTH_SHORT).show();
+//                    }
+//
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//
+//                    Toast.makeText(getContext(),"El usuario no existe en la base de datos",Toast.LENGTH_LONG).show();
+//                }
+//
+//
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//
+//            }
+//        });
+//
+//        queue.add(stringRequest);
 
 
 //    //importamos el controllador
