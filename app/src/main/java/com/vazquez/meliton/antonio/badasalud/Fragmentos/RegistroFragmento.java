@@ -143,7 +143,6 @@ public class RegistroFragmento extends Fragment {
         Boolean entrarLogin = false;
         if ((nombreGuardar.isEmpty()) || (apellidosGuardar.isEmpty()) || (telefonoGuardar.isEmpty()) || (emailGuardar.isEmpty()) || (passwordGuardar.isEmpty())) {
 
-            //se puede mejorar poniendo if 1 a 1
             if (nombreGuardar.isEmpty()) {
                 nombre.setError("El nombre no puede estar vacío");
             }
@@ -180,7 +179,7 @@ public class RegistroFragmento extends Fragment {
                     ft.commit();
                 }
             };
-            handler.postDelayed(runnable, 3000);
+            handler.postDelayed(runnable, 2000);
         }
     }
 

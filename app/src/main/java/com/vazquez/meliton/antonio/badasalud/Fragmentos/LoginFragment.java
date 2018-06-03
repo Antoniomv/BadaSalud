@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.vazquez.meliton.antonio.badasalud.Controladores.UsuarioController;
 import com.vazquez.meliton.antonio.badasalud.Entidad.Usuario;
 import com.vazquez.meliton.antonio.badasalud.Principal;
 import com.vazquez.meliton.antonio.badasalud.R;
@@ -33,7 +35,7 @@ import org.json.JSONObject;
  * Use the {@link LoginFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class LoginFragment extends Fragment implements Response.Listener<JSONObject>, Response.ErrorListener{
+public class LoginFragment extends Fragment{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -46,11 +48,10 @@ public class LoginFragment extends Fragment implements Response.Listener<JSONObj
     private OnFragmentInteractionListener mListener;
 
     //Declaramos valores
-    RequestQueue request;
-    JsonObjectRequest jsonObject;
-
     EditText loginEmail,loginPassword;
     Button entrarLogin;
+    private UsuarioController usuarioController;
+
 
     public LoginFragment() {
         // Required empty public constructor
@@ -87,7 +88,7 @@ public class LoginFragment extends Fragment implements Response.Listener<JSONObj
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_login, container, false);
+        final View view = inflater.inflate(R.layout.fragment_login, container, false);
 
         //Damos valor a las variables
         loginEmail = (EditText) view.findViewById(R.id.et_loginEmail);
@@ -98,7 +99,7 @@ public class LoginFragment extends Fragment implements Response.Listener<JSONObj
         entrarLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                iniciarSesion();
+                iniciarSesion(view);
             }
         });
 
@@ -106,11 +107,43 @@ public class LoginFragment extends Fragment implements Response.Listener<JSONObj
     }
 
     //método para iniciar sesión
-    private void iniciarSesion() {
-        //capturamos url
-        String url ="http://badasalud.es/webservice/login.php?email="+loginEmail.getText().toString()+"&password="+loginPassword.getText().toString();
-        jsonObject = new JsonObjectRequest(Request.Method.GET,url,null, this,this);
-        request.add(jsonObject);
+    public void iniciarSesion(View view) {
+    //importamos el controllador
+        usuarioController = new UsuarioController(getContext(),view);
+        //insertamos valores y los transformamos en String
+        String emailGuardar = loginEmail.getText().toString();
+        String passwordGuardar = loginPassword.getText().toString();
+
+        //Evitamos que se manden datos vacíos
+        Boolean ok = true;
+        Boolean entrarLogin = false;
+        if ((emailGuardar.isEmpty()) || (passwordGuardar.isEmpty())) {
+
+            if (emailGuardar.isEmpty()) {
+                loginEmail.setError("El email no puede estar vacío");
+            }
+            if (passwordGuardar.isEmpty()) {
+                loginPassword.setError("El password no puede estar vacío");
+            }
+            ok = false;
+        }
+
+        //si la comprobación es correcta, comparamos los datos con la Base de datos
+        if (ok) {
+            usuarioController.trasladoLogin(emailGuardar, passwordGuardar);
+            entrarLogin = true;
+        }
+        if (entrarLogin) {
+            Handler handler = new Handler();
+            Runnable runnable = new Runnable() {
+                @Override
+                public void run() {
+                    Intent intent = new Intent(getContext(), Principal.class);
+                    startActivity(intent);
+                }
+            };
+            handler.postDelayed(runnable, 1500);
+        }
 
     }
 
@@ -136,32 +169,6 @@ public class LoginFragment extends Fragment implements Response.Listener<JSONObj
     public void onDetach() {
         super.onDetach();
         mListener = null;
-    }
-
-    @Override
-    public void onErrorResponse(VolleyError error) {
-        Toast.makeText(getContext(), "El Usuario no existe en la base de datos" + error.toString(), Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onResponse(JSONObject response) {
-        Usuario usuario = new Usuario();
-
-        Toast.makeText(getContext(), "Conexión Establecida con éxito" +  loginEmail.getText().toString(), Toast.LENGTH_SHORT).show();
-        JSONArray jsonArray = response.optJSONArray("datos");
-        JSONObject jsonObjetos = null;
-
-        try {
-            jsonObjetos = jsonArray.getJSONObject(0);
-            usuario.setEmail(jsonObjetos.optString("email"));
-            usuario.setPassword(jsonObjetos.optString("password"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        //abrimos la actividad con el listado
-        Intent intent = new Intent(getContext(), Principal.class);
-        startActivity(intent);
     }
 
     /**
