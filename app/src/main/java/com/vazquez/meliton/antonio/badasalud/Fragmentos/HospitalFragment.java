@@ -13,12 +13,12 @@ import com.vazquez.meliton.antonio.badasalud.R;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link MenuFragment.OnFragmentInteractionListener} interface
+ * {@link HospitalFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link MenuFragment#newInstance} factory method to
+ * Use the {@link HospitalFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MenuFragment extends Fragment {
+public class HospitalFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -30,7 +30,7 @@ public class MenuFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public MenuFragment() {
+    public HospitalFragment() {
         // Required empty public constructor
     }
 
@@ -40,11 +40,11 @@ public class MenuFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment MenuFragment.
+     * @return A new instance of fragment HospitalFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static MenuFragment newInstance(String param1, String param2) {
-        MenuFragment fragment = new MenuFragment();
+    public static HospitalFragment newInstance(String param1, String param2) {
+        HospitalFragment fragment = new HospitalFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -65,7 +65,7 @@ public class MenuFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_menu, container, false);
+        return inflater.inflate(R.layout.fragment_hospital, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -106,4 +106,5 @@ public class MenuFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
 }

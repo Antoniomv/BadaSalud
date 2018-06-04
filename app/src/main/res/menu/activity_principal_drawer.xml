@@ -5,15 +5,15 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/nav_citas"
             android:icon="@drawable/icon_lista"
             android:title="Citas" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_hospitales"
             android:icon="@drawable/icon_hospital"
             android:title="Hospitales" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_panel"
             android:icon="@drawable/icon_panel"
             android:title="Panel de Control" />
     </group>
@@ -23,15 +23,11 @@
         android:title="@string/Otras_Opciones">
         <menu>
             <item
-                android:id="@+id/nav_manage"
-                android:icon="@drawable/icon_faq"
-                android:title="FAQ" />
-            <item
                 android:id="@+id/nav_desarrollador"
                 android:icon="@drawable/icon_desarrollador"
                 android:title="Desarrollador" />
             <item
-                android:id="@+id/nav_send"
+                android:id="@+id/nav_cerrar"
                 android:icon="@drawable/icon_logout"
                 android:title="Cerrar Sesion" />
         </menu>

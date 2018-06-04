@@ -1,6 +1,8 @@
 package com.vazquez.meliton.antonio.badasalud;
 
-import android.content.Intent;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -16,7 +18,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-public class Principal extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+import com.vazquez.meliton.antonio.badasalud.Fragmentos.HospitalFragment;
+
+public class PrincipalActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, HospitalFragment.OnFragmentInteractionListener {
 
     TextView titulo, emailTitulo;
 
@@ -46,9 +50,9 @@ public class Principal extends AppCompatActivity implements NavigationView.OnNav
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        titulo = findViewById(R.id.menu_titulo);
-        emailTitulo = findViewById(R.id.menu_email);
-
+//        titulo = findViewById(R.id.menu_titulo);
+//        emailTitulo = findViewById(R.id.menu_email);
+//
 //        Intent intent = getIntent();
 //        String tituloPrincipal = intent.getStringExtra("nombre");
 //        String emailPrincipal = intent.getStringExtra("email");
@@ -80,20 +84,54 @@ public class Principal extends AppCompatActivity implements NavigationView.OnNav
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_send) {
-
+        if (id == R.id.nav_citas) {
+            cargarCitas();
+        } else if (id == R.id.nav_hospitales) {
+            cargarHospitales();
+        } else if (id == R.id.nav_panel) {
+            cargarPanel();
+        } else if (id == R.id.nav_desarrollador) {
+            cargarDesarrollador();
+        }else if (id == R.id.nav_cerrar) {
+            cargarCerrar();
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void cargarCerrar() {
+
+        
+    }
+
+    private void cargarDesarrollador() {
+
+
+    }
+
+    private void cargarPanel() {
+
+
+    }
+
+    private void cargarCitas() {
+
+
+    }
+
+    private void cargarHospitales() {
+//        FragmentManager fragmentManager = getFragmentManager();
+//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//
+//        HospitalFragment hospitalFragment = new HospitalFragment();
+//        fragmentTransaction.add(R.id.fragment_principal, hospitalFragment);
+//        fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }

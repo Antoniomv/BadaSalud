@@ -25,7 +25,7 @@ import java.util.Map;
 public class LoginActivity extends AppCompatActivity {
 
     Button loginButton;
-    EditText loginUserName, loginPassword;
+    EditText loginEmail, loginPassword;
     TextView registro;
     private static String URL  ="http://badasalud.es/webservice/conexion/login.php";
     private Snackbar snackbar;
@@ -36,7 +36,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        loginUserName = findViewById(R.id.loginEmail);
+        loginEmail = findViewById(R.id.loginEmail);
         loginPassword = findViewById(R.id.loginPassword);
         pd = new ProgressDialog(LoginActivity.this);
         registro = findViewById(R.id.tv_registrarseEmail);
@@ -73,19 +73,14 @@ public class LoginActivity extends AppCompatActivity {
                     public void onResponse(String response) {
 
                         pd.hide();
-
-
-
                         showSnackbar(response);
 
                         if(response.equals("Login")) {
-                           Intent intent = new Intent(getApplicationContext(), Principal.class);
-                           startActivity(intent);
+
+                            Intent intent = new Intent(getApplicationContext(), PrincipalActivity.class);
+                            startActivity(intent);
                         }
-
-
                     }
-
                 },
                 new Response.ErrorListener()
                 {
@@ -102,7 +97,7 @@ public class LoginActivity extends AppCompatActivity {
             protected Map<String, String> getParams()
             {
                 Map<String, String>  params = new HashMap<String, String>();
-                params.put("email", loginUserName.getText().toString());
+                params.put("email", loginEmail.getText().toString());
                 params.put("password", loginPassword.getText().toString());
                 return params;
             }
