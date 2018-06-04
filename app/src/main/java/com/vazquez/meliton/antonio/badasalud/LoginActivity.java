@@ -23,22 +23,24 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
+
     Button loginButton;
     EditText loginUserName, loginPassword;
-    TextView registerTextView;
+    TextView registro;
     private static String URL  ="http://badasalud.es/webservice/conexion/login.php";
     private Snackbar snackbar;
     private ProgressDialog pd;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        loginUserName = (EditText) findViewById(R.id.loginEmail);
-        loginPassword = (EditText) findViewById(R.id.loginPassword);
+        loginUserName = findViewById(R.id.loginEmail);
+        loginPassword = findViewById(R.id.loginPassword);
         pd = new ProgressDialog(LoginActivity.this);
-        registerTextView = (TextView) findViewById(R.id.textViewEmailRegister);
-        loginButton = (Button) findViewById(R.id.loginButton);
+        registro = findViewById(R.id.tv_registrarseEmail);
+        loginButton =findViewById(R.id.loginButton);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,16 +49,17 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        registerTextView.setOnClickListener(new View.OnClickListener() {
+        registro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),RegistroActivity.class));
+                Intent intent = new Intent(getApplicationContext(), RegistroActivity.class);
+                startActivity(intent);
             }
         });
     }
 
     private void loginRequest(){
-        pd.setMessage("Signing In . . .");
+        pd.setMessage("Entrando. . .");
         pd.show();
         RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
         String response = null;
