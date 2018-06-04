@@ -21,7 +21,7 @@
         android:adjustViewBounds="true"
         android:contentDescription="@string/todo"
         android:cropToPadding="true"
-        android:src="@drawable/hospitaIicon" />
+        android:src="@drawable/iconohospital" />
 
     <TextView
         android:id="@+id/nombreHospital"
