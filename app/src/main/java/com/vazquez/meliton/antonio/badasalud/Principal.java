@@ -49,12 +49,12 @@ public class Principal extends AppCompatActivity implements NavigationView.OnNav
         titulo = findViewById(R.id.menu_titulo);
         emailTitulo = findViewById(R.id.menu_email);
 
-        Intent intent = getIntent();
-        String tituloPrincipal = intent.getStringExtra("nombre");
-        String emailPrincipal = intent.getStringExtra("email");
-
-        titulo.setText(tituloPrincipal);
-        emailTitulo.setText(emailPrincipal);
+//        Intent intent = getIntent();
+//        String tituloPrincipal = intent.getStringExtra("nombre");
+//        String emailPrincipal = intent.getStringExtra("email");
+//
+//        titulo.setText(tituloPrincipal);
+//        emailTitulo.setText(emailPrincipal);
     }
 
     @Override

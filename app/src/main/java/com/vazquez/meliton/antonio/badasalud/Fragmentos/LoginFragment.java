@@ -4,24 +4,27 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
-import com.vazquez.meliton.antonio.badasalud.Controladores.UsuarioController;
-import com.vazquez.meliton.antonio.badasalud.Entidad.Usuario;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.vazquez.meliton.antonio.badasalud.Principal;
 import com.vazquez.meliton.antonio.badasalud.R;
 
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -46,8 +49,9 @@ public class LoginFragment extends Fragment{
     //Declaramos valores
     EditText loginEmail,loginPassword;
     Button entrarLogin;
-    JSONObject jsonObject=null;
-    private UsuarioController usuarioController;
+    TextView registerTextView; //CREAR EN EL LAYOUT EL TEXTVIEW CON EL ID: textViewEmailRegister
+
+    private static String URL  ="http://badasalud.es/webservice/usuarios/get_usuario_login.php";
 
 
     public LoginFragment() {
@@ -82,107 +86,81 @@ public class LoginFragment extends Fragment{
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        final View view = inflater.inflate(R.layout.fragment_login, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.fragment_login, container, false);
 
         //Damos valor a las variables
         loginEmail = view.findViewById(R.id.et_loginEmail);
         loginPassword = view.findViewById(R.id.et_LoginPassword);
         entrarLogin = view.findViewById(R.id.entrarLogin);
+//        registerTextView = (TextView) view.findViewById(R.id.); //CREAR EN EL LAYOUT EL TEXTVIEW CON EL ID: textViewEmailRegister
 
         //ejecutamos botón
         entrarLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                iniciarSesion();
+                loginRequest();
             }
         });
+
+//        //registro en caso de no tener cuenta
+//        registerTextView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //CARGAR EL FRAGMENTO DE REGISTRO DESDE AQUÍ (NO RECUERDO SI ERA ASÍ)
+//                FragmentManager fragmentManager = getFragmentManager();
+//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                RegistroFragmento registroFragmento = new RegistroFragmento();
+//                fragmentTransaction.replace(R.id.fragment_container, registroFragmento); //Replace para que no se ejecute el fragmento uno encima del otro.
+//                fragmentTransaction.commit();
+//            }
+//        });
 
         return view;
     }
 
-    //método para iniciar sesión
-    public void iniciarSesion() {
-        final String email = loginEmail.getText().toString();
-        final String password = loginPassword.getText().toString();
 
-        //importamos el controllador
-        usuarioController = new UsuarioController(getContext(),getView());
 
-        //insertamos valores y los transformamos en String
-        String emailGuardar = loginEmail.getText().toString();
-        String passwordGuardar = loginPassword.getText().toString();
+    private void loginRequest(){
+        RequestQueue queue = Volley.newRequestQueue(getContext());
+        String response = null;
 
-        Boolean entrarLogin = false;
+        final String finalResponse = response;
 
-        List<Usuario> listaTemporal= new ArrayList<>();
-        usuarioController.getUsuarios(listaTemporal);
-        for(int i = 0; i<= listaTemporal.size(); i++){
-            if((listaTemporal.get(i).getEmail().equals(emailGuardar))&& (listaTemporal.get(i).getPassword().equals(passwordGuardar))){
-                entrarLogin = true;
-            }
-        }
+        StringRequest postRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
 
-        if (entrarLogin) {
-            Handler handler = new Handler();
-            Runnable runnable = new Runnable() {
-                @Override
-                public void run() {
-                    Intent intent = new Intent(getView().getContext(), Principal.class);
-                    startActivity(intent);
+            @Override
+            public void onResponse(String response) {
+
+                if(response.equals("Login")) {
+                    startActivity(new Intent(getContext(), Principal.class)); //Si el login es correcto, carga la actividad principal. (Puede que falle el contexto)
                 }
-            };
-            handler.postDelayed(runnable, 1500);
-        }
+            }
+
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        Log.d("ErrorResponse", finalResponse);
+
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("email", loginEmail.getText().toString());
+                params.put("password", loginPassword.getText().toString());
+                return params;
+            }
+        };
+        postRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        queue.add(postRequest);
 
     }
 
-//    //método para iniciar sesión
-//    public void iniciarSesion() {
-//        final String email = loginEmail.getText().toString();
-//        final String password = loginPassword.getText().toString();
-//
-//    //importamos el controllador
-//        usuarioController = new UsuarioController(getContext(),getView());
-//        //insertamos valores y los transformamos en String
-//        String emailGuardar = loginEmail.getText().toString();
-//        String passwordGuardar = loginPassword.getText().toString();
-//        Boolean ok = true;
-//        Boolean entrarLogin = false;
-//
-//        List<Usuario> listaTemporal= usuarioController.getUsuarios();
-//        for(int i = 0; i<= listaTemporal.size(); i++){
-//            if(listaTemporal.get(i).getEmail().equals(emailGuardar)){
-//                entrarLogin = true;
-//            }
-//        }
-//        //Evitamos que se manden datos vacíos
-//        if ((emailGuardar.isEmpty()) || (passwordGuardar.isEmpty())) {
-//
-//            if (emailGuardar.isEmpty()) {
-//                loginEmail.setError("El email no puede estar vacío");
-//            }
-//            if (passwordGuardar.isEmpty()) {
-//                loginPassword.setError("El password no puede estar vacío");
-//            }
-//            ok = false;
-//        }
-//
-//        if (entrarLogin) {
-//            Handler handler = new Handler();
-//            Runnable runnable = new Runnable() {
-//                @Override
-//                public void run() {
-//                    Intent intent = new Intent(getContext(), Principal.class);
-//                    startActivity(intent);
-//                }
-//            };
-//            handler.postDelayed(runnable, 1500);
-//        }
-//
-//    }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

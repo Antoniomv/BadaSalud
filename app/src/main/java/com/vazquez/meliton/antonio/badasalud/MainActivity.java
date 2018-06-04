@@ -24,8 +24,8 @@ public class MainActivity extends AppCompatActivity implements RegistroFragmento
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        RegistroFragmento registroFragmento = new RegistroFragmento();
-        fragmentTransaction.add(R.id.fragment_container, registroFragmento);
+        LoginFragment loginFragment = new LoginFragment();
+        fragmentTransaction.add(R.id.fragment_container, loginFragment);
         fragmentTransaction.commit();
     }
 
