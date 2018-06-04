@@ -2,6 +2,7 @@ package com.vazquez.meliton.antonio.badasalud;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -101,9 +102,11 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationVi
         return true;
     }
 
+    //cerrar logout
     private void cargarCerrar() {
-
-        
+        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private void cargarDesarrollador() {
