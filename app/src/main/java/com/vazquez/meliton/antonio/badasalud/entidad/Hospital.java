@@ -1,4 +1,4 @@
-package com.vazquez.meliton.antonio.badasalud.Entidad;
+package com.vazquez.meliton.antonio.badasalud.entidad;
 
 import java.io.Serializable;
 import java.util.ArrayList;

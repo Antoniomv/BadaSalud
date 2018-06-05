@@ -1,4 +1,4 @@
-package com.vazquez.meliton.antonio.badasalud.Controladores;
+package com.vazquez.meliton.antonio.badasalud.controladores;
 
 import android.content.Context;
 import android.view.View;
@@ -10,9 +10,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
-import com.vazquez.meliton.antonio.badasalud.Constantes.Constantes;
-import com.vazquez.meliton.antonio.badasalud.Constantes.VolleySingleton;
-import com.vazquez.meliton.antonio.badasalud.Entidad.Usuario;
+import com.vazquez.meliton.antonio.badasalud.constantes.Constantes;
+import com.vazquez.meliton.antonio.badasalud.constantes.VolleySingleton;
+import com.vazquez.meliton.antonio.badasalud.entidad.Usuario;
 
 import org.json.JSONArray;
 import org.json.JSONException;

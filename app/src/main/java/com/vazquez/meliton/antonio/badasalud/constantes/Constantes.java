@@ -1,4 +1,4 @@
-package com.vazquez.meliton.antonio.badasalud.Constantes;
+package com.vazquez.meliton.antonio.badasalud.constantes;
 
 public class Constantes {
     /**
