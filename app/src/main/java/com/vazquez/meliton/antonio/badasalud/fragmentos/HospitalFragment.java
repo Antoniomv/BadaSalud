@@ -1,14 +1,25 @@
 package com.vazquez.meliton.antonio.badasalud.fragmentos;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.vazquez.meliton.antonio.badasalud.R;
+import com.vazquez.meliton.antonio.badasalud.adaptadores.HospitalAdapter;
+import com.vazquez.meliton.antonio.badasalud.controladores.HospitalController;
+import com.vazquez.meliton.antonio.badasalud.entidad.Hospital;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,6 +38,8 @@ public class HospitalFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    ArrayList<Hospital> hospitales;
 
     private OnFragmentInteractionListener mListener;
 
@@ -65,7 +78,22 @@ public class HospitalFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_hospital, container, false);
+        View view = inflater.inflate(R.layout.fragment_hospital, container, false);
+
+        populateListView(view);
+
+        return view;
+    }
+
+    private void populateListView(View view) {
+        //cargo listView
+        final ListView listView = view.findViewById(R.id.rv_hospital);
+        //cargo controlador
+        HospitalController hospitalController = new HospitalController(getActivity(), view);
+        hospitalController.getHospitales();
+        //cargo Adaptador
+        HospitalAdapter adapter = new HospitalAdapter(view.getContext(), (ArrayList<Hospital>) hospitales);
+        listView.setAdapter(adapter);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
