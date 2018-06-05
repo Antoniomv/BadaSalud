@@ -92,16 +92,19 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationVi
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        Fragment fragment=null;
-        boolean fragmentSeleccionado=false;
 
         if (id == R.id.nav_inicio) {
-            fragment = new InicioFragment();
-            fragmentSeleccionado=true;
+            Fragment fragment=new InicioFragment();
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.contenido,fragment)
+                    .commit();
         } else if (id == R.id.nav_citas) {
 
         } else if (id == R.id.nav_hospitales) {
-
+            Fragment fragment=new HospitalFragment();
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.contenido,fragment)
+                    .commit();
         } else if (id == R.id.nav_panel) {
 
         } else if (id == R.id.nav_desarrollador) {
@@ -129,4 +132,6 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationVi
     public void onFragmentInteraction(Uri uri) {
 
     }
+
+
 }

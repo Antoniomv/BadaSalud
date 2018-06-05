@@ -65,9 +65,7 @@ public class HospitalFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_hospital, container, false);
-
-        return view;
+        return inflater.inflate(R.layout.fragment_hospital, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -108,5 +106,4 @@ public class HospitalFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
-
 }
