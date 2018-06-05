@@ -29,7 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     TextView registro;
     private static String URL  ="http://badasalud.es/webservice/conexion/login.php";
     private Snackbar snackbar;
-    private ProgressDialog pd;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +38,6 @@ public class LoginActivity extends AppCompatActivity {
 
         loginEmail = findViewById(R.id.loginEmail);
         loginPassword = findViewById(R.id.loginPassword);
-        pd = new ProgressDialog(LoginActivity.this);
         registro = findViewById(R.id.tv_registrarseEmail);
         loginButton =findViewById(R.id.loginButton);
 
@@ -59,8 +58,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginRequest(){
-        pd.setMessage("Entrando. . .");
-        pd.show();
         RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
         String response = null;
 
@@ -72,7 +69,6 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
 
-                        pd.hide();
                         showSnackbar(response);
 
                         if(response.equals("Login")) {
@@ -88,7 +84,6 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // error
-                        pd.hide();
                         Log.d("ErrorResponse", finalResponse);
 
                     }
