@@ -18,11 +18,12 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.vazquez.meliton.antonio.badasalud.fragmentos.InicioFragment;
+import com.vazquez.meliton.antonio.badasalud.fragmentos.ListaCitaFragment;
 import com.vazquez.meliton.antonio.badasalud.fragmentos.ListaHospitalFragment;
 
 
 public class PrincipalActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
-        ListaHospitalFragment.OnFragmentInteractionListener, InicioFragment.OnFragmentInteractionListener {
+        ListaHospitalFragment.OnFragmentInteractionListener, InicioFragment.OnFragmentInteractionListener, ListaCitaFragment.OnFragmentInteractionListener {
 
 //    TextView titulo, emailTitulo;
 
@@ -99,7 +100,10 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationVi
                     .replace(R.id.contenido,fragment)
                     .commit();
         } else if (id == R.id.nav_citas) {
-
+            Fragment fragment=new ListaCitaFragment();
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.contenido,fragment)
+                    .commit();
         } else if (id == R.id.nav_hospitales) {
             Fragment fragment=new ListaHospitalFragment();
             getSupportFragmentManager().beginTransaction()

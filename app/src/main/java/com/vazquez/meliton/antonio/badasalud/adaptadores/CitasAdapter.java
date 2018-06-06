@@ -11,14 +11,16 @@ import android.widget.TextView;
 
 import com.vazquez.meliton.antonio.badasalud.R;
 import com.vazquez.meliton.antonio.badasalud.entidad.Cita;
+import com.vazquez.meliton.antonio.badasalud.entidad.Hospital;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.ViewHolder> {
     List<Cita> listaCitas;
     Context context;
 
-    public CitasAdapter(List<Cita> listaCitas, Context context){
+    public CitasAdapter(ArrayList<Cita> listaCitas, Context context){
         this.listaCitas = listaCitas;
         this.context = context;
     }
@@ -26,7 +28,7 @@ public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.ViewHolder> 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.hospital_personalizado, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cita_personalizado, parent, false);
         RecyclerView.LayoutParams layoutParams=new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
         view.setLayoutParams(layoutParams);

@@ -10,8 +10,8 @@ public class Cita implements Serializable {
     //creamos variables
     private int id;
     private String titulo;
-    private Date fecha;
-    private Time hora;
+    private String fecha;
+    private String hora;
     private int usuario_id;
     private int especialidad_id;
     private int hospital_id;
@@ -20,7 +20,7 @@ public class Cita implements Serializable {
     //llenamos constructor
 
 
-    public Cita(int id, String titulo, Date fecha, Time hora, int usuario_id, int especialidad_id, int hospital_id, ArrayList<String> citas) {
+    public Cita(int id, String titulo, String fecha, String hora, int usuario_id, int especialidad_id, int hospital_id, ArrayList<String> citas) {
         this.id = id;
         this.titulo = titulo;
         this.fecha = fecha;
@@ -38,6 +38,7 @@ public class Cita implements Serializable {
 
     //getters & setters
 
+
     public int getId() {
         return id;
     }
@@ -54,19 +55,19 @@ public class Cita implements Serializable {
         this.titulo = titulo;
     }
 
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 
-    public Time getHora() {
+    public String getHora() {
         return hora;
     }
 
-    public void setHora(Time hora) {
+    public void setHora(String hora) {
         this.hora = hora;
     }
 
