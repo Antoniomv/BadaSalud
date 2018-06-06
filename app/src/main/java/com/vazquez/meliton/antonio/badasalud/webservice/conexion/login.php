@@ -13,9 +13,9 @@ $password=$_POST["password"];
 
 	if(mysqli_num_rows($result) > 0)
 	{	
-		echo $result;
 		echo "Login";
-		exit;
+		return $result;
+		echo $result;
 	}			
 	else
 	{	
