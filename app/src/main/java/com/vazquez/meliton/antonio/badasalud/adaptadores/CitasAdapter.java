@@ -41,8 +41,8 @@ public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.ViewHolder> 
         holder.titulo.setText(listaCitas.get(position).getTitulo());
         holder.hospital.setText(String.valueOf(listaCitas.get(position).getHospital_id()));
         holder.especialidad.setText(String.valueOf(listaCitas.get(position).getEspecialidad_id()));
-        holder.fecha.setText(listaCitas.get(position).getFecha().toString());
-        holder.hora.setText(listaCitas.get(position).getHora().toString());
+        holder.fecha.setText(listaCitas.get(position).getFecha());
+        holder.hora.setText(listaCitas.get(position).getHora());
 
         holder.imagen.setImageResource(R.drawable.iconcita);
 
