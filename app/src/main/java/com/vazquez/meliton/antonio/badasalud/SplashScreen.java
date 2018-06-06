@@ -41,4 +41,5 @@ public class SplashScreen extends Activity {
         rotacion = AnimationUtils.loadAnimation(this, R.anim.rotar);
         imagen.setAnimation(rotacion);
     }
+
 }
