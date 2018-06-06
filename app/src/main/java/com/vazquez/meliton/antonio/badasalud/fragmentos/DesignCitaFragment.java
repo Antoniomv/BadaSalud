@@ -3,6 +3,7 @@ package com.vazquez.meliton.antonio.badasalud.fragmentos;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,11 +50,20 @@ public class DesignCitaFragment extends Fragment implements Response.ErrorListen
     //datos para hospitales
     ArrayList<Hospital> listaHospitales;
     JsonObjectRequest jsonObjectRequestHospitales;
+    private View view;
+    private Context context;
 
     ArrayList<Especialidad> listaEspecialidades;
     JsonObjectRequest jsonObjectRequestEspecialidades;
 
     private OnFragmentInteractionListener mListener;
+
+
+    private String selectionHospital;
+    private String selectionEspecialidad;
+
+
+    public static final int DEFAULT_POSITION = 3;
 
     public DesignCitaFragment() {
         // Required empty public constructor
@@ -87,7 +97,7 @@ public class DesignCitaFragment extends Fragment implements Response.ErrorListen
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_design_cita, container, false);
@@ -106,13 +116,35 @@ public class DesignCitaFragment extends Fragment implements Response.ErrorListen
 
 
     private void spinnerHospitales() {
-        final Spinner spinner = getView().findViewById(R.id.spinner_hospital);
-        spinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
+        List<String> hospitales = new ArrayList<String>();
+
+        for (int i = 0; i < listaHospitales.size(); i++) {
+            hospitales.add(listaHospitales.get(i).getNombre());
+        }
+
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(context,
+                android.R.layout.simple_spinner_item, hospitales);
+
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        Spinner spinnerHospital = view.findViewById(R.id.spinner_hospital);
+
+        spinnerHospital.setAdapter(spinnerAdapter);
+
+
+
+        spinnerHospital.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>( getContext(), android.R.layout.simple_spinner_item, (List<String>) listaHospitales.get(position));
-                dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spinner.setAdapter(dataAdapter);
+            /*
+            Obtienes el item actualmente seleccionado
+             */
+                selectionHospital = parent.getItemAtPosition(position).toString();
+
+                /*
+                Mostramos la selección actual del Spinner
+                 */
+                Toast.makeText(getContext(),"Selección actual: "+selectionHospital,Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -127,7 +159,42 @@ public class DesignCitaFragment extends Fragment implements Response.ErrorListen
 
     private void spinnerEspecialidades() {
 
+        List<String> especialidades = new ArrayList<String>();
 
+        for (int i = 0; i < listaEspecialidades.size(); i++) {
+            especialidades.add(listaEspecialidades.get(i).getEspecialidad(selectionEspecialidad));
+        }
+
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(context,
+                android.R.layout.simple_spinner_item, especialidades);
+
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        Spinner spinnerEspecialidad = view.findViewById(R.id.spinner_especialidad);
+
+        spinnerEspecialidad.setAdapter(spinnerAdapter);
+
+
+
+        spinnerEspecialidad.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            /*
+            Obtienes el item actualmente seleccionado
+             */
+                selectionEspecialidad = parent.getItemAtPosition(position).toString();
+
+                /*
+                Mostramos la selección actual del Spinner
+                 */
+                Toast.makeText(getContext(),"Selección actual: "+selectionHospital,Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
 
@@ -226,7 +293,6 @@ public class DesignCitaFragment extends Fragment implements Response.ErrorListen
                     " "+responseNew, Toast.LENGTH_LONG).show();
         }
     }
-
 
 
 
