@@ -6,31 +6,36 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
-public final class VolleySingleton {
-    private static VolleySingleton singleton;
-    private static Context context;
-    private RequestQueue requestQueue;
+public class VolleySingleton {
+
+    private static VolleySingleton intanciaVolley;
+    private RequestQueue request;
+    private static Context contexto;
 
     private VolleySingleton(Context context) {
-        VolleySingleton.context = context;
-        requestQueue = getRequestQueue();
+        contexto = context;
+        request = getRequestQueue();
     }
 
-    public static synchronized VolleySingleton getInstance(Context context) {
-        if (singleton == null) {
-            singleton = new VolleySingleton(context.getApplicationContext());
+
+    public static synchronized VolleySingleton getIntanciaVolley(Context context) {
+        if (intanciaVolley == null) {
+            intanciaVolley = new VolleySingleton(context);
         }
-        return singleton;
+
+        return intanciaVolley;
     }
 
-    public RequestQueue getRequestQueue() { //Obtiene la instancia de la cola de peticiones
-        if (requestQueue == null) {
-            requestQueue = Volley.newRequestQueue(context.getApplicationContext());
+    public RequestQueue getRequestQueue() {
+        if (request == null) {
+            request = Volley.newRequestQueue(contexto.getApplicationContext());
         }
-        return requestQueue;
+
+        return request;
     }
 
-    public <T> void addToRequestQueue(Request<T> req) { //Añade petición a la cola
-        getRequestQueue().add(req);
+    public <T> void addToRequestQueue(Request<T> request) {
+        getRequestQueue().add(request);
     }
+
 }

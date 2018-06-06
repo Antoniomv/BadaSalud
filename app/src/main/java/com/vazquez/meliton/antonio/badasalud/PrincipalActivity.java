@@ -17,12 +17,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.vazquez.meliton.antonio.badasalud.fragmentos.HospitalFragment;
 import com.vazquez.meliton.antonio.badasalud.fragmentos.InicioFragment;
+import com.vazquez.meliton.antonio.badasalud.fragmentos.ListaHospitalFragment;
 
 
 public class PrincipalActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
-        HospitalFragment.OnFragmentInteractionListener, InicioFragment.OnFragmentInteractionListener {
+        ListaHospitalFragment.OnFragmentInteractionListener, InicioFragment.OnFragmentInteractionListener {
 
 //    TextView titulo, emailTitulo;
 
@@ -101,7 +101,7 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationVi
         } else if (id == R.id.nav_citas) {
 
         } else if (id == R.id.nav_hospitales) {
-            Fragment fragment=new HospitalFragment();
+            Fragment fragment=new ListaHospitalFragment();
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.contenido,fragment)
                     .commit();

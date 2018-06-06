@@ -52,7 +52,7 @@ public class UsuarioController {
         final JSONObject jsonObject = new JSONObject(map);
 
         //lanzamos volley para procesar su insercción
-        VolleySingleton.getInstance(context).addToRequestQueue(
+        VolleySingleton.getIntanciaVolley(context).addToRequestQueue(
                 new JsonObjectRequest(Request.Method.POST, Constantes.INSERT_USUARIO, jsonObject,
                         new Response.Listener<JSONObject>() {
                             @Override
@@ -104,7 +104,7 @@ public class UsuarioController {
         final JSONObject jsonObject = new JSONObject(map);
 
         //lanzamos volley para procesar su insercción
-        VolleySingleton.getInstance(context).addToRequestQueue(
+        VolleySingleton.getIntanciaVolley(context).addToRequestQueue(
                 new JsonObjectRequest(Request.Method.POST, Constantes.UPDATE_USUARIO, jsonObject,
                         new Response.Listener<JSONObject>() {
                             @Override
@@ -145,7 +145,7 @@ public class UsuarioController {
 
     public void getUsuarios(final List<Usuario> lista) {
 
-        VolleySingleton.getInstance(context).addToRequestQueue(
+        VolleySingleton.getIntanciaVolley(context).addToRequestQueue(
                 new JsonObjectRequest(Request.Method.GET,Constantes.GET_USUARIO,null,
                         new Response.Listener<JSONObject>() {
                             @Override
