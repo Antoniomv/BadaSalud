@@ -1,6 +1,7 @@
 package com.vazquez.meliton.antonio.badasalud.entidad;
 
 import java.io.Serializable;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -8,22 +9,27 @@ public class Cita implements Serializable {
 
     //creamos variables
     private int id;
-    private String nombre;
-    private Date fechayhora;
+    private String titulo;
+    private Date fecha;
+    private Time hora;
     private int usuario_id;
+    private int especialidad_id;
     private int hospital_id;
     private ArrayList<String> citas;
 
     //llenamos constructor
-    public Cita(int id, String nombre, Date fechayhora, int usuario_id, int hospital_id, ArrayList<String> citas) {
+
+
+    public Cita(int id, String titulo, Date fecha, Time hora, int usuario_id, int especialidad_id, int hospital_id, ArrayList<String> citas) {
         this.id = id;
-        this.nombre = nombre;
-        this.fechayhora = fechayhora;
+        this.titulo = titulo;
+        this.fecha = fecha;
+        this.hora = hora;
         this.usuario_id = usuario_id;
+        this.especialidad_id = especialidad_id;
         this.hospital_id = hospital_id;
         this.citas = citas;
     }
-
 
     //genero constructor vacio
     public Cita() {
@@ -31,6 +37,7 @@ public class Cita implements Serializable {
 
 
     //getters & setters
+
     public int getId() {
         return id;
     }
@@ -39,20 +46,28 @@ public class Cita implements Serializable {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getTitulo() {
+        return titulo;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
-    public Date getFechayhora() {
-        return fechayhora;
+    public Date getFecha() {
+        return fecha;
     }
 
-    public void setFechayhora(Date fechayhora) {
-        this.fechayhora = fechayhora;
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
+    public Time getHora() {
+        return hora;
+    }
+
+    public void setHora(Time hora) {
+        this.hora = hora;
     }
 
     public int getUsuario_id() {
@@ -61,6 +76,14 @@ public class Cita implements Serializable {
 
     public void setUsuario_id(int usuario_id) {
         this.usuario_id = usuario_id;
+    }
+
+    public int getEspecialidad_id() {
+        return especialidad_id;
+    }
+
+    public void setEspecialidad_id(int especialidad_id) {
+        this.especialidad_id = especialidad_id;
     }
 
     public int getHospital_id() {

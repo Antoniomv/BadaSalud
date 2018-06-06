@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/listado_vista"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@drawable/borde_titulo"
     android:orientation="vertical"
     android:paddingBottom="5dp"
@@ -16,12 +16,13 @@
         android:id="@+id/imagenCita"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_alignBottom="@+id/especialidadCita"
-        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="31dp"
         android:adjustViewBounds="true"
         android:contentDescription="@string/todo"
         android:cropToPadding="true"
-        android:src="@drawable/iconohospital" />
+        android:src="@drawable/iconcita" />
 
     <TextView
         android:id="@+id/tituloCita"
@@ -30,7 +31,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="10dp"
         android:layout_toEndOf="@+id/imagenCita"
-        android:text="Nombre Hospital"
+        android:text="Titulo Cita"
         android:textAppearance="?attr/textAppearanceListItem"
         android:textColor="@android:color/black"
         android:textSize="20sp"
@@ -40,9 +41,9 @@
         android:id="@+id/hospitalCita"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/especialidadCita"
         android:layout_alignStart="@+id/tituloCita"
-        android:layout_below="@+id/tituloCita"
-        android:text="DireccionHospital"
+        android:text="Hospital"
         android:textAppearance="?attr/textAppearanceListItem"
         android:textSize="16sp" />
 
@@ -50,9 +51,32 @@
         android:id="@+id/especialidadCita"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/hospitalCita"
-        android:layout_below="@+id/hospitalCita"
-        android:text="Teléfono Hospital"
+        android:layout_above="@+id/fechaCita"
+        android:layout_alignStart="@+id/tituloCita"
+        android:layout_marginBottom="-84dp"
+        android:text="Especialidad"
+        android:textAppearance="?attr/textAppearanceListItem"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/fechaCita"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/tituloCita"
+        android:layout_marginTop="84dp"
+        android:text="Fecha"
+        android:textAppearance="?attr/textAppearanceListItem"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/horaCita"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imagenCita"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="80dp"
+        android:text="Hora"
         android:textAppearance="?attr/textAppearanceListItem"
         android:textSize="16sp" />
 </RelativeLayout>

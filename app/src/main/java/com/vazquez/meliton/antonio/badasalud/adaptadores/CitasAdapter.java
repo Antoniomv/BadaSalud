@@ -10,18 +10,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.vazquez.meliton.antonio.badasalud.R;
-import com.vazquez.meliton.antonio.badasalud.entidad.Hospital;
-
+import com.vazquez.meliton.antonio.badasalud.entidad.Cita;
 
 import java.util.List;
 
-public class ListaHospitalAdapter extends RecyclerView.Adapter<ListaHospitalAdapter.ViewHolder> {
-
-    List<Hospital> listaHospital;
+public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.ViewHolder> {
+    List<Cita> listaCitas;
     Context context;
 
-    public ListaHospitalAdapter(List<Hospital> listaHospital, Context context){
-        this.listaHospital = listaHospital;
+    public CitasAdapter(List<Cita> listaCitas, Context context){
+        this.listaCitas = listaCitas;
         this.context = context;
     }
 
@@ -38,28 +36,34 @@ public class ListaHospitalAdapter extends RecyclerView.Adapter<ListaHospitalAdap
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.titulo.setText(listaHospital.get(position).getNombre().toString());
-        holder.direccion.setText(listaHospital.get(position).getDireccion().toString());
-        holder.telefono.setText(String.valueOf(listaHospital.get(position).getTelefono()));
-        holder.imagen.setImageResource(R.drawable.iconohospital);
+        holder.titulo.setText(listaCitas.get(position).getTitulo());
+        holder.hospital.setText(String.valueOf(listaCitas.get(position).getHospital_id()));
+        holder.especialidad.setText(String.valueOf(listaCitas.get(position).getEspecialidad_id()));
+        holder.fecha.setText(listaCitas.get(position).getFecha().toString());
+        holder.hora.setText(listaCitas.get(position).getHora().toString());
+
+        holder.imagen.setImageResource(R.drawable.iconcita);
 
     }
 
     @Override
     public int getItemCount() {
-        return listaHospital.size();
+        return listaCitas.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView titulo, direccion, telefono;
+        TextView titulo, hospital, especialidad, fecha, hora;
         ImageView imagen;
 
         public ViewHolder(View itemView) {
             super(itemView);
             titulo = itemView.findViewById(R.id.tituloCita);
-            direccion = itemView.findViewById(R.id.hospitalCita);
-            telefono = itemView.findViewById(R.id.especialidadCita);
+            hospital = itemView.findViewById(R.id.hospitalCita);
+            especialidad = itemView.findViewById(R.id.especialidadCita);
+            fecha = itemView.findViewById(R.id.fechaCita);
+            hora = itemView.findViewById(R.id.horaCita);
+
             imagen=itemView.findViewById(R.id.imagenCita);
         }
     }
