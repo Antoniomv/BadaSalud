@@ -48,7 +48,7 @@ public class ListaHospitalFragment extends Fragment implements Response.Listener
 
     private OnFragmentInteractionListener mListener;
 
-    RecyclerView recyclerUsuarios;
+    RecyclerView reciclyerhospitales;
     ArrayList<Hospital> listaHospitales;
     JsonObjectRequest jsonObjectRequest;
 
@@ -92,9 +92,9 @@ public class ListaHospitalFragment extends Fragment implements Response.Listener
 
         listaHospitales = new ArrayList<>();
 
-        recyclerUsuarios = view.findViewById(R.id.rv_listadoHospitales);
-        recyclerUsuarios.setLayoutManager(new LinearLayoutManager(this.getContext()));
-        recyclerUsuarios.setHasFixedSize(true);
+        reciclyerhospitales = view.findViewById(R.id.rv_listadoHospitales);
+        reciclyerhospitales.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        reciclyerhospitales.setHasFixedSize(true);
 
         webService();
 
@@ -151,7 +151,7 @@ public class ListaHospitalFragment extends Fragment implements Response.Listener
             }
 
             ListaHospitalAdapter adapter = new ListaHospitalAdapter(listaHospitales, getContext());
-            recyclerUsuarios.setAdapter(adapter);
+            reciclyerhospitales.setAdapter(adapter);
         } catch (JSONException e) {
             e.printStackTrace();
             Toast.makeText(getContext(), "No se ha podido establecer conexión con el servidor" +

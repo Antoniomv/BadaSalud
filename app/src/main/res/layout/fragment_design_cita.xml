@@ -67,7 +67,7 @@
             android:textStyle="bold" />
 
         <Spinner
-            android:id="@+id/spinner2"
+            android:id="@+id/spinner_especialidad"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -84,7 +84,7 @@
             android:textStyle="bold" />
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/calendario_cita"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_alignParentBottom="true"
@@ -96,7 +96,7 @@
             android:id="@+id/fechahora_cita"
             android:layout_width="wrap_content"
             android:layout_height="36dp"
-            android:layout_below="@+id/imageView2"
+            android:layout_below="@+id/calendario_cita"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="-186dp"
             android:ems="10"

@@ -35,6 +35,19 @@ class DAOusuario {
         }
     }
 
+    public static function getByLogin($email,$password ) {
+        $consulta = "SELECT id,nombre,apellidos,telefono,email,password FROM usuarios WHERE email = ? AND password= ?";
+        try {
+            $comando = Database::getInstance()->getDb()->prepare($consulta);
+            $comando->execute(array($email, $password));
+            $row = $comando->fetch(PDO::FETCH_ASSOC);
+            return $row;
+
+        } catch (PDOException $e) {
+            return -1; //Clasificación del error para mostrarlo en json
+        }
+    }
+
     public static function update($id, $nombre, $apellidos, $telefono, $email, $password ) {
         $consulta = "UPDATE hospital SET nombre=?, apellidos=?, telefono=?, email=?, password=? WHERE id=?";
         $cmd = Database::getInstance()->getDb()->prepare($consulta);

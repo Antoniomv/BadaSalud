@@ -32,7 +32,7 @@ public class Especialidad implements Serializable {
         this.id = id;
     }
 
-    public String getEspecialidad() {
+    public String getEspecialidad(String nombre) {
         return especialidad;
     }
 

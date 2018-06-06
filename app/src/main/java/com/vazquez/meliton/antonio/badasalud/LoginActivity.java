@@ -16,19 +16,25 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.JsonObject;
+import com.vazquez.meliton.antonio.badasalud.constantes.VolleySingleton;
+
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements Response.ErrorListener, Response.Listener<JSONObject> {
 
     Button loginButton;
     EditText loginEmail, loginPassword;
     TextView registro;
     private static String URL  ="http://badasalud.es/webservice/conexion/login.php";
     private Snackbar snackbar;
+    JsonObjectRequest jsonObjectRequest;
 
 
     @Override
@@ -104,6 +110,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     }
+
     public void showSnackbar(String stringSnackbar){
         snackbar.make(findViewById(android.R.id.content), stringSnackbar.toString(), Snackbar.LENGTH_SHORT)
                 .setActionTextColor(getResources().getColor(R.color.colorPrimary))
@@ -135,6 +142,16 @@ public class LoginActivity extends AppCompatActivity {
     public void
     onDestroy() {
         super.onDestroy();
+
+    }
+
+    @Override
+    public void onErrorResponse(VolleyError error) {
+
+    }
+
+    @Override
+    public void onResponse(JSONObject response) {
 
     }
 }

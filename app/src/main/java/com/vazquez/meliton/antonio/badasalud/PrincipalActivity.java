@@ -17,13 +17,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.vazquez.meliton.antonio.badasalud.fragmentos.DesignCitaFragment;
 import com.vazquez.meliton.antonio.badasalud.fragmentos.InicioFragment;
 import com.vazquez.meliton.antonio.badasalud.fragmentos.ListaCitaFragment;
 import com.vazquez.meliton.antonio.badasalud.fragmentos.ListaHospitalFragment;
 
 
 public class PrincipalActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
-        ListaHospitalFragment.OnFragmentInteractionListener, InicioFragment.OnFragmentInteractionListener, ListaCitaFragment.OnFragmentInteractionListener {
+        ListaHospitalFragment.OnFragmentInteractionListener, InicioFragment.OnFragmentInteractionListener, ListaCitaFragment.OnFragmentInteractionListener, DesignCitaFragment.OnFragmentInteractionListener {
 
 //    TextView titulo, emailTitulo;
 
@@ -38,8 +39,10 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationVi
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Fragment fragment=new DesignCitaFragment();
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.contenido,fragment)
+                        .commit();
             }
         });
 
