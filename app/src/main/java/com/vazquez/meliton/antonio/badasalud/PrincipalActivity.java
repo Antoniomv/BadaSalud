@@ -21,10 +21,11 @@ import com.vazquez.meliton.antonio.badasalud.fragmentos.DesignCitaFragment;
 import com.vazquez.meliton.antonio.badasalud.fragmentos.InicioFragment;
 import com.vazquez.meliton.antonio.badasalud.fragmentos.ListaCitaFragment;
 import com.vazquez.meliton.antonio.badasalud.fragmentos.ListaHospitalFragment;
+import com.vazquez.meliton.antonio.badasalud.fragmentos.PanelUsuarioFragment;
 
 
 public class PrincipalActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
-        ListaHospitalFragment.OnFragmentInteractionListener, InicioFragment.OnFragmentInteractionListener, ListaCitaFragment.OnFragmentInteractionListener, DesignCitaFragment.OnFragmentInteractionListener {
+        ListaHospitalFragment.OnFragmentInteractionListener, InicioFragment.OnFragmentInteractionListener, ListaCitaFragment.OnFragmentInteractionListener, DesignCitaFragment.OnFragmentInteractionListener, PanelUsuarioFragment.OnFragmentInteractionListener {
 
 //    TextView titulo, emailTitulo;
 
@@ -113,10 +114,12 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationVi
                     .replace(R.id.contenido,fragment)
                     .commit();
         } else if (id == R.id.nav_panel) {
+            Fragment fragment=new PanelUsuarioFragment();
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.contenido,fragment)
+                    .commit();
 
-        } else if (id == R.id.nav_desarrollador) {
-
-        } else if (id == R.id.nav_contacto) {
+        }  else if (id == R.id.nav_contacto) {
 
         }else if (id == R.id.nav_cerrar) {
             cargarCerrar();

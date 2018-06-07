@@ -27,10 +27,6 @@
         android:title="Información">
         <menu>
             <item
-                android:id="@+id/nav_desarrollador"
-                android:icon="@drawable/icon_desarrollador"
-                android:title="Desarrollador" />
-            <item
                 android:id="@+id/nav_contacto"
                 android:icon="@drawable/icon_faq"
                 android:title="Contacto" />

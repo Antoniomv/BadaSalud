@@ -1,11 +1,13 @@
 package com.vazquez.meliton.antonio.badasalud.entidad;
 
+import org.json.JSONObject;
+
 import java.io.Serializable;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Cita implements Serializable {
+public class Cita extends JSONObject implements Serializable {
 
     //creamos variables
     private int id;

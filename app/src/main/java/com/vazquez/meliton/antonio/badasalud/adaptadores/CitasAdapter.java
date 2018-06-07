@@ -26,6 +26,7 @@ public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.ViewHolder> 
     List<Cita> listaCitas;
     Context context;
     View view;
+    CitaController citaController;
 
     public CitasAdapter(ArrayList<Cita> listaCitas, Context context){
         this.listaCitas = listaCitas;
@@ -68,6 +69,7 @@ public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.ViewHolder> 
 
                             case R.id.eliminar:
                                 eliminarCita(position);
+                                citaController.eliminarCita(position);
                                 break;
                         }
                         return false;
@@ -82,14 +84,11 @@ public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.ViewHolder> 
 
     private void eliminarCita(int position) {
 
-        //importamos el controllador
-        CitaController citaController = new CitaController(context, this );
         Cita itemLabel = listaCitas.get(position);
         // Remove the item on remove/button click
         listaCitas.remove(position);
         notifyItemRemoved(position);
         notifyItemRangeChanged(position,listaCitas.size());
-        citaController.eliminarCita(itemLabel.getId());
         // Show the removed item label`enter code here`
         Toast.makeText(context,"Removed : " + itemLabel,Toast.LENGTH_SHORT).show();
     }
@@ -117,4 +116,6 @@ public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.ViewHolder> 
             buttonViewOption = itemView.findViewById(R.id.textViewOptions);
         }
     }
+
+
 }
