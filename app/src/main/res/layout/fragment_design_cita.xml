@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fondo"
     tools:context=".fragmentos.DesignCitaFragment">
 
     <LinearLayout
@@ -28,7 +27,7 @@
             android:id="@+id/titulo_cita"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="2dp"
+            android:layout_marginBottom="10dp"
             android:background="@android:color/background_light"
             android:ems="10"
             android:hint="Título de la Cita"
@@ -40,23 +39,23 @@
             android:id="@+id/spinner_hospitales"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="#fff"
+            android:layout_marginBottom="10dp"
             />
 
         <Spinner
             android:id="@+id/spinner_especialidades"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="#fff" />
+            android:layout_marginBottom="10dp" />
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
             android:text="Fecha y Hora"
             android:textAllCaps="true"
-            android:textColor="@android:color/background_light"
             android:textSize="20sp"
             android:textStyle="bold" />
 
