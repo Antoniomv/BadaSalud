@@ -121,10 +121,10 @@ public class ListaCitaFragment extends Fragment implements Response.ErrorListene
                 cita.setHospital_id(jsonObject.optInt("HOSPITAL_ID"));
                 cita.setEspecialidad_id(jsonObject.getInt("ESPECIALIDAD_ID"));
                 String fecha = null;
-                cita.setFecha(String.valueOf(jsonObject.accumulate("FECHA",fecha )));
+                cita.setFecha(String.valueOf(jsonObject.opt("FECHA")));
                 cita.setFecha(fecha);
                 String hora = null;
-                cita.setHora(String.valueOf(jsonObject.accumulate("HORA", hora)));
+                cita.setHora(String.valueOf(jsonObject.opt("HORA")));
                 cita.setHora(hora);
                 listaCitas.add(cita);
             }

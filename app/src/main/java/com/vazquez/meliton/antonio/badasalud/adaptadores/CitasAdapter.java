@@ -38,8 +38,8 @@ public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.titulo.setText(listaCitas.get(position).getTitulo());
-        holder.hospital.setText(String.valueOf(listaCitas.get(position).getHospital_id()));
+        holder.tituloCita.setText(listaCitas.get(position).getTitulo());
+        holder.hospitalCita.setText(String.valueOf(listaCitas.get(position).getHospital_id()));
         holder.especialidad.setText(String.valueOf(listaCitas.get(position).getEspecialidad_id()));
         holder.fecha.setText(listaCitas.get(position).getFecha());
         holder.hora.setText(listaCitas.get(position).getHora());
@@ -55,13 +55,13 @@ public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.ViewHolder> 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView titulo, hospital, especialidad, fecha, hora;
+        TextView tituloCita, hospitalCita, especialidad, fecha, hora;
         ImageView imagen;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            titulo = itemView.findViewById(R.id.tituloCita);
-            hospital = itemView.findViewById(R.id.hospitalCita);
+            tituloCita = itemView.findViewById(R.id.tituloCita);
+            hospitalCita = itemView.findViewById(R.id.hospitalCita);
             especialidad = itemView.findViewById(R.id.especialidadCita);
             fecha = itemView.findViewById(R.id.fechaCita);
             hora = itemView.findViewById(R.id.horaCita);
