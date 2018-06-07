@@ -22,6 +22,8 @@ import com.android.volley.toolbox.Volley;
 import com.google.gson.JsonObject;
 import com.vazquez.meliton.antonio.badasalud.constantes.VolleySingleton;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -69,7 +71,7 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
 
         final String finalResponse = response;
 
-        StringRequest postRequest = new StringRequest(Request.Method.DEPRECATED_GET_OR_POST, URL,
+        final StringRequest postRequest = new StringRequest(Request.Method.DEPRECATED_GET_OR_POST, URL,
                 new Response.Listener<String>()
                 {
                     @Override
@@ -77,9 +79,14 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
 
                         showSnackbar(response);
 
-                        if(response.equals("Login")) {
+                        if(response != "0") {
+                            //ID DEL USUARIO INICIADO.
+                            Integer idUsuarioLogin = Integer.parseInt(response);
+
+                            System.out.println(response);
 
                             Intent intent = new Intent(getApplicationContext(), PrincipalActivity.class);
+                            intent.putExtra("id", idUsuarioLogin.toString());
 //                            intent.putExtra("nombre", nombre);
 //                            intent.putExtra("apellidos", apellidos);
 //                            intent.putExtra("telefono", telefono);

@@ -25,8 +25,7 @@ import com.vazquez.meliton.antonio.badasalud.fragmentos.ListaHospitalFragment;
 import com.vazquez.meliton.antonio.badasalud.fragmentos.PanelUsuarioFragment;
 
 
-public class PrincipalActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
-        ListaHospitalFragment.OnFragmentInteractionListener, InicioFragment.OnFragmentInteractionListener, ListaCitaFragment.OnFragmentInteractionListener,
+public class PrincipalActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,ListaHospitalFragment.OnFragmentInteractionListener, InicioFragment.OnFragmentInteractionListener, ListaCitaFragment.OnFragmentInteractionListener,
         DesignCitaFragment.OnFragmentInteractionListener, PanelUsuarioFragment.OnFragmentInteractionListener, ContactoFragment.OnFragmentInteractionListener {
 
 //    TextView titulo, emailTitulo;
@@ -37,6 +36,15 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationVi
         setContentView(R.layout.activity_principal);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        String idUsuarioLogin = getIntent().getExtras().getString("id");
+        Bundle bundle = new Bundle();
+//        Integer id = Integer.valueOf(idUsuarioLogin);
+        bundle.putString("id",idUsuarioLogin);
+        System.out.println("**************PRINCIPAL"+ idUsuarioLogin);
+        //paso el argumento al fragmento
+        ListaCitaFragment listaCitaFragment = new ListaCitaFragment();
+        listaCitaFragment.setArguments(bundle);
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

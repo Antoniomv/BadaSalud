@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -25,6 +26,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -99,8 +102,9 @@ public class ListaCitaFragment extends Fragment implements Response.ErrorListene
     }
 
     private void webService() {
-        String URL="http://badasalud.es/webservice/citas/get_cita.php";
-        jsonObjectRequest=new JsonObjectRequest(Request.Method.GET,URL,null,this,this);
+//        int idUsuarioLogin = getArguments().getInt("id");
+        String URL = "http://badasalud.es/webservice/citas/get_cita_by_usuario.php";
+        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL, null, this, this);
         VolleySingleton.getIntanciaVolley(getContext()).addToRequestQueue(jsonObjectRequest);
     }
 
@@ -120,12 +124,8 @@ public class ListaCitaFragment extends Fragment implements Response.ErrorListene
                 cita.setTitulo(jsonObject.optString("TITULO"));
                 cita.setHospital_id(jsonObject.optInt("HOSPITAL_ID"));
                 cita.setEspecialidad_id(jsonObject.getInt("ESPECIALIDAD_ID"));
-                String fecha = null;
                 cita.setFecha(String.valueOf(jsonObject.opt("FECHA")));
-                cita.setFecha(fecha);
-                String hora = null;
                 cita.setHora(String.valueOf(jsonObject.opt("HORA")));
-                cita.setHora(hora);
                 listaCitas.add(cita);
             }
 
@@ -144,6 +144,7 @@ public class ListaCitaFragment extends Fragment implements Response.ErrorListene
 
     }
 
+
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -154,8 +155,8 @@ public class ListaCitaFragment extends Fragment implements Response.ErrorListene
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+        if (context instanceof InicioFragment.OnFragmentInteractionListener) {
+            mListener = (ListaCitaFragment.OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
