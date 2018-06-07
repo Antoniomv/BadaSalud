@@ -13,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.vazquez.meliton.antonio.badasalud.R;
+import com.vazquez.meliton.antonio.badasalud.controladores.CitaController;
+import com.vazquez.meliton.antonio.badasalud.controladores.UsuarioController;
 import com.vazquez.meliton.antonio.badasalud.entidad.Cita;
 import com.vazquez.meliton.antonio.badasalud.entidad.Hospital;
 
@@ -23,6 +25,7 @@ import java.util.List;
 public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.ViewHolder> {
     List<Cita> listaCitas;
     Context context;
+    View view;
 
     public CitasAdapter(ArrayList<Cita> listaCitas, Context context){
         this.listaCitas = listaCitas;
@@ -62,9 +65,7 @@ public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.ViewHolder> 
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
-                            case R.id.modificar:
 
-                                break;
                             case R.id.eliminar:
                                 eliminarCita(position);
                                 break;
@@ -80,11 +81,15 @@ public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.ViewHolder> 
     }
 
     private void eliminarCita(int position) {
+
+        //importamos el controllador
+        CitaController citaController = new CitaController(context, this );
         Cita itemLabel = listaCitas.get(position);
         // Remove the item on remove/button click
         listaCitas.remove(position);
         notifyItemRemoved(position);
         notifyItemRangeChanged(position,listaCitas.size());
+        citaController.eliminarCita(itemLabel.getId());
         // Show the removed item label`enter code here`
         Toast.makeText(context,"Removed : " + itemLabel,Toast.LENGTH_SHORT).show();
     }

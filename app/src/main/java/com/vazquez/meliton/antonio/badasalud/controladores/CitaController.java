@@ -10,6 +10,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
+import com.vazquez.meliton.antonio.badasalud.adaptadores.CitasAdapter;
 import com.vazquez.meliton.antonio.badasalud.constantes.Constantes;
 import com.vazquez.meliton.antonio.badasalud.constantes.VolleySingleton;
 
@@ -27,21 +28,19 @@ public class CitaController {
 
 
     //inicializamos constructor
-    public CitaController(Context context, View view) {
+    public CitaController(Context context, CitasAdapter citasAdapter) {
         this.context = context;
         this.view = view;
     }
 
 
+
     //Mapeamos para traernos los datos del formulario y poder crear usuario y guardarlo
-    public void eliminarCita(String titulo, int hospital_id, int especiliadad_id, String fecha, String hora) {
+    public void eliminarCita(int id) {
         //inicio mapeo de guardado
         final HashMap<String, Object> map = new HashMap<>();
-        map.put("titulo", titulo);
-        map.put("hospital_id", hospital_id);
-        map.put("especiliadad_id", especiliadad_id);
-        map.put("fecha", fecha);
-        map.put("hora", hora);
+        map.put("id", id);
+
 
         // Creamos un objeto dandole los datos del mapeo
         final JSONObject jsonObject = new JSONObject(map);
