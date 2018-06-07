@@ -5,13 +5,16 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.vazquez.meliton.antonio.badasalud.R;
 
@@ -76,6 +79,7 @@ public class ContactoFragment extends Fragment {
         final EditText emailEmail= view.findViewById(R.id.tu_email);
         final EditText emailAsunto= view.findViewById(R.id.tu_asunto);
         final EditText emailMensaje= view.findViewById(R.id.tu_mensaje);
+
 
         Button emailBoton = (Button) view.findViewById(R.id.enviar_mensaje);
         emailBoton.setOnClickListener(new View.OnClickListener() {
