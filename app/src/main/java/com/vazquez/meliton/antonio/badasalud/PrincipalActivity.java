@@ -28,8 +28,6 @@ import com.vazquez.meliton.antonio.badasalud.fragmentos.PanelUsuarioFragment;
 public class PrincipalActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,ListaHospitalFragment.OnFragmentInteractionListener, InicioFragment.OnFragmentInteractionListener, ListaCitaFragment.OnFragmentInteractionListener,
         DesignCitaFragment.OnFragmentInteractionListener, PanelUsuarioFragment.OnFragmentInteractionListener, ContactoFragment.OnFragmentInteractionListener {
 
-//    TextView titulo, emailTitulo;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,16 +71,6 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationVi
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-//        titulo = findViewById(R.id.menu_titulo);
-//        emailTitulo = findViewById(R.id.menu_email);
-//
-//        Intent intent = getIntent();
-//        String tituloPrincipal = intent.getStringExtra("nombre");
-//        String emailPrincipal = intent.getStringExtra("email");
-//
-//        titulo.setText(tituloPrincipal);
-//        emailTitulo.setText(emailPrincipal);
     }
 
     @Override

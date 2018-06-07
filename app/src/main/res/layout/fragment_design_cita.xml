@@ -40,12 +40,14 @@
             android:id="@+id/spinner_hospitales"
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:background="#fff"
             />
 
         <Spinner
             android:id="@+id/spinner_especialidades"
             android:layout_width="match_parent"
-            android:layout_height="40dp" />
+            android:layout_height="40dp"
+            android:background="#fff" />
 
         <TextView
             android:id="@+id/textView"
