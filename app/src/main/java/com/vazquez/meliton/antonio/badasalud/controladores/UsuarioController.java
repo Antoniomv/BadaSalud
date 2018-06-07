@@ -62,7 +62,6 @@ public class UsuarioController {
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
-                                Toast.makeText(context, "Guardado con Éxito", Toast.LENGTH_SHORT).show();
                             }
                         },
                         new Response.ErrorListener() {
@@ -114,7 +113,6 @@ public class UsuarioController {
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
-                                Toast.makeText(context, "Guardado con Éxito", Toast.LENGTH_SHORT).show();
                             }
                         },
                         new Response.ErrorListener() {

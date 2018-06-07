@@ -41,7 +41,7 @@ public class CitaController {
 
 
 
-    //Mapeamos, actualizamos datos, procesamos y guardamos
+    //Mapeamos, Eliminamos datos, procesamos y guardamos
     public void eliminarCita(int pos) {
 
         Cita id = data.remove(pos);
@@ -86,58 +86,4 @@ public class CitaController {
 
     }
 
-
-
-    //Mapeamos, actualizamos datos, procesamos y guardamos
-    public void modificarCita(String titulo, int hospital_id, int especiliadad_id, String fecha, String hora) {
-        //inicio mapeo de guardado
-        final HashMap<String, Object> map = new HashMap<>();
-        map.put("titulo", titulo);
-        map.put("hospital_id", hospital_id);
-        map.put("especiliadad_id", especiliadad_id);
-        map.put("fecha", fecha);
-        map.put("hora", hora);
-
-        // Creamos un objeto dandole los datos del mapeo
-        final JSONObject jsonObject = new JSONObject(map);
-
-        //lanzamos volley para procesar su insercción
-        VolleySingleton.getIntanciaVolley(context).addToRequestQueue(
-                new JsonObjectRequest(Request.Method.POST, Constantes.UPDATE_CITA, jsonObject,
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                try {
-                                    procesadoActualizacion(response); // Procesar la respuesta Json
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                                Toast.makeText(context, "Guardado con Éxito", Toast.LENGTH_SHORT).show();
-                            }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                ConsoleMessage.MessageLevel.valueOf("Error: " + error.getMessage());
-                                Toast.makeText(context, map.toString(), Toast.LENGTH_SHORT).show();
-
-                            }
-                        })
-        );
-    }
-
-    //Procesado realizado por JSON
-    public void procesadoActualizacion(JSONObject response) throws JSONException {
-        // Obtener valor de estado
-        String estado = response.getString("estado");
-        switch (estado) {
-            case "1": // Ok
-                Toast.makeText(context, "usuario actualizado correctamente", Toast.LENGTH_LONG).show();
-                break;
-            case "2": // error
-                Toast.makeText(context, response.getString("mensaje"), Toast.LENGTH_LONG).show();
-                break;
-        }
-
-    }
 }

@@ -15,112 +15,117 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".RegistroActivity">
 
-    <ImageView
-        android:id="@+id/logoRegistro"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="90dp"
-        app:srcCompat="@drawable/iconofinal" />
+        android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical">
-
-
-        <TextView
-            android:id="@+id/tv_registrate"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:fontFamily="sans-serif-smallcaps"
             android:gravity="center"
-            android:text="Regístrate"
-            android:textColor="@android:color/background_light"
-            android:textSize="30sp"
-            android:textStyle="bold" />
-    </LinearLayout>
+            android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="10dp"
-        android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/et_nombre"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="2dp"
-            android:background="@android:color/background_light"
-            android:ems="10"
-            android:hint="@string/nombre"
-            android:inputType="text"
-            android:padding="15dp"
-            android:textColorHint="?attr/colorButtonNormal" />
+            <ImageView
+                android:id="@+id/logoRegistro"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                app:srcCompat="@drawable/iconofinal" />
 
-        <EditText
-            android:id="@+id/et_apellidos"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="2dp"
-            android:background="@android:color/background_light"
-            android:ems="10"
-            android:hint="@string/apellidos"
-            android:inputType="text"
-            android:padding="15dp"
-            android:textColorHint="?attr/colorButtonNormal" />
+            <TextView
+                android:id="@+id/tv_registrate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="sans-serif-smallcaps"
+                android:gravity="center"
+                android:text="Regístrate"
+                android:textColor="@android:color/background_light"
+                android:textSize="30sp"
+                android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/et_telefono"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="2dp"
-            android:background="@android:color/background_light"
-            android:ems="10"
-            android:hint="@string/tel_fono"
-            android:inputType="phone"
-            android:padding="15dp"
-            android:textColorHint="?attr/colorButtonNormal" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/et_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="2dp"
-            android:background="@android:color/background_light"
-            android:ems="10"
-            android:hint="Email"
-            android:inputType="textEmailAddress"
-            android:padding="15dp"
-            android:textColorHint="?attr/colorButtonNormal" />
+                <EditText
+                    android:id="@+id/et_nombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:background="@android:color/background_light"
+                    android:ems="10"
+                    android:hint="@string/nombre"
+                    android:inputType="text"
+                    android:padding="15dp"
+                    android:textColorHint="?attr/colorButtonNormal" />
 
-        <EditText
-            android:id="@+id/et_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="2dp"
-            android:background="@android:color/background_light"
-            android:ems="10"
-            android:hint="Password"
-            android:inputType="textWebPassword"
-            android:padding="15dp"
-            android:textColorHint="?attr/colorButtonNormal" />
+                <EditText
+                    android:id="@+id/et_apellidos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:background="@android:color/background_light"
+                    android:ems="10"
+                    android:hint="@string/apellidos"
+                    android:inputType="text"
+                    android:padding="15dp"
+                    android:textColorHint="?attr/colorButtonNormal" />
 
-        <Button
-            android:id="@+id/boton_registro"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:background="@color/colorPrimaryDark"
-            android:singleLine="true"
-            android:text="Registrarse"
-            android:textColor="@android:color/background_light"
-            android:textStyle="bold" />
+                <EditText
+                    android:id="@+id/et_telefono"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:background="@android:color/background_light"
+                    android:ems="10"
+                    android:hint="@string/tel_fono"
+                    android:inputType="phone"
+                    android:padding="15dp"
+                    android:textColorHint="?attr/colorButtonNormal" />
 
-    </LinearLayout>
+                <EditText
+                    android:id="@+id/et_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:background="@android:color/background_light"
+                    android:ems="10"
+                    android:hint="Email"
+                    android:inputType="textEmailAddress"
+                    android:padding="15dp"
+                    android:textColorHint="?attr/colorButtonNormal" />
+
+                <EditText
+                    android:id="@+id/et_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:background="@android:color/background_light"
+                    android:ems="10"
+                    android:hint="Password"
+                    android:inputType="textWebPassword"
+                    android:padding="15dp"
+                    android:textColorHint="?attr/colorButtonNormal" />
+
+                <Button
+                    android:id="@+id/boton_registro"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:background="@color/colorPrimaryDark"
+                    android:singleLine="true"
+                    android:text="Registrarse"
+                    android:textColor="@android:color/background_light"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 
 </LinearLayout>

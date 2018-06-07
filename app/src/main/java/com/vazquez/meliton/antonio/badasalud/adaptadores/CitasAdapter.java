@@ -2,6 +2,7 @@ package com.vazquez.meliton.antonio.badasalud.adaptadores;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -27,8 +28,9 @@ public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.ViewHolder> 
     Context context;
     View view;
     CitaController citaController;
+    Snackbar snackbar;
 
-    public CitasAdapter(ArrayList<Cita> listaCitas, Context context){
+    public CitasAdapter(ArrayList<Cita> listaCitas, Context context) {
         this.listaCitas = listaCitas;
         this.context = context;
     }
@@ -37,7 +39,7 @@ public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.ViewHolder> 
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cita_personalizado, parent, false);
-        RecyclerView.LayoutParams layoutParams=new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+        RecyclerView.LayoutParams layoutParams = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
         view.setLayoutParams(layoutParams);
 
@@ -69,7 +71,6 @@ public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.ViewHolder> 
 
                             case R.id.eliminar:
                                 eliminarCita(position);
-                                citaController.eliminarCita(position);
                                 break;
                         }
                         return false;
@@ -88,10 +89,11 @@ public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.ViewHolder> 
         // Remove the item on remove/button click
         listaCitas.remove(position);
         notifyItemRemoved(position);
-        notifyItemRangeChanged(position,listaCitas.size());
+        notifyItemRangeChanged(position, listaCitas.size());
         // Show the removed item label`enter code here`
-        Toast.makeText(context,"Removed : " + itemLabel,Toast.LENGTH_SHORT).show();
-    }
+        Snackbar.make(view, "Cita eliminada con éxito", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+}
 
 
     @Override

@@ -77,25 +77,25 @@ public class PanelUsuarioFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_panel_usuario, container, false);
 
 
-        nombre = view.findViewById(R.id.et_nombre_act);
-        apellidos = view.findViewById(R.id.et_apellidos_act);
-        telefono = view.findViewById(R.id.et_telefono_act);
-
-
-        actualizar = view.findViewById(R.id.actualizar_datos);
-        actualizar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                actualizarUsuario();
-            }
-        });
+//        nombre = view.findViewById(R.id.et_nombre_act);
+//        apellidos = view.findViewById(R.id.et_apellidos_act);
+//        telefono = view.findViewById(R.id.et_telefono_act);
+//
+//
+//        actualizar = view.findViewById(R.id.actualizar_datos);
+//        actualizar.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                actualizarUsuario();
+//            }
+//        });
 
 
         return view;
     }
 
     private void actualizarUsuario() {
-        
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event

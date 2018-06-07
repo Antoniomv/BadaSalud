@@ -35,7 +35,7 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
     private static String URL  ="http://badasalud.es/webservice/conexion/login.php";
     private Snackbar snackbar;
     JsonObjectRequest jsonObjectRequest;
-
+    JsonObject jsonObject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
 
         final String finalResponse = response;
 
-        StringRequest postRequest = new StringRequest(Request.Method.POST, URL,
+        StringRequest postRequest = new StringRequest(Request.Method.DEPRECATED_GET_OR_POST, URL,
                 new Response.Listener<String>()
                 {
                     @Override
@@ -80,6 +80,9 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
                         if(response.equals("Login")) {
 
                             Intent intent = new Intent(getApplicationContext(), PrincipalActivity.class);
+//                            intent.putExtra("nombre", nombre);
+//                            intent.putExtra("apellidos", apellidos);
+//                            intent.putExtra("telefono", telefono);
                             startActivity(intent);
                             finish();
                         }
