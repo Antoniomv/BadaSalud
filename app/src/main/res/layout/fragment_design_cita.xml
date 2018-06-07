@@ -4,8 +4,52 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/fondo"
     tools:context=".fragmentos.DesignCitaFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:id="@+id/ly_anadir_citas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/titulo_cita"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:background="@android:color/background_light"
+            android:ems="10"
+            android:hint="Título de la Cita"
+            android:inputType="text"
+            android:padding="15dp"
+            android:textColorHint="?attr/colorButtonNormal" />
+
+        <Spinner
+            android:id="@+id/spinner_hospitales"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            />
+
+        <Spinner
+            android:id="@+id/spinner_especialidades"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+        <Button
+            android:id="@+id/boton_cita"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorPrimaryDark"
+            android:singleLine="true"
+            android:text="Entrar"
+            android:textColor="@android:color/background_light"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 
 </FrameLayout>
