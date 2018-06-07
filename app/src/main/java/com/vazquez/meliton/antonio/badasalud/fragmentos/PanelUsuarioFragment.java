@@ -8,8 +8,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.vazquez.meliton.antonio.badasalud.R;
+import com.vazquez.meliton.antonio.badasalud.entidad.Usuario;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,6 +33,9 @@ public class PanelUsuarioFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+   EditText nombre, apellidos, telefono;
+   Button actualizar;
 
     private OnFragmentInteractionListener mListener;
 
@@ -69,7 +77,25 @@ public class PanelUsuarioFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_panel_usuario, container, false);
 
 
+        nombre = view.findViewById(R.id.et_nombre_act);
+        apellidos = view.findViewById(R.id.et_apellidos_act);
+        telefono = view.findViewById(R.id.et_telefono_act);
+
+
+        actualizar = view.findViewById(R.id.actualizar_datos);
+        actualizar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                actualizarUsuario();
+            }
+        });
+
+
         return view;
+    }
+
+    private void actualizarUsuario() {
+        
     }
 
     // TODO: Rename method, update argument and hook method into UI event

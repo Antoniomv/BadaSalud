@@ -31,9 +31,8 @@
             android:name=".PrincipalActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".LoginActivity"
-            />
-        <activity android:name=".RegistroActivity"/>
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".RegistroActivity" />
     </application>
 
 </manifest>

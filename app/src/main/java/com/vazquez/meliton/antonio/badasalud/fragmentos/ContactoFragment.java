@@ -85,6 +85,8 @@ public class ContactoFragment extends Fragment {
         emailBoton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 String nombre = emailNombre.getText().toString();
                 String email = emailEmail.getText().toString();
                 String asunto = emailAsunto.getText().toString();
