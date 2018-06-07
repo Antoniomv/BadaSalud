@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.vazquez.meliton.antonio.badasalud.fragmentos.ContactoFragment;
 import com.vazquez.meliton.antonio.badasalud.fragmentos.DesignCitaFragment;
 import com.vazquez.meliton.antonio.badasalud.fragmentos.InicioFragment;
 import com.vazquez.meliton.antonio.badasalud.fragmentos.ListaCitaFragment;
@@ -25,7 +26,8 @@ import com.vazquez.meliton.antonio.badasalud.fragmentos.PanelUsuarioFragment;
 
 
 public class PrincipalActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
-        ListaHospitalFragment.OnFragmentInteractionListener, InicioFragment.OnFragmentInteractionListener, ListaCitaFragment.OnFragmentInteractionListener, DesignCitaFragment.OnFragmentInteractionListener, PanelUsuarioFragment.OnFragmentInteractionListener {
+        ListaHospitalFragment.OnFragmentInteractionListener, InicioFragment.OnFragmentInteractionListener, ListaCitaFragment.OnFragmentInteractionListener,
+        DesignCitaFragment.OnFragmentInteractionListener, PanelUsuarioFragment.OnFragmentInteractionListener, ContactoFragment.OnFragmentInteractionListener {
 
 //    TextView titulo, emailTitulo;
 
@@ -44,6 +46,8 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationVi
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.contenido,fragment)
                         .commit();
+                FloatingActionButton mFloatingActionButton = findViewById(R.id.fab);
+                mFloatingActionButton.hide();
             }
         });
 
@@ -103,6 +107,8 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationVi
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.contenido,fragment)
                     .commit();
+            FloatingActionButton mFloatingActionButton = findViewById(R.id.fab);
+            mFloatingActionButton.hide();
         } else if (id == R.id.nav_citas) {
             Fragment fragment=new ListaCitaFragment();
             getSupportFragmentManager().beginTransaction()
@@ -113,13 +119,23 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationVi
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.contenido,fragment)
                     .commit();
+            FloatingActionButton mFloatingActionButton = findViewById(R.id.fab);
+            mFloatingActionButton.hide();
         } else if (id == R.id.nav_panel) {
             Fragment fragment=new PanelUsuarioFragment();
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.contenido,fragment)
                     .commit();
+            FloatingActionButton mFloatingActionButton = findViewById(R.id.fab);
+            mFloatingActionButton.hide();
 
         }  else if (id == R.id.nav_contacto) {
+            Fragment fragment=new ContactoFragment();
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.contenido,fragment)
+                    .commit();
+            FloatingActionButton mFloatingActionButton = findViewById(R.id.fab);
+            mFloatingActionButton.hide();
 
         }else if (id == R.id.nav_cerrar) {
             cargarCerrar();

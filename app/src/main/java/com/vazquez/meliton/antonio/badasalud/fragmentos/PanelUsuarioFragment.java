@@ -3,6 +3,7 @@ package com.vazquez.meliton.antonio.badasalud.fragmentos;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,7 +67,6 @@ public class PanelUsuarioFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_panel_usuario, container, false);
-
 
 
         return view;

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -98,6 +99,8 @@ public class DesignCitaFragment extends Fragment implements Response.ErrorListen
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_design_cita, container, false);
+
+
         listaHospitales = new ArrayList<>();
 //        listaEspecialidades = new ArrayList<>();
 
