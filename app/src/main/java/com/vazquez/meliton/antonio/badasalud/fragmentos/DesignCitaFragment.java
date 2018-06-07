@@ -11,6 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -27,7 +30,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -38,7 +43,7 @@ import java.util.List;
  * Use the {@link DesignCitaFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DesignCitaFragment extends Fragment implements Response.ErrorListener, Response.Listener<JSONObject> {
+public class DesignCitaFragment extends Fragment  {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -49,17 +54,19 @@ public class DesignCitaFragment extends Fragment implements Response.ErrorListen
     private String mParam2;
 
     //datos para hospitales
-    ArrayList<Hospital> listaHospitales;
     JsonObjectRequest jsonObjectRequestHospitales;
     private View view;
     private Context context;
-
-
+    String tituloCita, hospitalSeleccionado, especialidadSeleccoinado;
+    Date fechaCita;
+    Time horaCita;
+    Bundle bundle;
+    Button agregar, retornar;
     private OnFragmentInteractionListener mListener;
 
-
-    private String selectionHospital;
-
+    private EditText titulo_cita;
+    private Spinner sp_hospital, sp_especialidad;
+    private ImageView calendario;
 
     public static final int DEFAULT_POSITION = 3;
 
@@ -99,60 +106,58 @@ public class DesignCitaFragment extends Fragment implements Response.ErrorListen
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_design_cita, container, false);
+        bundle = new Bundle();
 
+        titulo_cita = view.findViewById(R.id.titulo_cita);
+        tituloCita = titulo_cita.getText().toString();
+        sp_hospital = view.findViewById(R.id.spinner_hospitales);
+        sp_especialidad = view.findViewById(R.id.spinner_especialidades);
+        hospitalSeleccionado = sp_hospital.getOnItemSelectedListener().toString();
+        especialidadSeleccoinado = sp_especialidad.getOnItemSelectedListener().toString();
+        bundle.putString("titulo", tituloCita);
+        bundle.putString("hospital", hospitalSeleccionado);
+        bundle.putString("especialidad", especialidadSeleccoinado);
 
-        listaHospitales = new ArrayList<>();
-//        listaEspecialidades = new ArrayList<>();
+        calendario = view.findViewById(R.id.calendario_cita);
+        calendario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new CalendarioFragment();
+                fragment.setArguments(bundle);
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.contenido,fragment)
+                        .commit();
+                FloatingActionButton mFloatingActionButton = getView().findViewById(R.id.fab);
+                mFloatingActionButton.hide();
+            }
+        });
 
-        webServiceHospitales();
-//        spinnerHospitales();
+        retornar = view.findViewById(R.id.retornar);
+        retornar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                titulo_cita.setText(getArguments().getString("tituloTemp"));
+                sp_hospital.setSelected(Boolean.parseBoolean(getArguments().getString("hospitalTemp")));
+                sp_especialidad.setSelected(Boolean.parseBoolean(getArguments().getString("especialidadTemp")));
+                fechaCita.setTime(Long.parseLong(getArguments().getString("fecha")));
+                horaCita.setTime(Long.parseLong(getArguments().getString("hora")));
+            }
+        });
 
+        agregar = view.findViewById(R.id.boton_cita);
+        agregar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        retornoDatos();
         return view;
     }
 
-
-
-//    private void spinnerHospitales() {
-//        List<String> hospitales = new ArrayList<String>();
-//
-//        for (int i = 0; i < listaHospitales.size(); i++) {
-//            hospitales.add(listaHospitales.get(i).getNombre());
-//        }
-//
-//        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(context,
-//                android.R.layout.simple_spinner_item, hospitales);
-//        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        Spinner spinnerHospital = view.findViewById(R.id.spinner_hospital);
-//        spinnerHospital.setAdapter(spinnerAdapter);
-//
-//        spinnerHospital.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//            /*
-//            Obtienes el item actualmente seleccionado
-//             */
-//                selectionHospital = parent.getItemAtPosition(position).toString();
-//
-//                /*
-//                Mostramos la selección actual del Spinner
-//                 */
-//                Toast.makeText(getContext(),"Selección actual: "+selectionHospital,Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//
-//            }
-//        });
-//    }
-
-
-    private void webServiceHospitales() {
-        String URL="http://badasalud.es/webservice/hospitales/get_hospital.php";
-        jsonObjectRequestHospitales=new JsonObjectRequest(Request.Method.GET,URL,null,this,this);
-        VolleySingleton.getIntanciaVolley(getContext()).addToRequestQueue(jsonObjectRequestHospitales);
+    private void retornoDatos() {
     }
-
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -177,43 +182,6 @@ public class DesignCitaFragment extends Fragment implements Response.ErrorListen
         super.onDetach();
         mListener = null;
     }
-
-    public void onResponse(JSONObject response) {
-        respuestaHospital(response);
-
-    }
-
-
-    @Override
-    public void onErrorResponse(VolleyError error) {
-
-    }
-
-
-
-    private void respuestaHospital(JSONObject response) {
-        Hospital hospital = null;
-
-        JSONArray json=response.optJSONArray("hospitales");
-
-        try{
-            for (int i=0;i<json.length();i++){
-                hospital=new Hospital();
-                JSONObject jsonObject=null;
-                jsonObject=json.getJSONObject(i);
-
-                hospital.setNombre(jsonObject.optString("NOMBRE"));
-                listaHospitales.add(hospital);
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-            Toast.makeText(getContext(), "No se ha podido establecer conexión con el servidor" +
-                    " "+response, Toast.LENGTH_LONG).show();
-        }
-    }
-
-
 
     /**
      * This interface must be implemented by activities that contain this

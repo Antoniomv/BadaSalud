@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.vazquez.meliton.antonio.badasalud.R;
 import com.vazquez.meliton.antonio.badasalud.adaptadores.CitasAdapter;
+import com.vazquez.meliton.antonio.badasalud.constantes.Constantes;
 import com.vazquez.meliton.antonio.badasalud.constantes.VolleySingleton;
 import com.vazquez.meliton.antonio.badasalud.entidad.Cita;
 
@@ -102,11 +104,40 @@ public class ListaCitaFragment extends Fragment implements Response.ErrorListene
     }
 
     private void webService() {
-//        int idUsuarioLogin = getArguments().getInt("id");
-        String URL = "http://badasalud.es/webservice/citas/get_cita_by_usuario.php";
+        String idUsuarioLogin = getArguments().getString("id");
+
+        String URL = "http://badasalud.es/webservice/citas/get_cita.php";
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL, null, this, this);
         VolleySingleton.getIntanciaVolley(getContext()).addToRequestQueue(jsonObjectRequest);
+        System.out.println("ID REGOCGIDO---------------------"+idUsuarioLogin);
+
+//        getCitas(Integer.parseInt(idUsuarioLogin));
     }
+
+//    public void getCitas(Integer idUsuario) {
+//        HashMap<String, Integer> map = new HashMap<>();
+//        map.put("id", idUsuario);
+//        JSONObject jsonObject = new JSONObject(map);
+//
+//        VolleySingleton.getIntanciaVolley(getContext()).addToRequestQueue(
+//                new JsonObjectRequest(Request.Method.GET, Constantes.GET_CITA_BY_ID, jsonObject,
+//                        new Response.Listener<JSONObject>() {
+//                            @Override
+//                            public void onResponse(JSONObject response) {
+//
+//                                System.out.println("CITAS-------------------------------" + response);
+//                            }
+//                        },
+//                        new Response.ErrorListener() {
+//                            @Override
+//                            public void onErrorResponse(VolleyError error) {
+//                                System.out.println("CITAS ERROR-------------------------------");
+//
+//                            }
+//                        })
+//        );
+//    }
+
 
 
     @Override

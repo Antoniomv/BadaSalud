@@ -91,8 +91,8 @@ public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.ViewHolder> 
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, listaCitas.size());
         // Show the removed item label`enter code here`
-        Snackbar.make(view, "Cita eliminada con éxito", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
+//        Snackbar.make(view, "Cita eliminada con éxito", Snackbar.LENGTH_LONG)
+//                .setAction("Action", null).show();
 }
 
 

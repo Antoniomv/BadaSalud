@@ -17,8 +17,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.vazquez.meliton.antonio.badasalud.fragmentos.CalendarioFragment;
 import com.vazquez.meliton.antonio.badasalud.fragmentos.ContactoFragment;
 import com.vazquez.meliton.antonio.badasalud.fragmentos.DesignCitaFragment;
+import com.vazquez.meliton.antonio.badasalud.fragmentos.HoraFragment;
 import com.vazquez.meliton.antonio.badasalud.fragmentos.InicioFragment;
 import com.vazquez.meliton.antonio.badasalud.fragmentos.ListaCitaFragment;
 import com.vazquez.meliton.antonio.badasalud.fragmentos.ListaHospitalFragment;
@@ -26,7 +28,10 @@ import com.vazquez.meliton.antonio.badasalud.fragmentos.PanelUsuarioFragment;
 
 
 public class PrincipalActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,ListaHospitalFragment.OnFragmentInteractionListener, InicioFragment.OnFragmentInteractionListener, ListaCitaFragment.OnFragmentInteractionListener,
-        DesignCitaFragment.OnFragmentInteractionListener, PanelUsuarioFragment.OnFragmentInteractionListener, ContactoFragment.OnFragmentInteractionListener {
+        DesignCitaFragment.OnFragmentInteractionListener, PanelUsuarioFragment.OnFragmentInteractionListener,
+        ContactoFragment.OnFragmentInteractionListener, CalendarioFragment.OnFragmentInteractionListener, HoraFragment.OnFragmentInteractionListener {
+
+    private Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,13 +41,15 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationVi
         setSupportActionBar(toolbar);
 
         String idUsuarioLogin = getIntent().getExtras().getString("id");
-        Bundle bundle = new Bundle();
+        bundle = new Bundle();
 //        Integer id = Integer.valueOf(idUsuarioLogin);
         bundle.putString("id",idUsuarioLogin);
+
+
         System.out.println("**************PRINCIPAL"+ idUsuarioLogin);
         //paso el argumento al fragmento
-        ListaCitaFragment listaCitaFragment = new ListaCitaFragment();
-        listaCitaFragment.setArguments(bundle);
+        /*ListaCitaFragment listaCitaFragment = new ListaCitaFragment();
+        listaCitaFragment.setArguments(bundle);*/
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -65,6 +72,7 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationVi
 
         //cargamos bienvenida
         Fragment fragment=new InicioFragment();
+        fragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.contenido,fragment)
                 .commit();
@@ -100,18 +108,23 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationVi
 
         if (id == R.id.nav_inicio) {
             Fragment fragment=new InicioFragment();
+            fragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.contenido,fragment)
                     .commit();
             FloatingActionButton mFloatingActionButton = findViewById(R.id.fab);
-            mFloatingActionButton.hide();
+            mFloatingActionButton.show();
         } else if (id == R.id.nav_citas) {
             Fragment fragment=new ListaCitaFragment();
+            fragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.contenido,fragment)
                     .commit();
+            FloatingActionButton mFloatingActionButton = findViewById(R.id.fab);
+            mFloatingActionButton.show();
         } else if (id == R.id.nav_hospitales) {
             Fragment fragment=new ListaHospitalFragment();
+            fragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.contenido,fragment)
                     .commit();
@@ -119,6 +132,7 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationVi
             mFloatingActionButton.hide();
         } else if (id == R.id.nav_panel) {
             Fragment fragment=new PanelUsuarioFragment();
+            fragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.contenido,fragment)
                     .commit();
@@ -127,6 +141,7 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationVi
 
         }  else if (id == R.id.nav_contacto) {
             Fragment fragment=new ContactoFragment();
+            fragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.contenido,fragment)
                     .commit();

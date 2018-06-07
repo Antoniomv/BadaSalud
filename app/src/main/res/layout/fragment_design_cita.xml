@@ -4,79 +4,92 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/fondo"
     tools:context=".fragmentos.DesignCitaFragment">
 
-    <LinearLayout
-        android:id="@+id/ly_anadir_citas"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="10dp"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/logo_cita"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="20dp"
-            android:src="@drawable/iconofinal" />
-
-        <EditText
-            android:id="@+id/titulo_cita"
+        <LinearLayout
+            android:id="@+id/ly_anadir_citas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@android:color/background_light"
-            android:ems="10"
-            android:hint="Título de la Cita"
-            android:inputType="text"
-            android:padding="15dp"
-            android:textColorHint="?attr/colorButtonNormal" />
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/borde_titulo"
+            android:orientation="vertical">
 
-        <Spinner
-            android:id="@+id/spinner_hospitales"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginBottom="10dp"
-            />
+            <EditText
+                android:id="@+id/titulo_cita"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/borde_titulo"
+                android:ems="10"
+                android:hint="Título de la Cita"
+                android:inputType="text"
+                android:padding="15dp"
+                android:textColorHint="?attr/colorButtonNormal" />
 
-        <Spinner
-            android:id="@+id/spinner_especialidades"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginBottom="10dp" />
+            <Spinner
+                android:id="@+id/spinner_hospitales"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/borde_titulo"
+                android:entries="@array/hospitales" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
-            android:text="Fecha y Hora"
-            android:textAllCaps="true"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            <Spinner
+                android:id="@+id/spinner_especialidades"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/borde_titulo"
+                android:entries="@array/especialidades" />
 
-        <ImageView
-            android:id="@+id/calendario_cita"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@drawable/calendar_icon"
-            android:layout_marginBottom="20dp"/>
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:text="Fecha y Hora"
+                android:textAllCaps="true"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/boton_cita"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@color/colorPrimaryDark"
-            android:singleLine="true"
-            android:text="Entrar"
-            android:textColor="@android:color/background_light"
-            android:textStyle="bold" />
+            <ImageView
+                android:id="@+id/calendario_cita"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:src="@drawable/calendar_icon" />
 
-    </LinearLayout>
+            <Button
+                android:id="@+id/retornar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorPrimaryDark"
+                android:singleLine="true"
+                android:text="Retornar DAtos"
+                android:textColor="@android:color/background_light"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/boton_cita"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorPrimaryDark"
+                android:singleLine="true"
+                android:text="Crear Cita"
+                android:textColor="@android:color/background_light"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </ScrollView>
 
 </FrameLayout>

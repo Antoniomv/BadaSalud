@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragmentos.HoraFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TimePicker
+        android:id="@+id/timePicker"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:background="@android:color/background_light"
+        android:headerBackground="#33aeff"
+        android:numbersBackgroundColor="#28a72d"
+        android:numbersInnerTextColor="#ffffff"
+        android:numbersSelectorColor="#1d87ae"
+        android:numbersTextColor="#ffffff" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/textoTiempo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/holo_red_dark"
+        android:fontFamily="sans-serif"
+        android:text="@string/hello_blank_fragment"
+        android:textColor="@android:color/background_light"
+        android:textStyle="bold"
+        android:typeface="normal" />
+
+</FrameLayout>
