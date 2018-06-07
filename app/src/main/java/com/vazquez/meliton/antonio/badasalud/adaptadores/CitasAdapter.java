@@ -2,17 +2,21 @@ package com.vazquez.meliton.antonio.badasalud.adaptadores;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.vazquez.meliton.antonio.badasalud.R;
 import com.vazquez.meliton.antonio.badasalud.entidad.Cita;
 import com.vazquez.meliton.antonio.badasalud.entidad.Hospital;
 
+import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +41,7 @@ public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         holder.tituloCita.setText(listaCitas.get(position).getTitulo());
         holder.hospitalCita.setText(String.valueOf(listaCitas.get(position).getHospital_id()));
         holder.especialidad.setText(String.valueOf(listaCitas.get(position).getEspecialidad_id()));
@@ -46,7 +50,45 @@ public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.ViewHolder> 
 
         holder.imagen.setImageResource(R.drawable.iconcita);
 
+        holder.buttonViewOption.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //creating a popup menu
+                PopupMenu popup = new PopupMenu(context, holder.buttonViewOption);
+                //inflating menu from xml resource
+                popup.inflate(R.menu.option_menu_citas);
+                //adding click listener
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.modificar:
+
+                                break;
+                            case R.id.eliminar:
+                                eliminarCita(position);
+                                break;
+                        }
+                        return false;
+                    }
+                });
+                //displaying the popup
+                popup.show();
+
+            }
+        });
     }
+
+    private void eliminarCita(int position) {
+        Cita itemLabel = listaCitas.get(position);
+        // Remove the item on remove/button click
+        listaCitas.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position,listaCitas.size());
+        // Show the removed item label`enter code here`
+        Toast.makeText(context,"Removed : " + itemLabel,Toast.LENGTH_SHORT).show();
+    }
+
 
     @Override
     public int getItemCount() {
@@ -55,7 +97,7 @@ public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.ViewHolder> 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tituloCita, hospitalCita, especialidad, fecha, hora;
+        TextView tituloCita, hospitalCita, especialidad, fecha, hora, buttonViewOption;
         ImageView imagen;
 
         public ViewHolder(View itemView) {
@@ -67,6 +109,7 @@ public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.ViewHolder> 
             hora = itemView.findViewById(R.id.horaCita);
 
             imagen=itemView.findViewById(R.id.imagenCita);
+            buttonViewOption = itemView.findViewById(R.id.textViewOptions);
         }
     }
 }
