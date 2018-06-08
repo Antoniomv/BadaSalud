@@ -38,7 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/borde_titulo"
+                android:background="@drawable/borde"
                 android:entries="@array/hospitales" />
 
             <Spinner
@@ -46,37 +46,80 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/borde_titulo"
+                android:background="@drawable/borde"
                 android:entries="@array/especialidades" />
 
             <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
+                android:id="@+id/fechaText"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="10dp"
-                android:text="Fecha y Hora"
+                android:layout_weight="1"
+                android:text="Fecha"
                 android:textAllCaps="true"
-                android:textSize="20sp"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/calendario_cita"
+            <LinearLayout
+                android:id="@+id/fechaLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:src="@drawable/calendar_icon" />
+                android:layout_height="30dp"
+                android:orientation="horizontal"
+                android:layout_marginBottom="20dp">
 
-            <Button
-                android:id="@+id/retornar"
+                <Spinner
+                    android:id="@+id/year"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <Spinner
+                    android:id="@+id/mes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <Spinner
+                    android:id="@+id/dia"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/horaText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@color/colorPrimaryDark"
-                android:singleLine="true"
-                android:text="Retornar DAtos"
-                android:textColor="@android:color/background_light"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:text="Hora"
+                android:textAllCaps="true"
+                android:textSize="14sp"
                 android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+
+                <Spinner
+                    android:id="@+id/hora"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <Spinner
+                    android:id="@+id/minutos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
 
             <Button
                 android:id="@+id/boton_cita"
@@ -88,6 +131,8 @@
                 android:text="Crear Cita"
                 android:textColor="@android:color/background_light"
                 android:textStyle="bold" />
+
+
 
         </LinearLayout>
     </ScrollView>
