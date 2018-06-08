@@ -30,16 +30,66 @@ public class CitaController {
     private Context context;
     private View view;
     private Gson gson;
-    private ArrayList<Cita> data;
 
 
     //inicializamos constructor
-    public CitaController(Context context,ArrayList<Cita> data) {
+    public CitaController(Context context) {
         this.context = context;
         this.view = view;
-        this.data = data;
     }
 
+    //Mapeamos para traernos los datos del formulario y poder crear usuario y guardarlo
+    public void nuevaCita(String titulo, String fecha, String hora, int hospitalid, int especialidadid, int usuarioid) {
+        //inicio mapeo de guardado
+        final HashMap<String, Object> map = new HashMap<>();
+        map.put("titulo", titulo);
+        map.put("fecha", fecha);
+        map.put("hora", hora);
+        map.put("hospitalid", hospitalid);
+        map.put("especialidadid", especialidadid);
+        map.put("usuarioid", usuarioid);
+
+
+        // Creamos un objeto dandole los datos del mapeo
+        final JSONObject jsonObject = new JSONObject(map);
+
+        //lanzamos volley para procesar su insercción
+        VolleySingleton.getIntanciaVolley(context).addToRequestQueue(
+                new JsonObjectRequest(Request.Method.POST, Constantes.INSERT_USUARIO, jsonObject,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                try {
+                                    procesadoCreacion(response); // Procesar la respuesta Json
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                ConsoleMessage.MessageLevel.valueOf("Error: " + error.getMessage());
+                                Toast.makeText(context, map.toString(), Toast.LENGTH_SHORT).show();
+                            }
+                        })
+        );
+    }
+
+    //Procesado realizado por JSON
+    public void procesadoCreacion(JSONObject response) throws JSONException {
+        // Obtener valor de estado
+        String estado = response.getString("estado");
+        switch (estado) {
+            case "1": // Ok
+                Toast.makeText(context, "cita agregada correctamente", Toast.LENGTH_LONG).show();
+                break;
+            case "2": // error
+                Toast.makeText(context, response.getString("mensaje"), Toast.LENGTH_LONG).show();
+                break;
+        }
+
+    }
 
 
     //Mapeamos, Eliminamos datos, procesamos y guardamos
@@ -54,7 +104,6 @@ public class CitaController {
                             new Response.Listener<JSONObject>() {
                                 @Override
                                 public void onResponse(JSONObject response) {
-                                    //procesarRespuesta(response); // Procesar la respuesta Json
                                     System.out.println("Borrado Correctamente");
                                 }
                             },
@@ -66,5 +115,6 @@ public class CitaController {
                             })  //Fin de JsonObjectRequest
             );
         }
+
 
 }

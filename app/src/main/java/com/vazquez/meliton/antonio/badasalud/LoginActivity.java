@@ -82,7 +82,7 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
 
                         if(response !="0") {
                             //ID DEL USUARIO INICIADO.
-                            Integer idUsuarioLogin = Integer.parseInt(response);
+                            String idUsuarioLogin = response;
 
                             System.out.println(response);
 

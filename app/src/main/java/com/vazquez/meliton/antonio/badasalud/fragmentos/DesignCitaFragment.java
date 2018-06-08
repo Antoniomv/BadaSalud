@@ -23,6 +23,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.vazquez.meliton.antonio.badasalud.R;
 import com.vazquez.meliton.antonio.badasalud.constantes.VolleySingleton;
+import com.vazquez.meliton.antonio.badasalud.controladores.CitaController;
 import com.vazquez.meliton.antonio.badasalud.entidad.Especialidad;
 import com.vazquez.meliton.antonio.badasalud.entidad.Hospital;
 
@@ -57,15 +58,15 @@ public class DesignCitaFragment extends Fragment  {
     JsonObjectRequest jsonObjectRequestHospitales;
     private View view;
     private Context context;
-    String tituloCita, hospitalSeleccionado, especialidadSeleccoinado;
-    Bundle bundle;
+    String tituloCita,  fechaSeleccionada, horaSeleccionada;
+    int hospitalSeleccionado, especialidadSeleccoinado,usuarioId;
     Button agregar;
     private OnFragmentInteractionListener mListener;
 
     private EditText titulo_cita;
-    private Spinner sp_hospital, sp_especialidad;
-    private ImageView calendario;
+    private Spinner sp_hospital, sp_especialidad, sp_year, sp_mes,sp_dia, sp_hora, sp_minuto;
 
+    CitaController citaController;
     public static final int DEFAULT_POSITION = 3;
 
     public DesignCitaFragment() {
@@ -104,29 +105,44 @@ public class DesignCitaFragment extends Fragment  {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_design_cita, container, false);
-        bundle = new Bundle();
 
+        citaController= new CitaController(context);
         titulo_cita = view.findViewById(R.id.titulo_cita);
         tituloCita = titulo_cita.getText().toString();
         sp_hospital = view.findViewById(R.id.spinner_hospitales);
         sp_especialidad = view.findViewById(R.id.spinner_especialidades);
-        hospitalSeleccionado = sp_hospital.getOnItemSelectedListener().toString();
-        especialidadSeleccoinado = sp_especialidad.getOnItemSelectedListener().toString();
-        bundle.putString("titulo", tituloCita);
-        bundle.putString("hospital", hospitalSeleccionado);
-        bundle.putString("especialidad", especialidadSeleccoinado);
+        sp_year=view.findViewById(R.id.year);
+        sp_mes=view.findViewById(R.id.mes);
+        sp_dia=view.findViewById(R.id.dia);
+        sp_hora=view.findViewById(R.id.hora);
+        sp_minuto=view.findViewById(R.id.minutos);
 
+        hospitalSeleccionado = sp_hospital.getSelectedItemPosition();
+        especialidadSeleccoinado = sp_especialidad.getSelectedItemPosition();
+        fechaSeleccionada = sp_year.getSelectedItem().toString() +"-"
+                + sp_mes.getSelectedItem().toString() + "-"
+                + sp_dia.getSelectedItem().toString();
+        horaSeleccionada = sp_hora.getSelectedItem().toString()+"-"
+                + sp_minuto.getSelectedItem().toString() +"-00";
+        usuarioId = Integer.valueOf(getArguments().getString("id"));
 
         agregar = view.findViewById(R.id.boton_cita);
         agregar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                citaController.nuevaCita(tituloCita,fechaSeleccionada,horaSeleccionada,hospitalSeleccionado,especialidadSeleccoinado,usuarioId);
+                LimpiarCita();
             }
         });
 
         retornoDatos();
         return view;
+    }
+
+    private void LimpiarCita() {
+
+        titulo_cita.setText("");
+
     }
 
     private void retornoDatos() {
