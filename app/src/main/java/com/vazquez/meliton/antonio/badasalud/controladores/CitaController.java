@@ -93,9 +93,9 @@ public class CitaController {
 
 
     //Mapeamos, Eliminamos datos, procesamos y guardamos
-    public void eliminarCita(int pos) {
+    public void eliminarCita(int citaid) {
             HashMap<String, Integer> map = new HashMap<>();
-            map.put("id",pos);
+            map.put("id",citaid);
             JSONObject jsonObject = new JSONObject(map); // Crear nuevo objeto Json basado en el mapa
 
             //Volley

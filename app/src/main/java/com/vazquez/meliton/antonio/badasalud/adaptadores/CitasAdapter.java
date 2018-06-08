@@ -39,6 +39,8 @@ public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.ViewHolder> 
     Context context;
     View view;
     Snackbar snackbar;
+    int citaId;
+
 
     String titulo, hospital, especialidad, fecha, hora;
 
@@ -60,6 +62,7 @@ public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
+        citaId = listaCitas.get(position).getId();
         holder.tituloCita.setText(listaCitas.get(position).getTitulo());
         holder.hospitalCita.setText(String.valueOf(listaCitas.get(position).getHospital_id()));
         holder.especialidad.setText(String.valueOf(listaCitas.get(position).getEspecialidad_id()));
@@ -159,7 +162,9 @@ public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.ViewHolder> 
     }
 
     private void eliminarCita(int position) {
+        CitaController citaController = new CitaController(context,view);
 
+        citaController.eliminarCita(citaId);
         Cita itemLabel = listaCitas.get(position);
         // Remove the item on remove/button click
         listaCitas.remove(position);

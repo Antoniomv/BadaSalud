@@ -109,7 +109,6 @@ public class ListaCitaFragment extends Fragment implements Response.ErrorListene
         String URL = Constantes.GET_CITA;
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL, null, this, this);
         VolleySingleton.getIntanciaVolley(getContext()).addToRequestQueue(jsonObjectRequest);
-        System.out.println("ID REGOCGIDO---------------------"+idUsuarioLogin);
 
 //        getCitas(Integer.parseInt(idUsuarioLogin));
     }
@@ -152,6 +151,7 @@ public class ListaCitaFragment extends Fragment implements Response.ErrorListene
                 JSONObject jsonObject=null;
                 jsonObject=json.getJSONObject(i);
 
+                cita.setId(jsonObject.optInt("ID"));
                 cita.setTitulo(jsonObject.optString("TITULO"));
                 cita.setHospital_id(jsonObject.optInt("HOSPITAL_ID"));
                 cita.setEspecialidad_id(jsonObject.getInt("ESPECIALIDAD_ID"));
