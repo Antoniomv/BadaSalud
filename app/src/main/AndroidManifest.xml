@@ -6,7 +6,10 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <!-- -añadimos permisos de uso de telefono -->
+    <!-- permisos de lectura de calendario-->
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+    <!-- permisos de llamadas -->
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <!-- Y para acceder a internet -->
     <uses-permission android:name="android.permission.INTERNET" />
