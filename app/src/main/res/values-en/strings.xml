@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Badasalud</string>
+    <string name="title_activity_principal">Home</string>
+    <string name="Otras_Opciones">Other Options</string>
+    <string name="introduce_tu_email">enter your email</string>
+    <string name="introduce_tu_password">enter your password</string>
+    <string name="nombre">Name</string>
+    <string name="apellidos">Lastname</string>
+    <string name="tel_fono">Phone</string>
+    <string name="entrar_tx">ENTER</string>
+    <string name="registrarse">Register</string>
+    <string name="logueate_si_ya_teines_una_cuenta">login if you already have an account</string>
+    <string name="introduce_tu_string_nombre">enter your @string/nombre</string>
+    <string name="introduce_tu_string_apellidos">enter your @string/lastname</string>
+    <string name="introduce_tu_telefono">enter your phone</string>
+    <string name="nombre_hospital">Hospital Name</string>
+    <string name="direccionhospital">Hospital Address</string>
+    <string name="tel_fono_hospital">Hospital Phone</string>
+    <string name="actualizar_datos">Update your data:</string>
+    <string name="actualizar">Update</string>
+    <string name="t_tulo_de_la_cita">Date Name</string>
+    <string name="fecha">Date</string>
+    <string name="hora">Time</string>
+    <string name="crear_cita">Create Date</string>
+    <string name="nombre_hint">NAME</string>
+    <string name="asunto">subject</string>
+    <string name="asunto_hint">SUBJECT</string>
+    <string name="mensaje">Message</string>
+    <string name="enviar_mensaje">Send Message</string>
+    <string name="mensaje_hint">MESSAGE</string>
+    <string name="titulo_cita">Date Title</string>
+    <string name="entrar">Enter</string>
+    <string name="registrate_por_email">Email Register</string>
+    <string name="con_ctate">Conecting!</string>
+    <string name="reg_strate">Register</string>
+    <string name="especialidad">specialty</string>
+</resources>
