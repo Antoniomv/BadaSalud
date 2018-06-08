@@ -2,10 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/agregar"
+        android:id="@+id/agregarAlarma"
         android:title="Añadir Alarma" />
     <item
-        android:id="@+id/eliminar"
+        android:id="@+id/eliminarCita"
         android:title="Eliminar Cita" />
 
 </menu>

@@ -81,11 +81,11 @@ public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.ViewHolder> 
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
 
-                            case R.id.eliminar:
+                            case R.id.eliminarCita:
                                 eliminarCita(position);
                                 break;
 
-                            case R.id.agregar:
+                            case R.id.agregarAlarma:
                                 titulo = listaCitas.get(position).getTitulo();
                                 hospital = String.valueOf(listaCitas.get(position).getHospital_id());
                                 especialidad = String.valueOf(listaCitas.get(position).getEspecialidad_id());
