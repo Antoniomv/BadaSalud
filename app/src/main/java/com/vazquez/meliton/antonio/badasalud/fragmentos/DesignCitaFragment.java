@@ -63,7 +63,7 @@ public class DesignCitaFragment extends Fragment  {
     Button agregar;
     private OnFragmentInteractionListener mListener;
 
-    private EditText titulo_cita;
+    private EditText titulodelacita;
     private Spinner sp_hospital, sp_especialidad, sp_year, sp_mes,sp_dia, sp_hora, sp_minuto;
 
     CitaController citaController;
@@ -106,8 +106,7 @@ public class DesignCitaFragment extends Fragment  {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_design_cita, container, false);
 
-        titulo_cita = view.findViewById(R.id.titulo_cita);
-        tituloCita = titulo_cita.getText().toString();
+        titulodelacita = view.findViewById(R.id.titulo_cita);
         sp_hospital = view.findViewById(R.id.spinner_hospitales);
         sp_especialidad = view.findViewById(R.id.spinner_especialidades);
         sp_year=view.findViewById(R.id.year);
@@ -116,8 +115,9 @@ public class DesignCitaFragment extends Fragment  {
         sp_hora=view.findViewById(R.id.hora);
         sp_minuto=view.findViewById(R.id.minutos);
 
-        hospitalSeleccionado = sp_hospital.getSelectedItemPosition();
-        especialidadSeleccoinado = sp_especialidad.getSelectedItemPosition();
+
+        hospitalSeleccionado = sp_hospital.getSelectedItemPosition() +1;
+        especialidadSeleccoinado = sp_especialidad.getSelectedItemPosition()+1;
         fechaSeleccionada = sp_year.getSelectedItem().toString() +"-"
                 + sp_mes.getSelectedItem().toString() + "-"
                 + sp_dia.getSelectedItem().toString();
@@ -130,14 +130,11 @@ public class DesignCitaFragment extends Fragment  {
         agregar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                tituloCita = titulodelacita.getText().toString();
                 citaController= new CitaController(getContext(), v);
 
                 citaController.nuevaCita(tituloCita,usuarioId,hospitalSeleccionado,especialidadSeleccoinado,fechaSeleccionada,horaSeleccionada);
 
-//                citaController.nuevaCita("",1, 2, 22, "", "");
-
-
-                LimpiarCita();
             }
         });
 
@@ -145,11 +142,7 @@ public class DesignCitaFragment extends Fragment  {
         return view;
     }
 
-    private void LimpiarCita() {
 
-        titulo_cita.setText("");
-
-    }
 
     private void retornoDatos() {
     }

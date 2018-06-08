@@ -42,12 +42,12 @@ public class CitaController {
     public void nuevaCita(String titulo, int usuarioid, int hospitalid, int especialidadid, String fecha, String hora) {
         //inicio mapeo de guardado
         final HashMap<String, Object> map = new HashMap<>();
-        map.put("TITULO", titulo);
-        map.put("USUARIO_ID", usuarioid);
-        map.put("HOSPITAL_ID", hospitalid);
-        map.put("ESPECIALIDAD_ID", especialidadid);
-        map.put("FECHA", fecha);
-        map.put("HORA", hora);
+        map.put("titulo", titulo);
+        map.put("usuario_id", usuarioid);
+        map.put("hospital_id", hospitalid);
+        map.put("especialidad_id", especialidadid);
+        map.put("fecha", fecha);
+        map.put("hora", hora);
 
 
         // Creamos un objeto dandole los datos del mapeo
