@@ -72,7 +72,7 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
 
         final String finalResponse = response;
 
-        final StringRequest postRequest = new StringRequest(Request.Method.GET, URL,
+        final StringRequest postRequest = new StringRequest(Request.Method.POST, URL,
                 new Response.Listener<String>()
                 {
                     @Override
@@ -82,9 +82,11 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
 
                         if(response !="0") {
                             //ID DEL USUARIO INICIADO.
-                            String idUsuarioLogin = response;
+                            Integer idUsuarioLogin = Integer.parseInt(response);
 
-                            System.out.println(response);
+                            System.out.println("+++++++"+response);
+
+                            System.out.println("Esto se trae del php: "+response);
 
                             Intent intent = new Intent(getApplicationContext(), PrincipalActivity.class);
                             intent.putExtra("id", idUsuarioLogin.toString());

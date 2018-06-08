@@ -39,15 +39,15 @@ public class CitaController {
     }
 
     //Mapeamos para traernos los datos del formulario y poder crear usuario y guardarlo
-    public void nuevaCita(String titulo, String fecha, String hora, int hospitalid, int especialidadid, int usuarioid) {
+    public void nuevaCita(String titulo, int usuarioid, int hospitalid, int especialidadid, String fecha, String hora) {
         //inicio mapeo de guardado
         final HashMap<String, Object> map = new HashMap<>();
-        map.put("titulo", titulo);
-        map.put("fecha", fecha);
-        map.put("hora", hora);
-        map.put("hospitalid", hospitalid);
-        map.put("especialidadid", especialidadid);
-        map.put("usuarioid", usuarioid);
+        map.put("TITULO", titulo);
+        map.put("USUARIO_ID", usuarioid);
+        map.put("HOSPITAL_ID", hospitalid);
+        map.put("ESPECIALIDAD_ID", especialidadid);
+        map.put("FECHA", fecha);
+        map.put("HORA", hora);
 
 
         // Creamos un objeto dandole los datos del mapeo
@@ -55,7 +55,7 @@ public class CitaController {
 
         //lanzamos volley para procesar su insercción
         VolleySingleton.getIntanciaVolley(context).addToRequestQueue(
-                new JsonObjectRequest(Request.Method.POST, Constantes.INSERT_USUARIO, jsonObject,
+                new JsonObjectRequest(Request.Method.POST, Constantes.INSERT_CITA, jsonObject,
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
@@ -69,7 +69,7 @@ public class CitaController {
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                ConsoleMessage.MessageLevel.valueOf("Error: " + error.getMessage());
+                                //ConsoleMessage.MessageLevel.valueOf("Error: " + error.getMessage());
                                 Toast.makeText(context, map.toString(), Toast.LENGTH_SHORT).show();
                             }
                         })

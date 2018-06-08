@@ -106,7 +106,6 @@ public class DesignCitaFragment extends Fragment  {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_design_cita, container, false);
 
-        citaController= new CitaController(context, view);
         titulo_cita = view.findViewById(R.id.titulo_cita);
         tituloCita = titulo_cita.getText().toString();
         sp_hospital = view.findViewById(R.id.spinner_hospitales);
@@ -122,16 +121,22 @@ public class DesignCitaFragment extends Fragment  {
         fechaSeleccionada = sp_year.getSelectedItem().toString() +"-"
                 + sp_mes.getSelectedItem().toString() + "-"
                 + sp_dia.getSelectedItem().toString();
-        horaSeleccionada = sp_hora.getSelectedItem().toString()+"-"
-                + sp_minuto.getSelectedItem().toString() +"-00";
-        String usuariopasado = getArguments().getString("id");
+        horaSeleccionada = sp_hora.getSelectedItem().toString()+":"
+                + sp_minuto.getSelectedItem().toString();
+        String usuariopasado = getArguments().getString("IDPASS");
         usuarioId = Integer.valueOf(usuariopasado);
-
+        System.out.println("CITA = " +usuarioId);
         agregar = view.findViewById(R.id.boton_cita);
         agregar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                citaController.nuevaCita(tituloCita,fechaSeleccionada,horaSeleccionada,hospitalSeleccionado,especialidadSeleccoinado,usuarioId);
+                citaController= new CitaController(getContext(), v);
+
+                citaController.nuevaCita(tituloCita,usuarioId,hospitalSeleccionado,especialidadSeleccoinado,fechaSeleccionada,horaSeleccionada);
+
+//                citaController.nuevaCita("",1, 2, 22, "", "");
+
+
                 LimpiarCita();
             }
         });

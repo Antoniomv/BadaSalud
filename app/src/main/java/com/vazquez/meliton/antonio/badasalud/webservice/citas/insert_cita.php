@@ -7,11 +7,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $resultado = DAOcita::insert(
         $body['titulo'],
-        $body['fecha'],
-        $body['hora'],
         $body['usuario_id'],
         $body['hospital_id'],
-        $body['especialidad_id']);
+        $body['especialidad_id'],
+        $body['fecha'],
+        $body['hora']);
+
     if ($resultado) {
         print json_encode(
             array(

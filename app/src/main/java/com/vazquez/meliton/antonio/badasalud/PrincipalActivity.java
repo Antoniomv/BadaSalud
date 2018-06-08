@@ -40,7 +40,7 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationVi
         String idUsuarioLogin = getIntent().getExtras().getString("id");
         bundle = new Bundle();
 //        Integer id = Integer.valueOf(idUsuarioLogin);
-        bundle.putString("id",idUsuarioLogin);
+        bundle.putString("IDPASS",idUsuarioLogin);
 
 
         System.out.println("**************PRINCIPAL"+ idUsuarioLogin);

@@ -28,7 +28,7 @@ class DAOcita {
             $comando = Database::getInstance()->getDb()->prepare($consulta);
             $comando->execute(array($id));
             $row = $comando->fetch(PDO::FETCH_ASSOC);
-            return 1;
+            return $row;
 
         } catch (PDOException $e) {
             return -1; //Clasificación del error para mostrarlo en json
@@ -36,7 +36,7 @@ class DAOcita {
     }
 
     public static function update($id, $titulo, $fecha, $hora, $hospital_id, $especialidad_id ) {
-        $consulta = "UPDATE hospital" .
+        $consulta = "UPDATE citas" .
             " SET titulo=?, fecha=?, hora=?, hospital_id=?, especialidad_id=? " .
             " WHERE id=?";
         $cmd = Database::getInstance()->getDb()->prepare($consulta);
@@ -44,11 +44,11 @@ class DAOcita {
         return $cmd;
     }
 
-    public static function insert($titulo, $fecha, $hora, $usuario_id, $hospital_id, $especialidad_id  ) {
-        $comando = "INSERT INTO citas (titulo, fecha, hora, usuario_id, hospital_id, especiliadad_id) VALUES(?,?,?,?,?,?)";
+    public static function insert($titulo, $usuario_id, $hospital_id, $especialidad_id, $fecha, $hora  ) {
+        $comando = "INSERT INTO citas (titulo,usuario_id, hospital_id, especiliadad_id, fecha, hora) VALUES(?,?,?,?,?,?)";
 
         $sentencia = Database::getInstance()->getDb()->prepare($comando);
-        return $sentencia->execute(array($titulo, $fecha, $hora, $usuario_id, $hospital_id, $especialidad_id));
+        return $sentencia->execute(array($titulo, $usuario_id, $hospital_id, $especialidad_id,  $fecha, $hora));
     }
 
     public static function delete($id) {

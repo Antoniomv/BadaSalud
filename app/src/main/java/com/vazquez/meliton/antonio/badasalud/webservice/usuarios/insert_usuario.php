@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $body = json_decode(file_get_contents("php://input"), true);
 
-    $resultado = DAOusuario::insert(
+        $resultado = DAOusuario::insert(
 
             $body['nombre'],
             $body['apellidos'],
@@ -27,4 +27,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     'mensaje' => 'Error en la operación')
             );
         }
+    }
 }
