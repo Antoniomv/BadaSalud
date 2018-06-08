@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -17,10 +16,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.vazquez.meliton.antonio.badasalud.fragmentos.CalendarioFragment;
 import com.vazquez.meliton.antonio.badasalud.fragmentos.ContactoFragment;
 import com.vazquez.meliton.antonio.badasalud.fragmentos.DesignCitaFragment;
-import com.vazquez.meliton.antonio.badasalud.fragmentos.HoraFragment;
 import com.vazquez.meliton.antonio.badasalud.fragmentos.InicioFragment;
 import com.vazquez.meliton.antonio.badasalud.fragmentos.ListaCitaFragment;
 import com.vazquez.meliton.antonio.badasalud.fragmentos.ListaHospitalFragment;
@@ -29,7 +26,7 @@ import com.vazquez.meliton.antonio.badasalud.fragmentos.PanelUsuarioFragment;
 
 public class PrincipalActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,ListaHospitalFragment.OnFragmentInteractionListener, InicioFragment.OnFragmentInteractionListener, ListaCitaFragment.OnFragmentInteractionListener,
         DesignCitaFragment.OnFragmentInteractionListener, PanelUsuarioFragment.OnFragmentInteractionListener,
-        ContactoFragment.OnFragmentInteractionListener, CalendarioFragment.OnFragmentInteractionListener, HoraFragment.OnFragmentInteractionListener {
+        ContactoFragment.OnFragmentInteractionListener{
 
     private Bundle bundle;
 

@@ -1,9 +1,15 @@
 package com.vazquez.meliton.antonio.badasalud.adaptadores;
 
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
+import android.provider.CalendarContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.PopupMenu;
@@ -26,15 +32,15 @@ import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.ViewHolder> {
     List<Cita> listaCitas;
     Context context;
     View view;
-    CitaController citaController;
     Snackbar snackbar;
-    private AlarmManager alarmMgr;
-    private PendingIntent alarmIntent;
+
+    String titulo, hospital, especialidad, fecha, hora;
 
     public CitasAdapter(ArrayList<Cita> listaCitas, Context context) {
         this.listaCitas = listaCitas;
@@ -80,7 +86,42 @@ public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.ViewHolder> 
                                 break;
 
                             case R.id.agregar:
-                                agregarCita(position);
+                                titulo = listaCitas.get(position).getTitulo();
+                                hospital = String.valueOf(listaCitas.get(position).getHospital_id());
+                                especialidad = String.valueOf(listaCitas.get(position).getEspecialidad_id());
+                                fecha = listaCitas.get(position).getFecha();
+                                hora = listaCitas.get(position).getHora();
+
+
+                                Calendar cal = Calendar.getInstance();
+                                Uri EVENTS_URI = Uri.parse(getCalendarUriBase());
+                                ContentResolver cr = context.getContentResolver();
+                                TimeZone timeZone = TimeZone.getDefault();
+
+                                /** Inserting an event in calendar. */
+                                ContentValues values = new ContentValues();
+                                values.put(CalendarContract.Events.CALENDAR_ID, 1);
+                                values.put(CalendarContract.Events.TITLE, titulo);
+                                values.put(CalendarContract.EventDays.STARTDAY,fecha);
+                                values.put(CalendarContract.EXTRA_EVENT_BEGIN_TIME,hora);
+                                // Cita empieza en 10 minutos
+                                values.put(CalendarContract.Events.DTSTART, cal.getTimeInMillis() + 1 * 60 * 1000);
+                                // Cita comienza en 60 minutos
+                                values.put(CalendarContract.Events.DTEND, cal.getTimeInMillis() + 2 * 60 * 1000);
+                                values.put(CalendarContract.Events.EVENT_TIMEZONE, timeZone.getID());
+                                values.put(CalendarContract.Events.HAS_ALARM, 1);
+                                Uri event = cr.insert(EVENTS_URI, values);
+
+                                // Display event id.
+                                Toast.makeText(context, "Evento Añadido :: ID :: " + event.getLastPathSegment(), Toast.LENGTH_SHORT).show();
+
+                                /** Adding reminder for event added. */
+                                Uri REMINDERS_URI = Uri.parse(getCalendarUriBase());
+                                values = new ContentValues();
+                                values.put(CalendarContract.Reminders.EVENT_ID, Long.parseLong(event.getLastPathSegment()));
+                                values.put(CalendarContract.Reminders.METHOD, CalendarContract.Reminders.METHOD_ALERT);
+                                values.put(CalendarContract.Reminders.MINUTES, 10);
+                                cr.insert(REMINDERS_URI, values);
                                 break;
                         }
                         return false;
@@ -93,21 +134,28 @@ public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.ViewHolder> 
         });
     }
 
-    private void agregarCita(int position) {
+    private String getCalendarUriBase() {
 
-        alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(context, AlarmReceiver.class);
-        alarmIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
-
-        // Configuro alarma
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 8);
-        calendar.set(Calendar.MINUTE, 30);
-
-// Repeticiones en intervalos de 20 minutos
-        alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                1000 * 60 * 20, alarmIntent);
+        String calendarUriBase = null;
+        Uri calendars = Uri.parse("content://calendar/calendars");
+        Cursor managedCursor = null;
+        try {
+            managedCursor = context.getContentResolver().query(calendars, null, null, null, null);
+        } catch (Exception e) {
+        }
+        if (managedCursor != null) {
+            calendarUriBase = "content://calendar/";
+        } else {
+            calendars = Uri.parse("content://com.android.calendar/calendars");
+            try {
+                managedCursor = context.getContentResolver().query(calendars, null, null, null, null);
+            } catch (Exception e) {
+            }
+            if (managedCursor != null) {
+                calendarUriBase = "content://com.android.calendar/";
+            }
+        }
+        return calendarUriBase;
     }
 
     private void eliminarCita(int position) {

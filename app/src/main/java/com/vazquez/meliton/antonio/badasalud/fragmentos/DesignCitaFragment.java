@@ -58,10 +58,8 @@ public class DesignCitaFragment extends Fragment  {
     private View view;
     private Context context;
     String tituloCita, hospitalSeleccionado, especialidadSeleccoinado;
-    Date fechaCita;
-    Time horaCita;
     Bundle bundle;
-    Button agregar, retornar;
+    Button agregar;
     private OnFragmentInteractionListener mListener;
 
     private EditText titulo_cita;
@@ -118,31 +116,6 @@ public class DesignCitaFragment extends Fragment  {
         bundle.putString("hospital", hospitalSeleccionado);
         bundle.putString("especialidad", especialidadSeleccoinado);
 
-        calendario = view.findViewById(R.id.calendario_cita);
-        calendario.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Fragment fragment = new CalendarioFragment();
-                fragment.setArguments(bundle);
-                getFragmentManager().beginTransaction()
-                        .replace(R.id.contenido,fragment)
-                        .commit();
-                FloatingActionButton mFloatingActionButton = getView().findViewById(R.id.fab);
-                mFloatingActionButton.hide();
-            }
-        });
-
-        retornar = view.findViewById(R.id.retornar);
-        retornar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                titulo_cita.setText(getArguments().getString("tituloTemp"));
-                sp_hospital.setSelected(Boolean.parseBoolean(getArguments().getString("hospitalTemp")));
-                sp_especialidad.setSelected(Boolean.parseBoolean(getArguments().getString("especialidadTemp")));
-                fechaCita.setTime(Long.parseLong(getArguments().getString("fecha")));
-                horaCita.setTime(Long.parseLong(getArguments().getString("hora")));
-            }
-        });
 
         agregar = view.findViewById(R.id.boton_cita);
         agregar.setOnClickListener(new View.OnClickListener() {
