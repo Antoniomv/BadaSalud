@@ -106,7 +106,7 @@ public class DesignCitaFragment extends Fragment  {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_design_cita, container, false);
 
-        citaController= new CitaController(context);
+        citaController= new CitaController(context, view);
         titulo_cita = view.findViewById(R.id.titulo_cita);
         tituloCita = titulo_cita.getText().toString();
         sp_hospital = view.findViewById(R.id.spinner_hospitales);
@@ -124,7 +124,8 @@ public class DesignCitaFragment extends Fragment  {
                 + sp_dia.getSelectedItem().toString();
         horaSeleccionada = sp_hora.getSelectedItem().toString()+"-"
                 + sp_minuto.getSelectedItem().toString() +"-00";
-        usuarioId = Integer.valueOf(getArguments().getString("id"));
+        String usuariopasado = getArguments().getString("id");
+        usuarioId = Integer.valueOf(usuariopasado);
 
         agregar = view.findViewById(R.id.boton_cita);
         agregar.setOnClickListener(new View.OnClickListener() {

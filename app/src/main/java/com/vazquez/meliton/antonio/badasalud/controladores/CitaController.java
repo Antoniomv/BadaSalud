@@ -33,9 +33,9 @@ public class CitaController {
 
 
     //inicializamos constructor
-    public CitaController(Context context) {
+    public CitaController(Context context, View view) {
         this.context = context;
-        this.view = view;
+        this.view = this.view;
     }
 
     //Mapeamos para traernos los datos del formulario y poder crear usuario y guardarlo
