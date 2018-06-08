@@ -1,6 +1,9 @@
 package com.vazquez.meliton.antonio.badasalud.adaptadores;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.PopupMenu;
@@ -21,6 +24,7 @@ import com.vazquez.meliton.antonio.badasalud.entidad.Hospital;
 
 import java.util.AbstractList;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.ViewHolder> {
@@ -29,6 +33,8 @@ public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.ViewHolder> 
     View view;
     CitaController citaController;
     Snackbar snackbar;
+    private AlarmManager alarmMgr;
+    private PendingIntent alarmIntent;
 
     public CitasAdapter(ArrayList<Cita> listaCitas, Context context) {
         this.listaCitas = listaCitas;
@@ -72,6 +78,10 @@ public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.ViewHolder> 
                             case R.id.eliminar:
                                 eliminarCita(position);
                                 break;
+
+                            case R.id.agregar:
+                                agregarCita(position);
+                                break;
                         }
                         return false;
                     }
@@ -81,6 +91,23 @@ public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.ViewHolder> 
 
             }
         });
+    }
+
+    private void agregarCita(int position) {
+
+        alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(context, AlarmReceiver.class);
+        alarmIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
+
+        // Configuro alarma
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 8);
+        calendar.set(Calendar.MINUTE, 30);
+
+// Repeticiones en intervalos de 20 minutos
+        alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                1000 * 60 * 20, alarmIntent);
     }
 
     private void eliminarCita(int position) {

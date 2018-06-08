@@ -1,6 +1,7 @@
 package com.vazquez.meliton.antonio.badasalud.controladores;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.webkit.ConsoleMessage;
 import android.widget.Toast;
@@ -43,47 +44,27 @@ public class CitaController {
 
     //Mapeamos, Eliminamos datos, procesamos y guardamos
     public void eliminarCita(int pos) {
+            HashMap<String, Integer> map = new HashMap<>();
+            map.put("id",pos);
+            JSONObject jsonObject = new JSONObject(map); // Crear nuevo objeto Json basado en el mapa
 
-        Cita id = data.remove(pos);
-
-        //lanzamos volley para procesar su insercción
-        VolleySingleton.getIntanciaVolley(context).addToRequestQueue(
-                new JsonObjectRequest(Request.Method.DELETE, Constantes.DELETE_CITA, id,
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                try {
-                                    procesadoBorrado(response); // Procesar la respuesta Json
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
+            //Volley
+            VolleySingleton.getIntanciaVolley(context).addToRequestQueue(
+                    new JsonObjectRequest(Request.Method.POST, Constantes.DELETE_CITA, jsonObject,
+                            new Response.Listener<JSONObject>() {
+                                @Override
+                                public void onResponse(JSONObject response) {
+                                    //procesarRespuesta(response); // Procesar la respuesta Json
+                                    System.out.println("Borrado Correctamente");
                                 }
-                                Toast.makeText(context, "Eliminado con Éxito", Toast.LENGTH_SHORT).show();
-                            }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                ConsoleMessage.MessageLevel.valueOf("Error: " + error.getMessage());
-                                Toast.makeText(context, "eliminado mal", Toast.LENGTH_SHORT).show();
-
-                            }
-                        })
-        );
-    }
-
-    //Procesado realizado por JSON
-    public void procesadoBorrado(JSONObject response) throws JSONException {
-        // Obtener valor de estado
-        String estado = response.getString("estado");
-        switch (estado) {
-            case "1": // Ok
-                Toast.makeText(context, "usuario actualizado correctamente", Toast.LENGTH_LONG).show();
-                break;
-            case "2": // error
-                Toast.makeText(context, response.getString("mensaje"), Toast.LENGTH_LONG).show();
-                break;
+                            },
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    System.out.println("fallo en el borrado");
+                                }
+                            })  //Fin de JsonObjectRequest
+            );
         }
-
-    }
 
 }
