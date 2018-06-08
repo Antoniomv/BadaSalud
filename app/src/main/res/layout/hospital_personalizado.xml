@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/listado_vista"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -30,7 +29,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="10dp"
         android:layout_toEndOf="@+id/imagenCita"
-        android:text="Nombre Hospital"
+        android:text="@string/nombre_hospital"
         android:textAppearance="?attr/textAppearanceListItem"
         android:textColor="@android:color/black"
         android:textSize="20sp"
@@ -42,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/tituloCita"
         android:layout_below="@+id/tituloCita"
-        android:text="DireccionHospital"
+        android:text="@string/direccionhospital"
         android:textAppearance="?attr/textAppearanceListItem"
         android:textSize="16sp" />
 
@@ -52,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/hospitalCita"
         android:layout_below="@+id/hospitalCita"
-        android:text="Teléfono Hospital"
+        android:text="@string/tel_fono_hospital"
         android:textAppearance="?attr/textAppearanceListItem"
         android:textSize="16sp" />
 
@@ -60,10 +59,10 @@
         android:id="@+id/textViewOptions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:text="&#8942;"
+        android:paddingStart="@dimen/activity_horizontal_margin"
+        android:text="@string/_8942"
         android:textAppearance="?android:textAppearanceLarge" />
 
 </RelativeLayout>

@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="20dp"
-            android:text="Actualizar Datos:"
+            android:text="@string/actualizar_datos"
             android:textAlignment="center"
             android:textAllCaps="true"
             android:textColor="@android:color/background_light"
@@ -74,7 +74,7 @@
             android:layout_marginTop="2dp"
             android:background="@color/colorPrimaryDark"
             android:singleLine="true"
-            android:text="Actualizar"
+            android:text="@string/actualizar"
             android:textColor="@android:color/background_light"
             android:textStyle="bold" />
 

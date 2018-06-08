@@ -80,7 +80,7 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
 
                         showSnackbar(response);
 
-                        if(response != "0") {
+                        if(response !="0") {
                             //ID DEL USUARIO INICIADO.
                             Integer idUsuarioLogin = Integer.parseInt(response);
 
@@ -109,7 +109,7 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
             @Override
             protected Map<String, String> getParams()
             {
-                Map<String, String>  params = new HashMap<String, String>();
+                Map<String, String>  params = new HashMap<>();
                 params.put("email", loginEmail.getText().toString());
                 params.put("password", loginPassword.getText().toString());
                 return params;
@@ -123,38 +123,11 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
     }
 
     public void showSnackbar(String stringSnackbar){
-        snackbar.make(findViewById(android.R.id.content), stringSnackbar.toString(), Snackbar.LENGTH_SHORT)
+        snackbar.make(findViewById(android.R.id.content), stringSnackbar, Snackbar.LENGTH_SHORT)
                 .setActionTextColor(getResources().getColor(R.color.colorPrimary))
                 .show();
     }
 
-    //asignamos un ciclo de vida
-    @Override
-    public void
-    onStart(){
-        super.onStart();
-
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-
-    }
-
-    @Override
-    public void
-    onStop() {
-        super.onStop();
-
-    }
-
-    @Override
-    public void
-    onDestroy() {
-        super.onDestroy();
-
-    }
 
     @Override
     public void onErrorResponse(VolleyError error) {

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/listado_vista"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -31,7 +30,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="10dp"
         android:layout_toEndOf="@+id/imagenCita"
-        android:text="Titulo Cita"
+        android:text="@string/titulo_cita"
         android:textAppearance="?attr/textAppearanceListItem"
         android:textColor="@android:color/black"
         android:textSize="20sp"
@@ -43,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/especialidadCita"
         android:layout_alignStart="@+id/tituloCita"
-        android:text="Hospital"
+        android:text="@string/hospital"
         android:textAppearance="?attr/textAppearanceListItem"
         android:textSize="16sp" />
 
@@ -54,7 +53,7 @@
         android:layout_above="@+id/fechaCita"
         android:layout_alignStart="@+id/tituloCita"
         android:layout_marginBottom="-84dp"
-        android:text="Especialidad"
+        android:text="@string/especialidad"
         android:textAppearance="?attr/textAppearanceListItem"
         android:textSize="16sp" />
 
@@ -65,7 +64,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/tituloCita"
         android:layout_marginTop="84dp"
-        android:text="Fecha"
+        android:text="@string/fecha"
         android:textAppearance="?attr/textAppearanceListItem"
         android:textSize="16sp" />
 
@@ -76,7 +75,7 @@
         android:layout_alignBottom="@+id/imagenCita"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="80dp"
-        android:text="Hora"
+        android:text="@string/hora"
         android:textAppearance="?attr/textAppearanceListItem"
         android:textSize="16sp" />
 
@@ -84,9 +83,9 @@
         android:id="@+id/textViewOptions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingStart="@dimen/activity_horizontal_margin"
         android:text="&#8942;"
         android:textAppearance="?android:textAppearanceLarge" />
 </RelativeLayout>

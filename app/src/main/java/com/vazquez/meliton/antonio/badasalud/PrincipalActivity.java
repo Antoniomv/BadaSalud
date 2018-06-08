@@ -37,13 +37,14 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationVi
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        String idUsuarioLogin = getIntent().getExtras().getString("id");
+        int idUsuarioLogin = getIntent().getExtras().getInt("id");
+        String id = String.valueOf(idUsuarioLogin);
         bundle = new Bundle();
 //        Integer id = Integer.valueOf(idUsuarioLogin);
-        bundle.putString("id",idUsuarioLogin);
+        bundle.putString("id",id);
 
 
-        System.out.println("**************PRINCIPAL"+ idUsuarioLogin);
+        System.out.println("**************PRINCIPAL"+ id);
         //paso el argumento al fragmento
         /*ListaCitaFragment listaCitaFragment = new ListaCitaFragment();
         listaCitaFragment.setArguments(bundle);*/
@@ -167,5 +168,31 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationVi
 
     }
 
+    //asignamos un ciclo de vida
+    @Override
+    public void
+    onStart(){
+        super.onStart();
 
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+    }
+
+    @Override
+    public void
+    onStop() {
+        super.onStop();
+
+    }
+
+    @Override
+    public void
+    onDestroy() {
+        super.onDestroy();
+
+    }
 }

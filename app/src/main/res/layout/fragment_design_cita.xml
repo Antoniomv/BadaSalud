@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,7 +8,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:ignore="UselessParent">
 
         <LinearLayout
             android:id="@+id/ly_anadir_citas"
@@ -28,7 +28,7 @@
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/borde_titulo"
                 android:ems="10"
-                android:hint="Título de la Cita"
+                android:hint="@string/t_tulo_de_la_cita"
                 android:inputType="text"
                 android:padding="15dp"
                 android:textColorHint="?attr/colorButtonNormal" />
@@ -56,7 +56,7 @@
                 android:layout_gravity="center"
                 android:layout_marginBottom="10dp"
                 android:layout_weight="1"
-                android:text="Fecha"
+                android:text="@string/fecha"
                 android:textAllCaps="true"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -72,19 +72,22 @@
                     android:id="@+id/year"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:entries="@array/fechayear" />
 
                 <Spinner
                     android:id="@+id/mes"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:entries="@array/fechames" />
 
                 <Spinner
                     android:id="@+id/dia"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:entries="@array/fechadia" />
 
             </LinearLayout>
 
@@ -95,7 +98,7 @@
                 android:layout_gravity="center"
                 android:layout_marginBottom="10dp"
                 android:layout_weight="1"
-                android:text="Hora"
+                android:text="@string/hora"
                 android:textAllCaps="true"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -109,15 +112,16 @@
 
                 <Spinner
                     android:id="@+id/hora"
-                    android:layout_width="match_parent"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:entries="@array/hora" />
 
                 <Spinner
                     android:id="@+id/minutos"
-                    android:layout_width="match_parent"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:entries="@array/minutos" />
 
             </LinearLayout>
 
@@ -128,7 +132,7 @@
                 android:layout_marginTop="10dp"
                 android:background="@color/colorPrimaryDark"
                 android:singleLine="true"
-                android:text="Crear Cita"
+                android:text="@string/crear_cita"
                 android:textColor="@android:color/background_light"
                 android:textStyle="bold" />
 

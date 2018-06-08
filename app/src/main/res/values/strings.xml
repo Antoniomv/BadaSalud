@@ -40,4 +40,29 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_dasadsfdasf">dasadsfdasf</string>
+    <string name="nombre_hospital">Nombre Hospital</string>
+    <string name="direccionhospital">DireccionHospital</string>
+    <string name="tel_fono_hospital">Teléfono Hospital</string>
+    <string name="_8942">⋮</string>
+    <string name="actualizar_datos">Actualizar Datos:</string>
+    <string name="actualizar">Actualizar</string>
+    <string name="t_tulo_de_la_cita">Título de la Cita</string>
+    <string name="fecha">Fecha</string>
+    <string name="hora">Hora</string>
+    <string name="crear_cita">Crear Cita</string>
+    <string name="nombre_hint">NOMBRE</string>
+    <string name="email">Email</string>
+    <string name="asunto">Asunto</string>
+    <string name="asunto_hint">ASUNTO</string>
+    <string name="mensaje">Mensaje</string>
+    <string name="enviar_mensaje">Enviar Mensaje</string>
+    <string name="mensaje_hint">MENSAJE</string>
+    <string name="titulo_cita">Titulo Cita</string>
+    <string name="hospital">Hospital</string>
+    <string name="especialidad">Especialidad</string>
+    <string name="reg_strate">Regístrate</string>
+    <string name="password">Password</string>
+    <string name="con_ctate">CONÉCTATE</string>
+    <string name="registrate_por_email">Registrate por email</string>
+    <string name="entrar">Entrar</string>
 </resources>

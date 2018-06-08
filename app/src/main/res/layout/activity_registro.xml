@@ -17,7 +17,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:ignore="UselessParent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,7 +31,8 @@
                 android:id="@+id/logoRegistro"
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
-                app:srcCompat="@drawable/iconofinal" />
+                app:srcCompat="@drawable/iconofinal"
+                android:contentDescription="@string/todo" />
 
             <TextView
                 android:id="@+id/tv_registrate"
@@ -39,7 +41,7 @@
                 android:layout_marginTop="10dp"
                 android:fontFamily="sans-serif-smallcaps"
                 android:gravity="center"
-                android:text="Regístrate"
+                android:text="@string/reg_strate"
                 android:textColor="@android:color/background_light"
                 android:textSize="30sp"
                 android:textStyle="bold" />
@@ -95,7 +97,7 @@
                     android:layout_marginBottom="2dp"
                     android:background="@android:color/background_light"
                     android:ems="10"
-                    android:hint="Email"
+                    android:hint="@string/email"
                     android:inputType="textEmailAddress"
                     android:padding="15dp"
                     android:textColorHint="?attr/colorButtonNormal" />
@@ -107,7 +109,7 @@
                     android:layout_marginBottom="2dp"
                     android:background="@android:color/background_light"
                     android:ems="10"
-                    android:hint="Password"
+                    android:hint="@string/password"
                     android:inputType="textWebPassword"
                     android:padding="15dp"
                     android:textColorHint="?attr/colorButtonNormal" />
@@ -119,7 +121,7 @@
                     android:layout_marginTop="2dp"
                     android:background="@color/colorPrimaryDark"
                     android:singleLine="true"
-                    android:text="Registrarse"
+                    android:text="@string/registrarse"
                     android:textColor="@android:color/background_light"
                     android:textStyle="bold" />
 
