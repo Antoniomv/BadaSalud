@@ -106,7 +106,7 @@ public class ListaCitaFragment extends Fragment implements Response.ErrorListene
     private void webService() {
         String idUsuarioLogin = getArguments().getString("id");
 
-        String URL = "http://badasalud.es/webservice/citas/get_cita.php";
+        String URL = Constantes.GET_CITA;
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL, null, this, this);
         VolleySingleton.getIntanciaVolley(getContext()).addToRequestQueue(jsonObjectRequest);
         System.out.println("ID REGOCGIDO---------------------"+idUsuarioLogin);

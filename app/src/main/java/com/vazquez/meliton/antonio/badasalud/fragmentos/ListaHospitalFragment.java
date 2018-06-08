@@ -21,6 +21,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.JsonObject;
 import com.vazquez.meliton.antonio.badasalud.R;
 import com.vazquez.meliton.antonio.badasalud.adaptadores.ListaHospitalAdapter;
+import com.vazquez.meliton.antonio.badasalud.constantes.Constantes;
 import com.vazquez.meliton.antonio.badasalud.constantes.VolleySingleton;
 import com.vazquez.meliton.antonio.badasalud.entidad.Hospital;
 
@@ -104,7 +105,7 @@ public class ListaHospitalFragment extends Fragment implements Response.Listener
     }
 
     private void webService() {
-        String URL="http://badasalud.es/webservice/hospitales/get_hospital.php";
+        String URL= Constantes.GET_HOSPITALES;
         jsonObjectRequest=new JsonObjectRequest(Request.Method.GET,URL,null,this,this);
         VolleySingleton.getIntanciaVolley(getContext()).addToRequestQueue(jsonObjectRequest);
 

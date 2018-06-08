@@ -23,12 +23,12 @@ class DAOcita {
     }
 
     public static function getById($id) {
-        $consulta = "SELECT id,titulo,fecha,hora,usuario_id,hospital_id,especialidad_id FROM citas WHERE id = ?";
+        $consulta = "SELECT id,titulo,fecha,hora,usuario_id,hospital_id,especialidad_id FROM citas WHERE usuario_id = ?";
         try {
             $comando = Database::getInstance()->getDb()->prepare($consulta);
             $comando->execute(array($id));
             $row = $comando->fetch(PDO::FETCH_ASSOC);
-            return $row;
+            return 1;
 
         } catch (PDOException $e) {
             return -1; //Clasificación del error para mostrarlo en json

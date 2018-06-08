@@ -2,20 +2,22 @@
 /**
  * Created by PhpStorm.
  * User: antonio
- * Date: 23/01/18
+ * Date: 23/05/18
  * Time: 23:03
  */
 
-require 'DAOcita.php';
+require 'DAOusuario.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
-    if (isset($_GET['id'])) {
-        $parametro = $_GET['id'];
-        $resultado = DAOcita::getById($parametro);
-        if ($resultado == 1) {
+    if (isset($_GET['email']) &&  (isset($_GET['password']))) {
+        $parametro1 = $_GET['email'];
+        $parametro2 = $_GET['password'];
+
+        $resultado = DAOusuario::getByLogin($parametro1,$parametro2);
+        if ($resultado) {
             $dato["estado"] = "1";
-            $dato["citas"] = $resultado;
+            $dato["usuarios"] = $resultado;
             print json_encode($dato);
         } else {  //error
             print json_encode(

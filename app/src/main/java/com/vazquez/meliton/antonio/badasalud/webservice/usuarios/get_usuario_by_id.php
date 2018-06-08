@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $resultado = DAOusuario::getById($parametro);
         if ($resultado) {
             $dato["estado"] = "1";
-            $dato["hospitales"] = $resultado;
+            $dato["usuarios"] = $resultado;
             print json_encode($dato);
         } else {  //error
             print json_encode(

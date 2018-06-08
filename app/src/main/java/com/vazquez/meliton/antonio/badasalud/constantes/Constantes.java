@@ -35,6 +35,8 @@ public class Constantes {
     public static final String UPDATE_USUARIO = IP + PUERTO_HOST + "webservice/usuarios/update_usuario.php";
     public static final String DELETE_USUARIO = IP + PUERTO_HOST + "webservice/usuarios/delete_usuario.php";
     public static final String INSERT_USUARIO = IP + PUERTO_HOST + "webservice/usuarios/insert_usuario.php";
+    public static final String LOGIN = IP + PUERTO_HOST + "webservice/conexion/login.php";
+
 
 
     //CITAS

@@ -20,6 +20,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.JsonObject;
+import com.vazquez.meliton.antonio.badasalud.constantes.Constantes;
 import com.vazquez.meliton.antonio.badasalud.constantes.VolleySingleton;
 
 import org.json.JSONArray;
@@ -34,7 +35,7 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
     Button loginButton;
     EditText loginEmail, loginPassword;
     TextView registro;
-    private static String URL  ="http://badasalud.es/webservice/conexion/login.php";
+    private static String URL  = Constantes.LOGIN;
     private Snackbar snackbar;
     JsonObjectRequest jsonObjectRequest;
     JsonObject jsonObject;
@@ -71,7 +72,7 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
 
         final String finalResponse = response;
 
-        final StringRequest postRequest = new StringRequest(Request.Method.DEPRECATED_GET_OR_POST, URL,
+        final StringRequest postRequest = new StringRequest(Request.Method.GET, URL,
                 new Response.Listener<String>()
                 {
                     @Override
