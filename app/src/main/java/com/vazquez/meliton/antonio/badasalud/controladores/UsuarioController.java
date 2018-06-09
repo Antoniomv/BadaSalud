@@ -67,7 +67,6 @@ public class UsuarioController {
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                ConsoleMessage.MessageLevel.valueOf("Error: " + error.getMessage());
                                 Toast.makeText(context, map.toString(), Toast.LENGTH_SHORT).show();
                             }
                         })
