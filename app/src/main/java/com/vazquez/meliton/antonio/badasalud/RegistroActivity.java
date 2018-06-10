@@ -107,32 +107,4 @@ public class RegistroActivity extends AppCompatActivity {
         password.setText("");
     }
 
-    //asignamos un ciclo de vida
-    @Override
-    public void
-    onStart(){
-        super.onStart();
-
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-
-    }
-
-    @Override
-    public void
-    onStop() {
-        super.onStop();
-
-    }
-
-    @Override
-    public void
-    onDestroy() {
-        super.onDestroy();
-
-    }
-
 }

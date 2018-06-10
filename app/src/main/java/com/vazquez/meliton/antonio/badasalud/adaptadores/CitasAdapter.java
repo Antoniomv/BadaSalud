@@ -28,9 +28,13 @@ import com.vazquez.meliton.antonio.badasalud.controladores.UsuarioController;
 import com.vazquez.meliton.antonio.badasalud.entidad.Cita;
 import com.vazquez.meliton.antonio.badasalud.entidad.Hospital;
 
+import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -93,7 +97,21 @@ public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.ViewHolder> 
                                 hospital = String.valueOf(listaCitas.get(position).getHospital_id());
                                 especialidad = String.valueOf(listaCitas.get(position).getEspecialidad_id());
                                 fecha = listaCitas.get(position).getFecha();
+                                SimpleDateFormat fechafinal = new SimpleDateFormat("YYYY-MM-DD");
+                                Date fecha = null;
+                                try {
+                                    fecha = fechafinal.parse(String.valueOf(fecha));
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+
                                 hora = listaCitas.get(position).getHora();
+                                SimpleDateFormat horafinal = new SimpleDateFormat("HH:MM A");
+                                try {
+                                    hora = String.valueOf(horafinal.parse(hora));
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
 
 
                                 Calendar cal = Calendar.getInstance();
@@ -105,7 +123,7 @@ public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.ViewHolder> 
                                 ContentValues values = new ContentValues();
                                 values.put(CalendarContract.Events.CALENDAR_ID, 1);
                                 values.put(CalendarContract.Events.TITLE, titulo);
-                                values.put(CalendarContract.EventDays.STARTDAY,fecha);
+                                values.put(CalendarContract.EventDays.STARTDAY, String.valueOf(fecha));
                                 values.put(CalendarContract.EXTRA_EVENT_BEGIN_TIME,hora);
                                 // Cita empieza en 10 minutos
                                 values.put(CalendarContract.Events.DTSTART, cal.getTimeInMillis() + 1 * 60 * 1000);
