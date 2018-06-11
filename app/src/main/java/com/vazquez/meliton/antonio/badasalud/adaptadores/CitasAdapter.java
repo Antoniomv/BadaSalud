@@ -97,52 +97,21 @@ public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.ViewHolder> 
                                 hospital = String.valueOf(listaCitas.get(position).getHospital_id());
                                 especialidad = String.valueOf(listaCitas.get(position).getEspecialidad_id());
                                 fecha = listaCitas.get(position).getFecha();
-                                SimpleDateFormat fechafinal = new SimpleDateFormat("YYYY-MM-DD");
-                                Date fecha = null;
-                                try {
-                                    fecha = fechafinal.parse(String.valueOf(fecha));
-                                } catch (ParseException e) {
-                                    e.printStackTrace();
-                                }
-
                                 hora = listaCitas.get(position).getHora();
-                                SimpleDateFormat horafinal = new SimpleDateFormat("HH:MM A");
-                                try {
-                                    hora = String.valueOf(horafinal.parse(hora));
-                                } catch (ParseException e) {
-                                    e.printStackTrace();
-                                }
+
 
 
                                 Calendar cal = Calendar.getInstance();
-                                Uri EVENTS_URI = Uri.parse(getCalendarUriBase());
-                                ContentResolver cr = context.getContentResolver();
-                                TimeZone timeZone = TimeZone.getDefault();
-
-                                /** Inserting an event in calendar. */
-                                ContentValues values = new ContentValues();
-                                values.put(CalendarContract.Events.CALENDAR_ID, 1);
-                                values.put(CalendarContract.Events.TITLE, titulo);
-                                values.put(CalendarContract.EventDays.STARTDAY, String.valueOf(fecha));
-                                values.put(CalendarContract.EXTRA_EVENT_BEGIN_TIME,hora);
-                                // Cita empieza en 10 minutos
-                                values.put(CalendarContract.Events.DTSTART, cal.getTimeInMillis() + 1 * 60 * 1000);
-                                // Cita comienza en 60 minutos
-                                values.put(CalendarContract.Events.DTEND, cal.getTimeInMillis() + 2 * 60 * 1000);
-                                values.put(CalendarContract.Events.EVENT_TIMEZONE, timeZone.getID());
-                                values.put(CalendarContract.Events.HAS_ALARM, 1);
-                                Uri event = cr.insert(EVENTS_URI, values);
-
-                                // Display event id.
-                                Toast.makeText(context, "Evento Añadido :: ID :: " + event.getLastPathSegment(), Toast.LENGTH_SHORT).show();
-
-                                /** Adding reminder for event added. */
-                                Uri REMINDERS_URI = Uri.parse(getCalendarUriBase());
-                                values = new ContentValues();
-                                values.put(CalendarContract.Reminders.EVENT_ID, Long.parseLong(event.getLastPathSegment()));
-                                values.put(CalendarContract.Reminders.METHOD, CalendarContract.Reminders.METHOD_ALERT);
-                                values.put(CalendarContract.Reminders.MINUTES, 10);
-                                cr.insert(REMINDERS_URI, values);
+                                Intent intent = new Intent(Intent.ACTION_EDIT);
+                                intent.setType("vnd.android.cursor.item/event");
+                                intent.putExtra("beginTime",hora);
+                                intent.putExtra("beginDate",fecha);
+                                intent.putExtra("description", hospital + "\n" + especialidad);
+                                intent.putExtra("allDay", true);
+                                intent.putExtra("rrule", "FREQ=YEARLY");
+                                intent.putExtra("endTime", cal.getTimeInMillis()+60*60*1000);
+                                intent.putExtra("title", titulo);
+                                context.startActivity(intent);
                                 break;
                         }
                         return false;
@@ -153,30 +122,6 @@ public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.ViewHolder> 
 
             }
         });
-    }
-
-    private String getCalendarUriBase() {
-
-        String calendarUriBase = null;
-        Uri calendars = Uri.parse("content://calendar/calendars");
-        Cursor managedCursor = null;
-        try {
-            managedCursor = context.getContentResolver().query(calendars, null, null, null, null);
-        } catch (Exception e) {
-        }
-        if (managedCursor != null) {
-            calendarUriBase = "content://calendar/";
-        } else {
-            calendars = Uri.parse("content://com.android.calendar/calendars");
-            try {
-                managedCursor = context.getContentResolver().query(calendars, null, null, null, null);
-            } catch (Exception e) {
-            }
-            if (managedCursor != null) {
-                calendarUriBase = "content://com.android.calendar/";
-            }
-        }
-        return calendarUriBase;
     }
 
     private void eliminarCita(int position) {
