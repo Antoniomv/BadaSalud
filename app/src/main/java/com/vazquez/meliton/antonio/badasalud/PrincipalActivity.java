@@ -37,13 +37,13 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationVi
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        String idUsuarioLogin = getIntent().getExtras().getString("id");
+//        String idUsuarioLogin = getIntent().getExtras().getString("id");
         bundle = new Bundle();
 //        Integer id = Integer.valueOf(idUsuarioLogin);
-        bundle.putString("IDPASS",idUsuarioLogin);
+//        bundle.putString("IDPASS",idUsuarioLogin);
 
 
-        System.out.println("**************PRINCIPAL"+ idUsuarioLogin);
+//        System.out.println("**************PRINCIPAL"+ idUsuarioLogin);
         //paso el argumento al fragmento
         /*ListaCitaFragment listaCitaFragment = new ListaCitaFragment();
         listaCitaFragment.setArguments(bundle);*/

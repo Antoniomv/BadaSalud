@@ -1,15 +1,7 @@
 package com.vazquez.meliton.antonio.badasalud.adaptadores;
 
-import android.app.Activity;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
-import android.provider.CalendarContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.PopupMenu;
@@ -20,23 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.vazquez.meliton.antonio.badasalud.R;
 import com.vazquez.meliton.antonio.badasalud.controladores.CitaController;
-import com.vazquez.meliton.antonio.badasalud.controladores.UsuarioController;
 import com.vazquez.meliton.antonio.badasalud.entidad.Cita;
-import com.vazquez.meliton.antonio.badasalud.entidad.Hospital;
 
-import java.sql.Time;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
 public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.ViewHolder> {
     List<Cita> listaCitas;
@@ -93,14 +76,14 @@ public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.ViewHolder> 
                                 break;
 
                             case R.id.agregarAlarma:
+                                //recogemos datos de la cita
                                 titulo = listaCitas.get(position).getTitulo();
                                 hospital = String.valueOf(listaCitas.get(position).getHospital_id());
                                 especialidad = String.valueOf(listaCitas.get(position).getEspecialidad_id());
                                 fecha = listaCitas.get(position).getFecha();
                                 hora = listaCitas.get(position).getHora();
 
-
-
+                                //enviamos datos al calendario en modo evento desde un intent implícito
                                 Calendar cal = Calendar.getInstance();
                                 Intent intent = new Intent(Intent.ACTION_EDIT);
                                 intent.setType("vnd.android.cursor.item/event");
@@ -125,17 +108,17 @@ public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.ViewHolder> 
     }
 
     private void eliminarCita(int position) {
+        //llamamos al controlador para eliminar la cita de la base de datos
         CitaController citaController = new CitaController(context,view);
 
         citaController.eliminarCita(citaId);
-        Cita itemLabel = listaCitas.get(position);
-        // Remove the item on remove/button click
+        // elimina de la lista al pulsar en el botón (es solo válido para la vista)
         listaCitas.remove(position);
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, listaCitas.size());
-        // Show the removed item label`enter code here`
-//        Snackbar.make(view, "Cita eliminada con éxito", Snackbar.LENGTH_LONG)
-//                .setAction("Action", null).show();
+        //mostramos snackbar con el éxito
+        Snackbar.make(view, "Cita eliminada con éxito", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
 }
 
 

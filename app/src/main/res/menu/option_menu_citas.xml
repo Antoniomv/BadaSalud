@@ -3,9 +3,11 @@
 
     <item
         android:id="@+id/agregarAlarma"
-        android:title="Añadir Alarma" />
+        android:background="@drawable/borde_titulo"
+        android:title="Insertar Alerta de Cita" />
     <item
         android:id="@+id/eliminarCita"
+        android:background="@drawable/borde_titulo"
         android:title="Eliminar Cita" />
 
 </menu>

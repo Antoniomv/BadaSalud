@@ -114,6 +114,7 @@
                     android:padding="15dp"
                     android:textColorHint="?attr/colorButtonNormal" />
 
+
                 <Button
                     android:id="@+id/boton_registro"
                     android:layout_width="match_parent"
@@ -123,6 +124,18 @@
                     android:singleLine="true"
                     android:text="@string/registrarse"
                     android:textColor="@android:color/background_light"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txt_login"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="sans-serif"
+                    android:gravity="center"
+                    android:text="Ya estas registrado? Logueate"
+                    android:textColor="#fff"
+                    android:textSize="17dp"
                     android:textStyle="bold" />
 
             </LinearLayout>

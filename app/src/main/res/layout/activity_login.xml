@@ -91,16 +91,15 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/tv_registrarseEmail"
+                android:id="@+id/txt_registro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:fontFamily="sans-serif"
                 android:gravity="center"
-                android:text="@string/registrate_por_email"
-                android:layout_gravity="center"
-                android:textAllCaps="true"
-                android:textColor="@android:color/background_light"
-                android:textSize="16sp"
+                android:text="Aun no tienes cuenta? Regístrate Aqui!"
+                android:textColor="#fff"
+                android:textSize="17dp"
                 android:textStyle="bold" />
 
         </LinearLayout>
