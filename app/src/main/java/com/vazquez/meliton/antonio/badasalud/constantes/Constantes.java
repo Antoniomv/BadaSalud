@@ -30,9 +30,7 @@ public class Constantes {
      */
 
     //usuarios
-    public static final String GET_USUARIO = IP + PUERTO_HOST + "webservice/usuarios/get_usuario.php";
-    public static final String GET_USUARIO_BY_ID = IP + PUERTO_HOST + "webservice/usuarios/get_usuario_by_id.php";
-    public static final String UPDATE_USUARIO = IP + PUERTO_HOST + "webservice/usuarios/update_usuario.php";
+    public static final String UPDATE_USUARIO = IP + PUERTO_HOST + "webservice/conexion/update_usuario.php";
     public static final String INSERT_USUARIO = IP + PUERTO_HOST + "webservice/conexion/registro.php";
     public static final String LOGIN = IP + PUERTO_HOST + "webservice/conexion/login.php";
 
@@ -40,9 +38,8 @@ public class Constantes {
 
     //CITAS
     public static final String GET_CITA = IP + PUERTO_HOST + "webservice/citas/get_cita.php";
-    public static final String GET_CITA_BY_ID = IP + PUERTO_HOST + "webservice/citas/get_cita_by_id.php";
-    public static final String UPDATE_CITA = IP + PUERTO_HOST + "webservice/citas/update_cita.php";
-    public static final String DELETE_CITA = IP + PUERTO_HOST + "webservice/citas/delete_cita.php";
+    public static final String GET_CITA_BY_ID = IP + PUERTO_HOST + "webservice/citas/get_cita_by_id.php?id=";
+        public static final String DELETE_CITA = IP + PUERTO_HOST + "webservice/citas/delete_cita.php";
     public static final String INSERT_CITA = IP + PUERTO_HOST + "webservice/citas/insert_cita.php";
 
 
