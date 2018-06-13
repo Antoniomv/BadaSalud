@@ -1,18 +1,27 @@
 package com.vazquez.meliton.antonio.badasalud.fragmentos;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
 import com.vazquez.meliton.antonio.badasalud.R;
+import com.vazquez.meliton.antonio.badasalud.controladores.ActualizarController;
 import com.vazquez.meliton.antonio.badasalud.entidad.Usuario;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -77,18 +86,21 @@ public class PanelUsuarioFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_panel_usuario, container, false);
 
 
-//        nombre = view.findViewById(R.id.et_nombre_act);
-//        apellidos = view.findViewById(R.id.et_apellidos_act);
-//        telefono = view.findViewById(R.id.et_telefono_act);
-//
-//
-//        actualizar = view.findViewById(R.id.actualizar_datos);
-//        actualizar.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                actualizarUsuario();
-//            }
-//        });
+        nombre = view.findViewById(R.id.et_nombre_act);
+        nombre.setText(getArguments().getString("nombre"));
+        apellidos = view.findViewById(R.id.et_apellidos_act);
+        apellidos.setText(getArguments().getString("apellidos"));
+        telefono = view.findViewById(R.id.et_telefono_act);
+        telefono.setText(getArguments().getString("telefono"));
+
+
+        actualizar = view.findViewById(R.id.actualizar_datos);
+        actualizar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                actualizarUsuario();
+            }
+        });
 
 
         return view;
@@ -96,7 +108,40 @@ public class PanelUsuarioFragment extends Fragment {
 
     private void actualizarUsuario() {
 
+    String nuevoNombre =nombre.getText().toString();
+    String nuevoApellido =apellidos.getText().toString();
+    final String nuevoTelefono =telefono.getText().toString();
+        String id = getArguments().getString("id");
+        ActualizarController actualizarController = new ActualizarController(id, nuevoNombre, nuevoApellido, nuevoTelefono, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean success = jsonObject.getBoolean("success");
+                    if(success){
+                        Toast.makeText(getContext(), "Actualización correcta", Toast.LENGTH_LONG).show();
+                        Fragment fragment=new InicioFragment();
+                        getFragmentManager().beginTransaction()
+                                .replace(R.id.contenido,fragment)
+                                .commit();
+                    }else{
+                        String error = jsonObject.getString("error");
+                        if(error.equals("TELEFONO_DUPLICATE")){
+                            telefono.setError("El Teléfono ya existe en la base de datos");
+                            Toast.makeText(getContext(), "El Teléfono ya existe en la base de datos", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        if(nuevoNombre.isEmpty()) nombre.setError("Introduce tu nombre");
+        else if(nuevoApellido.isEmpty()) apellidos.setError("Introduce tus apellidos");
+        else if(nuevoTelefono.isEmpty() || nuevoTelefono.length() < 9 || nuevoTelefono.length() > 9) telefono.setError("Teléfono Erroneo");
+        else Volley.newRequestQueue(getContext()).add(actualizarController);
     }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

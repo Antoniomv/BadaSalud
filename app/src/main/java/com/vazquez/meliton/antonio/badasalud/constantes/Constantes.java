@@ -30,26 +30,23 @@ public class Constantes {
      */
 
     //usuarios
-    public static final String UPDATE_USUARIO = IP + PUERTO_HOST + "webservice/conexion/update_usuario.php";
+    public static final String UPDATE_USUARIO = IP + PUERTO_HOST + "webservice/conexion/update_usuario.php?id=";
     public static final String INSERT_USUARIO = IP + PUERTO_HOST + "webservice/conexion/registro.php";
     public static final String LOGIN = IP + PUERTO_HOST + "webservice/conexion/login.php";
+    public static final String PRINCIPAL = IP + PUERTO_HOST + "webservice/conexion/principal.php?id=";
 
 
 
     //CITAS
-    public static final String GET_CITA = IP + PUERTO_HOST + "webservice/citas/get_cita.php";
     public static final String GET_CITA_BY_ID = IP + PUERTO_HOST + "webservice/citas/get_cita_by_id.php?id=";
-        public static final String DELETE_CITA = IP + PUERTO_HOST + "webservice/citas/delete_cita.php";
+    public static final String DELETE_CITA = IP + PUERTO_HOST + "webservice/citas/delete_cita.php";
     public static final String INSERT_CITA = IP + PUERTO_HOST + "webservice/citas/insert_cita.php";
 
 
     //Especialidades
     public static final String GET_ESPECIALIDADES = IP + PUERTO_HOST + "webservice/especialidades/get_especialidad.php";
-    public static final String GET_ESPECIALIDADES_BY_ID = IP + PUERTO_HOST + "webservice/especialidades/get_especialidad_by_id.php";
 
 
     //Hospitales
     public static final String GET_HOSPITALES = IP + PUERTO_HOST + "webservice/hospitales/get_hospital.php";
-    public static final String GET_HOSPITALES_BY_ID = IP + PUERTO_HOST + "webservice/hospitales/get_hospital_by_id.php";
-
 }

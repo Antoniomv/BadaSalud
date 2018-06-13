@@ -1,26 +1,24 @@
 package com.vazquez.meliton.antonio.badasalud.fragmentos;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.BaseAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 
-import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.vazquez.meliton.antonio.badasalud.LoginActivity;
 import com.vazquez.meliton.antonio.badasalud.R;
-import com.vazquez.meliton.antonio.badasalud.adaptadores.CitasAdapter;
 import com.vazquez.meliton.antonio.badasalud.constantes.Constantes;
-import com.vazquez.meliton.antonio.badasalud.constantes.VolleySingleton;
 import com.vazquez.meliton.antonio.badasalud.entidad.Cita;
 
 import org.json.JSONArray;
@@ -28,8 +26,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,7 +35,7 @@ import java.util.Map;
  * Use the {@link ListaCitaFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ListaCitaFragment extends Fragment implements Response.ErrorListener, Response.Listener<JSONObject> {
+public class ListaCitaFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -51,9 +47,7 @@ public class ListaCitaFragment extends Fragment implements Response.ErrorListene
 
     private OnFragmentInteractionListener mListener;
 
-    RecyclerView reciclerCitas;
-    ArrayList<Cita> listaCitas;
-    JsonObjectRequest jsonObjectRequest;
+    private SharedPreferences sharedPreferences;
 
     public ListaCitaFragment() {
         // Required empty public constructor
@@ -92,88 +86,105 @@ public class ListaCitaFragment extends Fragment implements Response.ErrorListene
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_lista_cita, container, false);
 
-        listaCitas = new ArrayList<>();
 
-        reciclerCitas = view.findViewById(R.id.rv_citas);
-        reciclerCitas.setLayoutManager(new LinearLayoutManager(this.getContext()));
-        reciclerCitas.setHasFixedSize(true);
-
-        webService();
+        //me traigo los datos del usuario logueado
+        sharedPreferences = getContext().getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
+        //cargo listado
+        verCitas();
 
         return view;
     }
 
-    private void webService() {
-        String idUsuarioLogin = getArguments().getString("id");
+    private void verCitas() {
+        final ArrayList<Cita> citas = new ArrayList<>();
+        final ListaCitasAdapter citaAdapter = new ListaCitasAdapter(citas);
+        final ListView listView = getActivity().findViewById(R.id.lv_citas);
+        listView.setAdapter(citaAdapter);
 
-        String URL = Constantes.GET_CITA;
-        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL, null, this, this);
-        VolleySingleton.getIntanciaVolley(getContext()).addToRequestQueue(jsonObjectRequest);
+        //traemos el id desde el login
+        String usuarioId = sharedPreferences.getString("idKey", null);
+        //llamamos a la url
+        String url = Constantes.GET_CITA_BY_ID+usuarioId;
 
-//        getCitas(Integer.parseInt(idUsuarioLogin));
+        //hacemos el StringRequest de llamada al listado
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONArray jsonArray = new JSONArray(response);
+                    if(jsonArray.length() == 0) {
+                        ((TextView) getActivity().findViewById(R.id.mensaje_vacio)).setText("No tienes citas pendientes.");
+                    }
+                    else{
+                        for (int i=0; i<jsonArray.length(); i++){
+                            JSONObject jsonObject = jsonArray.getJSONObject(i);
+                            String id = jsonObject.getString("id");
+                            String titulo = jsonObject.getString("titulo");
+                            String especialidad = jsonObject.getString("especialidad");
+                            String hospital = jsonObject.getString("especialidad");
+                            String fecha = jsonObject.getString("fecha");
+                            String hora = jsonObject.getString("hora");
+                            citas.add(new Cita(id,titulo,fecha,hora,hospital,especialidad));
+                        }
+                    }
+                    citaAdapter.notifyDataSetChanged();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, null);
+        Volley.newRequestQueue(getContext()).add(stringRequest);
     }
 
-//    public void getCitas(Integer idUsuario) {
-//        HashMap<String, Integer> map = new HashMap<>();
-//        map.put("id", idUsuario);
-//        JSONObject jsonObject = new JSONObject(map);
-//
-//        VolleySingleton.getIntanciaVolley(getContext()).addToRequestQueue(
-//                new JsonObjectRequest(Request.Method.GET, Constantes.GET_CITA_BY_ID, jsonObject,
-//                        new Response.Listener<JSONObject>() {
-//                            @Override
-//                            public void onResponse(JSONObject response) {
-//
-//                                System.out.println("CITAS-------------------------------" + response);
-//                            }
-//                        },
-//                        new Response.ErrorListener() {
-//                            @Override
-//                            public void onErrorResponse(VolleyError error) {
-//                                System.out.println("CITAS ERROR-------------------------------");
-//
-//                            }
-//                        })
-//        );
-//    }
+//    creamos una clase dentro para darle el Adaptador
+    public class ListaCitasAdapter extends BaseAdapter {
 
+        ArrayList<Cita> citas;
 
-
-    @Override
-    public void onResponse(JSONObject response) {
-        Cita cita = null;
-
-        JSONArray json=response.optJSONArray("citas");
-
-        try{
-            for (int i=0;i<json.length();i++){
-                cita=new Cita();
-                JSONObject jsonObject=null;
-                jsonObject=json.getJSONObject(i);
-
-                cita.setId(jsonObject.optInt("ID"));
-                cita.setTitulo(jsonObject.optString("TITULO"));
-                cita.setHospital_id(jsonObject.optInt("HOSPITAL_ID"));
-                cita.setEspecialidad_id(jsonObject.getInt("ESPECIALIDAD_ID"));
-                cita.setFecha(String.valueOf(jsonObject.opt("FECHA")));
-                cita.setHora(String.valueOf(jsonObject.opt("HORA")));
-                listaCitas.add(cita);
-            }
-
-            CitasAdapter adapter = new CitasAdapter(listaCitas, getContext());
-            reciclerCitas.setAdapter(adapter);
-        } catch (JSONException e) {
-            e.printStackTrace();
-            Toast.makeText(getContext(), "No se ha podido establecer conexión con el servidor" +
-                    " "+response, Toast.LENGTH_LONG).show();
+        public ListaCitasAdapter(ArrayList<Cita> citas) {
+            this.citas = citas;
         }
 
+        @Override
+        public int getCount() {
+            return citas.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return citas.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+            LayoutInflater inflater = getLayoutInflater();
+
+            View view = inflater.inflate(R.layout.cita_personalizado, parent, false);
+
+            TextView titulo = view.findViewById(R.id.tituloCita);
+            TextView especialidad = view.findViewById(R.id.especialidadCita);
+            TextView hospital = view.findViewById(R.id.hospitalCita);
+            TextView fecha = view.findViewById(R.id.fechaCita);
+            TextView hora = view.findViewById(R.id.horaCita);
+
+            final Cita temp = citas.get(position);
+
+            titulo.setText(temp.getTitulo());
+            especialidad.setText(temp.getEspecialidad());
+            hospital.setText(temp.getHospital());
+            fecha.setText(temp.getFecha());
+            hora.setText(temp.getHora());
+
+            return view;
+        }
     }
 
-    @Override
-    public void onErrorResponse(VolleyError error) {
-
-    }
 
 
     // TODO: Rename method, update argument and hook method into UI event

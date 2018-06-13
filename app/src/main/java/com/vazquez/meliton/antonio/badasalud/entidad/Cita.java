@@ -7,45 +7,32 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Cita extends JSONObject implements Serializable {
+public class Cita  {
 
     //creamos variables
-    private int id;
+    private String id;
     private String titulo;
     private String fecha;
     private String hora;
-    private int usuario_id;
-    private int especialidad_id;
-    private int hospital_id;
-    private ArrayList<String> citas;
+    private String hospital;
+    private String especialidad;
 
     //llenamos constructor
 
-
-    public Cita(int id, String titulo, String fecha, String hora, int usuario_id, int especialidad_id, int hospital_id, ArrayList<String> citas) {
+    public Cita(String id, String titulo, String fecha, String hora, String hospital, String especialidad) {
         this.id = id;
         this.titulo = titulo;
         this.fecha = fecha;
         this.hora = hora;
-        this.usuario_id = usuario_id;
-        this.especialidad_id = especialidad_id;
-        this.hospital_id = hospital_id;
-        this.citas = citas;
+        this.hospital = hospital;
+        this.especialidad = especialidad;
     }
 
-    //genero constructor vacio
-    public Cita() {
-    }
-
-
-    //getters & setters
-
-
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -73,35 +60,19 @@ public class Cita extends JSONObject implements Serializable {
         this.hora = hora;
     }
 
-    public int getUsuario_id() {
-        return usuario_id;
+    public String getHospital() {
+        return hospital;
     }
 
-    public void setUsuario_id(int usuario_id) {
-        this.usuario_id = usuario_id;
+    public void setHospital(String hospital) {
+        this.hospital = hospital;
     }
 
-    public int getEspecialidad_id() {
-        return especialidad_id;
+    public String getEspecialidad() {
+        return especialidad;
     }
 
-    public void setEspecialidad_id(int especialidad_id) {
-        this.especialidad_id = especialidad_id;
-    }
-
-    public int getHospital_id() {
-        return hospital_id;
-    }
-
-    public void setHospital_id(int hospital_id) {
-        this.hospital_id = hospital_id;
-    }
-
-    public ArrayList<String> getCitas() {
-        return citas;
-    }
-
-    public void setCitas(ArrayList<String> citas) {
-        this.citas = citas;
+    public void setEspecialidad(String especialidad) {
+        this.especialidad = especialidad;
     }
 }

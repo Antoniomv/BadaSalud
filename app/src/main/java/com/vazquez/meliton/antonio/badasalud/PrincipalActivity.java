@@ -17,7 +17,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.vazquez.meliton.antonio.badasalud.constantes.Constantes;
 import com.vazquez.meliton.antonio.badasalud.fragmentos.ContactoFragment;
 import com.vazquez.meliton.antonio.badasalud.fragmentos.DesignCitaFragment;
 import com.vazquez.meliton.antonio.badasalud.fragmentos.InicioFragment;
@@ -25,14 +31,15 @@ import com.vazquez.meliton.antonio.badasalud.fragmentos.ListaCitaFragment;
 import com.vazquez.meliton.antonio.badasalud.fragmentos.ListaHospitalFragment;
 import com.vazquez.meliton.antonio.badasalud.fragmentos.PanelUsuarioFragment;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 
 public class PrincipalActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,ListaHospitalFragment.OnFragmentInteractionListener, InicioFragment.OnFragmentInteractionListener, ListaCitaFragment.OnFragmentInteractionListener,
         DesignCitaFragment.OnFragmentInteractionListener, PanelUsuarioFragment.OnFragmentInteractionListener,
         ContactoFragment.OnFragmentInteractionListener{
 
     private SharedPreferences sharedPreferences;
-    private String usuarioId;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +47,6 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationVi
         setContentView(R.layout.activity_principal);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        sharedPreferences = getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
-        usuarioId = sharedPreferences.getString("idKey",null);
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -71,6 +75,7 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationVi
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
     }
 
     @Override
@@ -143,6 +148,8 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationVi
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 
     //cerrar logout
     private void cargarCerrar() {

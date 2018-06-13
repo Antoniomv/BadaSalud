@@ -18,7 +18,6 @@
     <string name="entrar_tx">Entrar</string>
     <string name="registrarse">Registrarse</string>
     <string name="logueate_si_ya_teines_una_cuenta">Logueate si ya teines una cuenta</string>
-    <string name="todo" translatable="false">TODO</string>
     <string name="introduce_tu_string_nombre">introduce tu @string/nombre</string>
     <string name="introduce_tu_string_apellidos">introduce tu @string/apellidos</string>
     <string name="introduce_tu_telefono">introduce tu telefono</string>
@@ -65,4 +64,10 @@
     <string name="con_ctate">CONÉCTATE</string>
     <string name="registrate_por_email">Registrate por email</string>
     <string name="entrar">Entrar</string>
+    <string name="bienvenido">Bienvenido</string>
+    <string name="todo">TODO</string>
+    <string name="nombre_del_usuario">nombre del usuario</string>
+    <string name="nombreusuario">Nombre:</string>
+    <string name="apellidosusuario">Apellidos:</string>
+    <string name="apellidos_del_usuario">apellidos del usuario</string>
 </resources>

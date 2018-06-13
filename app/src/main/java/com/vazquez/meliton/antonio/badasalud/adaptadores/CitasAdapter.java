@@ -22,7 +22,7 @@ import java.util.Calendar;
 import java.util.List;
 
 public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.ViewHolder> {
-    List<Cita> listaCitas;
+    ArrayList<Cita> listaCitas;
     Context context;
     View view;
     Snackbar snackbar;
@@ -49,10 +49,9 @@ public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
-        citaId = listaCitas.get(position).getId();
         holder.tituloCita.setText(listaCitas.get(position).getTitulo());
-        holder.hospitalCita.setText(String.valueOf(listaCitas.get(position).getHospital_id()));
-        holder.especialidad.setText(String.valueOf(listaCitas.get(position).getEspecialidad_id()));
+        holder.hospitalCita.setText(listaCitas.get(position).getHospital());
+        holder.especialidad.setText(listaCitas.get(position).getEspecialidad());
         holder.fecha.setText(listaCitas.get(position).getFecha());
         holder.hora.setText(listaCitas.get(position).getHora());
 
@@ -78,8 +77,8 @@ public class CitasAdapter extends RecyclerView.Adapter<CitasAdapter.ViewHolder> 
                             case R.id.agregarAlarma:
                                 //recogemos datos de la cita
                                 titulo = listaCitas.get(position).getTitulo();
-                                hospital = String.valueOf(listaCitas.get(position).getHospital_id());
-                                especialidad = String.valueOf(listaCitas.get(position).getEspecialidad_id());
+                                hospital = listaCitas.get(position).getHospital();
+                                especialidad = listaCitas.get(position).getEspecialidad();
                                 fecha = listaCitas.get(position).getFecha();
                                 hora = listaCitas.get(position).getHora();
 

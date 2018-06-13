@@ -1,6 +1,7 @@
 package com.vazquez.meliton.antonio.badasalud.fragmentos;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -21,6 +22,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.vazquez.meliton.antonio.badasalud.LoginActivity;
 import com.vazquez.meliton.antonio.badasalud.R;
 import com.vazquez.meliton.antonio.badasalud.constantes.VolleySingleton;
 import com.vazquez.meliton.antonio.badasalud.controladores.CitaController;
@@ -62,6 +64,7 @@ public class DesignCitaFragment extends Fragment  {
     int hospitalSeleccionado, especialidadSeleccoinado,usuarioId;
     Button agregar;
     private OnFragmentInteractionListener mListener;
+    SharedPreferences sharedPreferences;
 
     private EditText titulodelacita;
     private Spinner sp_hospital, sp_especialidad, sp_year, sp_mes,sp_dia, sp_hora, sp_minuto;
@@ -123,7 +126,9 @@ public class DesignCitaFragment extends Fragment  {
                 + sp_dia.getSelectedItem().toString();
         horaSeleccionada = sp_hora.getSelectedItem().toString()+":"
                 + sp_minuto.getSelectedItem().toString();
-        String usuariopasado = getArguments().getString("IDPASS");
+        sharedPreferences = getContext().getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
+
+        String usuariopasado = sharedPreferences.getString("idKey", null);
         usuarioId = Integer.valueOf(usuariopasado);
         System.out.println("CITA = " +usuarioId);
         agregar = view.findViewById(R.id.boton_cita);
