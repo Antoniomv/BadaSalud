@@ -17,7 +17,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="30dp"
-        android:background="@drawable/borde_titulo"
+        android:background="@drawable/borde"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -40,14 +40,16 @@
                 android:id="@+id/txt_usuario"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
                 android:text="@string/nombreusuario"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/ver_nombre"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:text="@string/nombre_del_usuario"
                 android:textColor="#000"
                 android:textSize="25sp" />
@@ -64,14 +66,16 @@
                 android:id="@+id/txt_apellidos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
                 android:text="@string/apellidosusuario"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/ver_apellidos"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:text="@string/apellidos_del_usuario"
                 android:textColor="#000"
                 android:textSize="25sp" />
@@ -83,6 +87,7 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_weight="1"
+            android:layout_marginTop="20dp"
             android:src="@drawable/iconofinal"
             android:contentDescription="@string/todo" />
 
