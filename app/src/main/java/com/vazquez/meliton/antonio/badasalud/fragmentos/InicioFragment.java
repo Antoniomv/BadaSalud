@@ -99,21 +99,6 @@ public class InicioFragment extends Fragment {
         return view;
     }
 
-    public void enviarDatosUduario(){
-        //recojo valores
-        String envioNombre = vernombre.getText().toString();
-        String envioApellidos = verapellidos.getText().toString();
-        String envioTelefono = vertelefono.getText().toString();
-
-        //creo un bundle para poder moverlo a otro fragmento
-        Bundle bundle = new Bundle();
-        bundle.putString("nombre", envioNombre);
-        bundle.putString("apellidos", envioApellidos);
-        bundle.putString("telefono", envioTelefono);
-        Intent intent = new Intent(getActivity(), PrincipalActivity.class);
-        intent.putExtras(bundle);
-        startActivity(intent);
-    }
 
     public void cargarDatosUsuario(){
         final String url = Constantes.PRINCIPAL+usuarioId;

@@ -1,14 +1,20 @@
 package com.vazquez.meliton.antonio.badasalud.fragmentos;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -19,6 +25,7 @@ import com.vazquez.meliton.antonio.badasalud.LoginActivity;
 import com.vazquez.meliton.antonio.badasalud.R;
 import com.vazquez.meliton.antonio.badasalud.adaptadores.ListaCitasAdapter;
 import com.vazquez.meliton.antonio.badasalud.constantes.Constantes;
+import com.vazquez.meliton.antonio.badasalud.controladores.CitaController;
 import com.vazquez.meliton.antonio.badasalud.entidad.Cita;
 
 import org.json.JSONArray;
@@ -26,6 +33,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 
 /**
@@ -52,6 +60,10 @@ public class ListaCitaFragment extends Fragment {
     private ListView listado;
     private ListaCitasAdapter citaAdapter;
     private ArrayList<Cita> citas;
+    private Context context;
+    private View view;
+    private String citaId;
+    private int position;
 
     public ListaCitaFragment() {
         // Required empty public constructor
@@ -99,7 +111,71 @@ public class ListaCitaFragment extends Fragment {
         //cargo listado
         verCitas();
 
+        //cargo menú
+        listado.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                //creating a popup menu
+                PopupMenu popup = new PopupMenu(getContext(), view);
+                //inflating menu from xml resource
+                popup.inflate(R.menu.option_menu_citas);
+                //adding click listener
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+
+                            case R.id.eliminarCita:
+                                eliminarCita(position);
+                                break;
+
+                            case R.id.agregarAlarma:
+                                agregarAlarma();
+                                break;
+                        }
+                        return false;
+                    }
+                });
+                //displaying the popup
+                popup.show();
+            }
+        });
+
         return view;
+    }
+
+    private void agregarAlarma() {
+        //recogemos datos de la cita
+        String titulo = citas.get(position).getTitulo();
+        String hospital = citas.get(position).getHospital();
+        String especialidad = citas.get(position).getEspecialidad();
+        String fecha = citas.get(position).getFecha();
+        String hora = citas.get(position).getHora();
+
+        //enviamos datos al calendario en modo evento desde un intent implícito
+        Calendar cal = Calendar.getInstance();
+        Intent intent = new Intent(Intent.ACTION_EDIT);
+        intent.setType("vnd.android.cursor.item/event");
+        intent.putExtra("beginTime",hora);
+        intent.putExtra("beginDate",fecha);
+        intent.putExtra("description", hospital + "\n" + especialidad);
+        intent.putExtra("allDay", true);
+        intent.putExtra("rrule", "FREQ=YEARLY");
+        intent.putExtra("endTime", cal.getTimeInMillis()+60*60*1000);
+        intent.putExtra("title", titulo);
+        startActivity(intent);
+    }
+
+    private void eliminarCita(int position) {
+        citaId = String.valueOf(listado.getId());
+        //llamamos al controlador para eliminar la cita de la base de datos
+        CitaController citaController = new CitaController(context,view);
+        citaController.eliminarCita(citaId);
+        // elimina de la lista al pulsar en el botón (es solo válido para la vista)
+        citas.remove(position);
+        //mostramos snackbar con el éxito
+        Snackbar.make(view, "Cita eliminada con éxito", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
     }
 
     private void verCitas() {

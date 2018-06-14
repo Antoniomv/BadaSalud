@@ -41,6 +41,7 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationVi
 
     private SharedPreferences sharedPreferences;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +79,8 @@ public class PrincipalActivity extends AppCompatActivity implements NavigationVi
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-    }
+
+           }
 
     @Override
     public void onBackPressed() {

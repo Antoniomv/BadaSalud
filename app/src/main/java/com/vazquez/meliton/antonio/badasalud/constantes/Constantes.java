@@ -24,7 +24,7 @@ public class Constantes {
     /**
      * Dirección IP de genymotion o AVD
      */
-    private static final String IP = "http://badasalud.es/";
+    private static final String IP = "http://www.badasalud.es/";
     /**
      * URLs del Web Service
      */

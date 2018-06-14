@@ -2,6 +2,7 @@ package com.vazquez.meliton.antonio.badasalud.fragmentos;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -14,9 +15,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.vazquez.meliton.antonio.badasalud.LoginActivity;
 import com.vazquez.meliton.antonio.badasalud.R;
+import com.vazquez.meliton.antonio.badasalud.constantes.Constantes;
 import com.vazquez.meliton.antonio.badasalud.controladores.ActualizarController;
 import com.vazquez.meliton.antonio.badasalud.entidad.Usuario;
 
@@ -43,8 +48,11 @@ public class PanelUsuarioFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-   EditText nombre, apellidos, telefono;
-   Button actualizar;
+
+    private SharedPreferences sharedPreferences;
+    EditText nombre, apellidos, telefono;
+    Button actualizar;
+    String usuarioId,nuevoNombre, nuevoApellido, nuevoTelefono, nombreSend, apellidosSend,telefonoSend;
 
     private OnFragmentInteractionListener mListener;
 
@@ -85,15 +93,18 @@ public class PanelUsuarioFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_panel_usuario, container, false);
 
+        sharedPreferences = getContext().getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
+        usuarioId = sharedPreferences.getString("idKey",null);
+        cargarDatos();
         nombre = view.findViewById(R.id.et_nombre_act);
-        nombre.setText(getArguments().getString("nombre"));
+        nombre.setText(nombreSend);
         apellidos = view.findViewById(R.id.et_apellidos_act);
-        apellidos.setText(getArguments().getString("apellidos"));
+        apellidos.setText(apellidosSend);
         telefono = view.findViewById(R.id.et_telefono_act);
-        telefono.setText(getArguments().getString("telefono"));
+        telefono.setText(telefonoSend);
 
 
-        actualizar = view.findViewById(R.id.actualizar_datos);
+        actualizar = view.findViewById(R.id.boton_actualizar);
         actualizar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,10 +118,10 @@ public class PanelUsuarioFragment extends Fragment {
 
     private void actualizarUsuario() {
 
-    String nuevoNombre =nombre.getText().toString();
-    String nuevoApellido =apellidos.getText().toString();
-    final String nuevoTelefono =telefono.getText().toString();
-        String id = getArguments().getString("id");
+        String nuevoNombre =nombre.getText().toString();
+        String nuevoApellido =apellidos.getText().toString();
+        String nuevoTelefono =telefono.getText().toString();
+        String id = usuarioId;
         ActualizarController actualizarController = new ActualizarController(id, nuevoNombre, nuevoApellido, nuevoTelefono, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -140,6 +151,35 @@ public class PanelUsuarioFragment extends Fragment {
         else if(nuevoTelefono.isEmpty() || nuevoTelefono.length() < 9 || nuevoTelefono.length() > 9) telefono.setError("Teléfono Erroneo");
         else Volley.newRequestQueue(getContext()).add(actualizarController);
     }
+
+    private void cargarDatos(){
+            final String url = Constantes.PRINCIPAL+usuarioId;
+            //muestro por consola la url para saber si la trae correctamente
+            System.out.println(url);
+            StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    try {
+                        JSONObject jsonObject= new JSONObject(response);
+                        boolean success = jsonObject.getBoolean("success");
+                        if(success){
+                            JSONObject jsonObject1 = jsonObject.getJSONObject("data");
+                            nombreSend   =   jsonObject1.getString("nombre");
+                            apellidosSend =   jsonObject1.getString("apellidos");
+                            telefonoSend  =   jsonObject1.getString("telefono");
+
+                            //muestro por consola  los datos para saber si la trae correctamente
+                            System.out.println("nombre: "+nombreSend + "\n apellidos: " + apellidosSend + "\n telefono: "+ telefonoSend);
+
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            },null);
+
+            Volley.newRequestQueue(getContext()).add(stringRequest);
+        }
 
 
     // TODO: Rename method, update argument and hook method into UI event

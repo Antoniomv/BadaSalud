@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.vazquez.meliton.antonio.badasalud.R;
@@ -26,6 +27,7 @@ public class ListaCitasAdapter extends BaseAdapter {
     private TextView tituloTx, especialidadTx, hospitalTx, fechaTx, horaTx, buttonViewOption;
     private ImageView imagenVista;
     private int citaId;
+    private ListView listado;
 
     public ListaCitasAdapter(ArrayList<Cita> citas) {
         this.citas = citas;
@@ -60,7 +62,6 @@ public class ListaCitasAdapter extends BaseAdapter {
         horaTx = vista.findViewById(R.id.horaCita);
 
         imagenVista = vista.findViewById(R.id.imagenCita);
-        buttonViewOption = vista.findViewById(R.id.textViewOptions);
 
         final Cita temp = citas.get(position);
 
@@ -70,66 +71,7 @@ public class ListaCitasAdapter extends BaseAdapter {
         fechaTx.setText(temp.getFecha());
         horaTx.setText(temp.getHora());
 
-        buttonViewOption.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                //creating a popup menu
-//                PopupMenu popup = new PopupMenu(context, buttonViewOption);
-//                //inflating menu from xml resource
-//                popup.inflate(R.menu.option_menu_citas);
-//                //adding click listener
-//                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-//                    @Override
-//                    public boolean onMenuItemClick(MenuItem item) {
-//                        switch (item.getItemId()) {
-//
-//                            case R.id.eliminarCita:
-//                                eliminarCita(position);
-//                                break;
-//
-//                            case R.id.agregarAlarma:
-//                                //recogemos datos de la cita
-//                                String titulo = citas.get(position).getTitulo();
-//                                String hospital = citas.get(position).getHospital();
-//                                String especialidad = citas.get(position).getEspecialidad();
-//                                String fecha = citas.get(position).getFecha();
-//                                String hora = citas.get(position).getHora();
-//
-//                                //enviamos datos al calendario en modo evento desde un intent implícito
-//                                Calendar cal = Calendar.getInstance();
-//                                Intent intent = new Intent(Intent.ACTION_EDIT);
-//                                intent.setType("vnd.android.cursor.item/event");
-//                                intent.putExtra("beginTime",hora);
-//                                intent.putExtra("beginDate",fecha);
-//                                intent.putExtra("description", hospital + "\n" + especialidad);
-//                                intent.putExtra("allDay", true);
-//                                intent.putExtra("rrule", "FREQ=YEARLY");
-//                                intent.putExtra("endTime", cal.getTimeInMillis()+60*60*1000);
-//                                intent.putExtra("title", titulo);
-//                                context.startActivity(intent);
-//                                break;
-//                        }
-//                        return false;
-//                    }
-//                });
-//                //displaying the popup
-//                popup.show();
-
-            }
-        });
-
         return vista;
     }
 
-    private void eliminarCita(int position) {
-        //llamamos al controlador para eliminar la cita de la base de datos
-        CitaController citaController = new CitaController(context,view);
-
-        citaController.eliminarCita(citaId);
-        // elimina de la lista al pulsar en el botón (es solo válido para la vista)
-        citas.remove(position);
-        //mostramos snackbar con el éxito
-        Snackbar.make(view, "Cita eliminada con éxito", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
-    }
 }
