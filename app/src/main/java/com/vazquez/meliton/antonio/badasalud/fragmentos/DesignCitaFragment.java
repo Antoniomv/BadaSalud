@@ -119,15 +119,6 @@ public class DesignCitaFragment extends Fragment  {
         sp_hora=view.findViewById(R.id.hora);
         sp_minuto=view.findViewById(R.id.minutos);
 
-
-        hospitalSeleccionado = sp_hospital.getSelectedItemPosition() +1;
-        especialidadSeleccoinado = sp_especialidad.getSelectedItemPosition()+1;
-        fechaSeleccionada = sp_year.getSelectedItem().toString() +"-"
-                + sp_mes.getSelectedItem().toString() + "-"
-                + sp_dia.getSelectedItem().toString();
-        horaSeleccionada = sp_hora.getSelectedItem().toString()+":"
-                + sp_minuto.getSelectedItem().toString();
-
         String usuariopasado = sharedPreferences.getString("idKey", null);
         usuarioId = Integer.valueOf(usuariopasado);
         System.out.println("CITA = " +usuarioId);
@@ -136,8 +127,15 @@ public class DesignCitaFragment extends Fragment  {
             @Override
             public void onClick(View v) {
                 tituloCita = titulodelacita.getText().toString();
-                citaController= new CitaController(getContext(), v);
+                hospitalSeleccionado = sp_hospital.getSelectedItemPosition() +1;
+                especialidadSeleccoinado = sp_especialidad.getSelectedItemPosition()+1;
+                fechaSeleccionada = sp_year.getSelectedItem().toString() +"-"
+                        + sp_mes.getSelectedItem().toString() + "-"
+                        + sp_dia.getSelectedItem().toString();
+                horaSeleccionada = sp_hora.getSelectedItem().toString()+":"
+                        + sp_minuto.getSelectedItem().toString();
 
+                citaController= new CitaController(getContext(), v);
                 citaController.nuevaCita(tituloCita,usuarioId,hospitalSeleccionado,especialidadSeleccoinado,fechaSeleccionada,horaSeleccionada);
 
             }
