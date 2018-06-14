@@ -1,6 +1,7 @@
 package com.vazquez.meliton.antonio.badasalud.fragmentos;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.vazquez.meliton.antonio.badasalud.LoginActivity;
+import com.vazquez.meliton.antonio.badasalud.PrincipalActivity;
 import com.vazquez.meliton.antonio.badasalud.R;
 import com.vazquez.meliton.antonio.badasalud.constantes.Constantes;
 
@@ -98,13 +100,19 @@ public class InicioFragment extends Fragment {
     }
 
     public void enviarDatosUduario(){
+        //recojo valores
         String envioNombre = vernombre.getText().toString();
         String envioApellidos = verapellidos.getText().toString();
         String envioTelefono = vertelefono.getText().toString();
+
+        //creo un bundle para poder moverlo a otro fragmento
         Bundle bundle = new Bundle();
         bundle.putString("nombre", envioNombre);
         bundle.putString("apellidos", envioApellidos);
         bundle.putString("telefono", envioTelefono);
+        Intent intent = new Intent(getActivity(), PrincipalActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     public void cargarDatosUsuario(){
@@ -120,8 +128,8 @@ public class InicioFragment extends Fragment {
                     if(success){
                         JSONObject jsonObject1 = jsonObject.getJSONObject("data");
                         String nombreSend   =   jsonObject1.getString("nombre");
-                        String apellidosSend    =   jsonObject1.getString("apellidos");
-                        String telefonoSend       =   jsonObject1.getString("telefono");
+                        String apellidosSend =   jsonObject1.getString("apellidos");
+                        String telefonoSend  =   jsonObject1.getString("telefono");
 
                         //muestro por consola  los datos para saber si la trae correctamente
                         System.out.println("nombre: "+nombreSend + "\n apellidos: " + apellidosSend + "\n telefono: "+ telefonoSend);

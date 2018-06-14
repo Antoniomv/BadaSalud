@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -18,6 +17,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.vazquez.meliton.antonio.badasalud.LoginActivity;
 import com.vazquez.meliton.antonio.badasalud.R;
+import com.vazquez.meliton.antonio.badasalud.adaptadores.ListaCitasAdapter;
 import com.vazquez.meliton.antonio.badasalud.constantes.Constantes;
 import com.vazquez.meliton.antonio.badasalud.entidad.Cita;
 
@@ -26,6 +26,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -48,6 +49,9 @@ public class ListaCitaFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     private SharedPreferences sharedPreferences;
+    private ListView listado;
+    private ListaCitasAdapter citaAdapter;
+    private ArrayList<Cita> citas;
 
     public ListaCitaFragment() {
         // Required empty public constructor
@@ -85,7 +89,10 @@ public class ListaCitaFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_lista_cita, container, false);
-
+        citas = new ArrayList<>();
+        citaAdapter = new ListaCitasAdapter(citas);
+        listado = view.findViewById(R.id.listadoCitas);
+        listado.setAdapter(citaAdapter);
 
         //me traigo los datos del usuario logueado
         sharedPreferences = getContext().getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
@@ -96,24 +103,23 @@ public class ListaCitaFragment extends Fragment {
     }
 
     private void verCitas() {
-        final ArrayList<Cita> citas = new ArrayList<>();
-        final ListaCitasAdapter citaAdapter = new ListaCitasAdapter(citas);
-        final ListView listView = getActivity().findViewById(R.id.lv_citas);
-        listView.setAdapter(citaAdapter);
 
         //traemos el id desde el login
-        String usuarioId = sharedPreferences.getString("idKey", null);
+        final String usuarioId = sharedPreferences.getString("idKey", null);
         //llamamos a la url
         String url = Constantes.GET_CITA_BY_ID+usuarioId;
+
+        System.out.println(usuarioId);
 
         //hacemos el StringRequest de llamada al listado
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                JSONArray jsonArray = null;
                 try {
-                    JSONArray jsonArray = new JSONArray(response);
+                    jsonArray = new JSONArray(response);
                     if(jsonArray.length() == 0) {
-                        ((TextView) getActivity().findViewById(R.id.mensaje_vacio)).setText("No tienes citas pendientes.");
+                        ((TextView) getView().findViewById(R.id.mensaje_vacio)).setText("No tienes citas pendientes.");
                     }
                     else{
                         for (int i=0; i<jsonArray.length(); i++){
@@ -121,7 +127,7 @@ public class ListaCitaFragment extends Fragment {
                             String id = jsonObject.getString("id");
                             String titulo = jsonObject.getString("titulo");
                             String especialidad = jsonObject.getString("especialidad");
-                            String hospital = jsonObject.getString("especialidad");
+                            String hospital = jsonObject.getString("nombre");
                             String fecha = jsonObject.getString("fecha");
                             String hora = jsonObject.getString("hora");
                             citas.add(new Cita(id,titulo,fecha,hora,hospital,especialidad));
@@ -135,57 +141,6 @@ public class ListaCitaFragment extends Fragment {
         }, null);
         Volley.newRequestQueue(getContext()).add(stringRequest);
     }
-
-//    creamos una clase dentro para darle el Adaptador
-    public class ListaCitasAdapter extends BaseAdapter {
-
-        ArrayList<Cita> citas;
-
-        public ListaCitasAdapter(ArrayList<Cita> citas) {
-            this.citas = citas;
-        }
-
-        @Override
-        public int getCount() {
-            return citas.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return citas.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-
-            LayoutInflater inflater = getLayoutInflater();
-
-            View view = inflater.inflate(R.layout.cita_personalizado, parent, false);
-
-            TextView titulo = view.findViewById(R.id.tituloCita);
-            TextView especialidad = view.findViewById(R.id.especialidadCita);
-            TextView hospital = view.findViewById(R.id.hospitalCita);
-            TextView fecha = view.findViewById(R.id.fechaCita);
-            TextView hora = view.findViewById(R.id.horaCita);
-
-            final Cita temp = citas.get(position);
-
-            titulo.setText(temp.getTitulo());
-            especialidad.setText(temp.getEspecialidad());
-            hospital.setText(temp.getHospital());
-            fecha.setText(temp.getFecha());
-            hora.setText(temp.getHora());
-
-            return view;
-        }
-    }
-
-
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

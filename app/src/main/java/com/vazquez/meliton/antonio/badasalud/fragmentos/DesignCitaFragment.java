@@ -108,6 +108,7 @@ public class DesignCitaFragment extends Fragment  {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_design_cita, container, false);
+        sharedPreferences = getContext().getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
 
         titulodelacita = view.findViewById(R.id.titulo_cita);
         sp_hospital = view.findViewById(R.id.spinner_hospitales);
@@ -126,7 +127,6 @@ public class DesignCitaFragment extends Fragment  {
                 + sp_dia.getSelectedItem().toString();
         horaSeleccionada = sp_hora.getSelectedItem().toString()+":"
                 + sp_minuto.getSelectedItem().toString();
-        sharedPreferences = getContext().getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
 
         String usuariopasado = sharedPreferences.getString("idKey", null);
         usuarioId = Integer.valueOf(usuariopasado);

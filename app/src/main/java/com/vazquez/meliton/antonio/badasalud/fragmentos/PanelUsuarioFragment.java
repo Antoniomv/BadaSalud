@@ -85,7 +85,6 @@ public class PanelUsuarioFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_panel_usuario, container, false);
 
-
         nombre = view.findViewById(R.id.et_nombre_act);
         nombre.setText(getArguments().getString("nombre"));
         apellidos = view.findViewById(R.id.et_apellidos_act);

@@ -147,9 +147,9 @@ public class ListaHospitalFragment extends Fragment implements Response.Listener
                 JSONObject jsonObject=null;
                 jsonObject=json.getJSONObject(i);
 
-                hospital.setNombre(jsonObject.optString("NOMBRE"));
-                hospital.setDireccion(jsonObject.optString("DIRECCION"));
-                hospital.setTelefono(jsonObject.optInt("TELEFONO"));
+                hospital.setNombre(jsonObject.optString("nombre"));
+                hospital.setDireccion(jsonObject.optString("direccion"));
+                hospital.setTelefono(jsonObject.optInt("telefono"));
                 listaHospitales.add(hospital);
             }
 

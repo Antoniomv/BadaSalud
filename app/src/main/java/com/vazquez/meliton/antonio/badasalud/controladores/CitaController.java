@@ -1,28 +1,21 @@
 package com.vazquez.meliton.antonio.badasalud.controladores;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
-import android.webkit.ConsoleMessage;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
-import com.vazquez.meliton.antonio.badasalud.adaptadores.CitasAdapter;
 import com.vazquez.meliton.antonio.badasalud.constantes.Constantes;
 import com.vazquez.meliton.antonio.badasalud.constantes.VolleySingleton;
-import com.vazquez.meliton.antonio.badasalud.entidad.Cita;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 public class CitaController {
 
