@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 
@@ -13,9 +12,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -25,7 +26,7 @@ import com.vazquez.meliton.antonio.badasalud.LoginActivity;
 import com.vazquez.meliton.antonio.badasalud.R;
 import com.vazquez.meliton.antonio.badasalud.adaptadores.ListaCitasAdapter;
 import com.vazquez.meliton.antonio.badasalud.constantes.Constantes;
-import com.vazquez.meliton.antonio.badasalud.controladores.CitaController;
+import com.vazquez.meliton.antonio.badasalud.controladores.EliminarController;
 import com.vazquez.meliton.antonio.badasalud.entidad.Cita;
 
 import org.json.JSONArray;
@@ -64,7 +65,7 @@ public class ListaCitaFragment extends Fragment {
     private View view;
     private String citaId;
     private int position;
-
+    private Cita temp;
     public ListaCitaFragment() {
         // Required empty public constructor
     }
@@ -105,9 +106,9 @@ public class ListaCitaFragment extends Fragment {
         citaAdapter = new ListaCitasAdapter(citas);
         listado = view.findViewById(R.id.listadoCitas);
         listado.setAdapter(citaAdapter);
-
         //me traigo los datos del usuario logueado
         sharedPreferences = getContext().getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
+
         //cargo listado
         verCitas();
 
@@ -125,12 +126,34 @@ public class ListaCitaFragment extends Fragment {
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
 
-                            case R.id.eliminarCita:
-                                eliminarCita(position);
-                                break;
-
                             case R.id.agregarAlarma:
                                 agregarAlarma();
+                                break;
+                            case R.id.eliminarCita:
+                                temp = citas.get(position);
+
+                                EliminarController delCitas = new EliminarController(temp.getId(), new Response.Listener<String>() {
+                                            @Override
+                                            public void onResponse(String response) {
+                                                try {
+                                                    JSONObject jsonObject = new JSONObject(response);
+                                                    boolean success = jsonObject.getBoolean("success");
+                                                    if(success){
+                                                        Toast.makeText(getContext(),
+                                                                "This appointment was deleted !",Toast.LENGTH_LONG).show();
+                                                    }else{
+                                                        Toast.makeText(getContext(),"Error !", Toast.LENGTH_LONG).show();
+                                                    }
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
+                                                }
+
+                                            }
+                                        });
+                                        Volley.newRequestQueue(getContext()).add(delCitas);
+                                        getActivity().finish();
+                                        startActivity(getActivity().getIntent());
+
                                 break;
                         }
                         return false;
@@ -140,6 +163,7 @@ public class ListaCitaFragment extends Fragment {
                 popup.show();
             }
         });
+
 
         return view;
     }
@@ -151,37 +175,29 @@ public class ListaCitaFragment extends Fragment {
         String especialidad = citas.get(position).getEspecialidad();
         String fecha = citas.get(position).getFecha();
         String hora = citas.get(position).getHora();
+        int year = Integer.parseInt(fecha.substring(0,3));
+        int mes = Integer.parseInt(fecha.substring(5,6));
+        int dia = Integer.parseInt(fecha.substring(8,9));
+        int horaComienzo= Integer.parseInt(hora.substring(0,1));
+        int minutoComienzo= Integer.parseInt(hora.substring(3,4));
 
         //enviamos datos al calendario en modo evento desde un intent implícito
         Calendar cal = Calendar.getInstance();
+        cal.set(year,mes,dia,horaComienzo,minutoComienzo);
         Intent intent = new Intent(Intent.ACTION_EDIT);
         intent.setType("vnd.android.cursor.item/event");
-        intent.putExtra("beginTime",hora);
-        intent.putExtra("beginDate",fecha);
         intent.putExtra("description", hospital + "\n" + especialidad);
-        intent.putExtra("allDay", true);
         intent.putExtra("rrule", "FREQ=YEARLY");
         intent.putExtra("endTime", cal.getTimeInMillis()+60*60*1000);
         intent.putExtra("title", titulo);
         startActivity(intent);
     }
 
-    private void eliminarCita(int position) {
-        citaId = String.valueOf(listado.getId());
-        //llamamos al controlador para eliminar la cita de la base de datos
-        CitaController citaController = new CitaController(context,view);
-        citaController.eliminarCita(citaId);
-        // elimina de la lista al pulsar en el botón (es solo válido para la vista)
-        citas.remove(position);
-        //mostramos snackbar con el éxito
-        Snackbar.make(view, "Cita eliminada con éxito", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
-    }
 
     private void verCitas() {
 
         //traemos el id desde el login
-        final String usuarioId = sharedPreferences.getString("idKey", null);
+        String usuarioId = sharedPreferences.getString("idKey", null);
         //llamamos a la url
         String url = Constantes.GET_CITA_BY_ID+usuarioId;
 
@@ -191,7 +207,7 @@ public class ListaCitaFragment extends Fragment {
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                JSONArray jsonArray = null;
+                JSONArray jsonArray;
                 try {
                     jsonArray = new JSONArray(response);
                     if(jsonArray.length() == 0) {

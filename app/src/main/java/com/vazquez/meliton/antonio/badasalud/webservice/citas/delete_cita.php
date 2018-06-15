@@ -1,24 +1,12 @@
 <?php
 
-require 'DAOcita.php';
+require 'conexion.php';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if(isset($_GET["id"])){
+$id = $_GET["id"];
+$sql = "DELETE * FROM citas Where id = $id";
+$conn->query($sql);
 
-    $body = json_decode(file_get_contents("php://input"), true);
+$conn->close();
 
-    $resultado = DAOcita::delete($body['id']);
-
-    if ($resultado) {
-        print json_encode(
-            array(
-                'estado' => '1',
-                'mensaje' => 'Operación correcta')
-        );
-    } else {
-        print json_encode(
-            array(
-                'estado' => '2',
-                'mensaje' => 'Error en la operación')
-        );
-    }
-}
+?>

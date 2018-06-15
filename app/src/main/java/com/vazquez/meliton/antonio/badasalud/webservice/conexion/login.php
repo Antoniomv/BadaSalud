@@ -1,32 +1,24 @@
 <?php
-include("conexion.php");
-
-if(isset($_POST["email"]) && isset($_POST["password"]))
-	{
+    require 'conexion.php';
     
-	$email=$_POST["email"];    
-	$password=$_POST["password"];
-
-
-		$result = mysqli_query($conn, "select ID, NOMBRE, APELLIDOS, TELEFONO from usuarios where email='$email' && password='$password'");
-
-	    $row = mysqli_fetch_array($result);
-
-	    $data = $row[0];
-
-
-		if(mysqli_num_rows($result) > 0)
-		{	
-			echo $data;
-			exit;
-		}			
-		else
-		{	
-			echo "0";
-			exit;
-		}
-
-	   mysqli_close($con);
-}
-
+    if(isset($_POST["email"]) && isset($_POST["password"])){
+        
+        $email = $_POST["email"];
+        $password = md5($_POST["password"]);
+        
+        $sql = "SELECT id FROM usuarios WHERE email = '$email' AND password = '$password'";
+        $result = $conn->query($sql);
+        
+        if($result->num_rows > 0){
+            $response["success"] = TRUE;
+            while($row = $result->fetch_assoc()) $response["data"] = $row;
+        }else{
+            $response["success"] = FALSE;
+        }
+        
+    }
+    
+    $conn->close();
+    
+    echo json_encode($response, JSON_UNESCAPED_UNICODE);
 ?>

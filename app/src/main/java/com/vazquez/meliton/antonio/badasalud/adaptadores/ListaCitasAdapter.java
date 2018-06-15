@@ -12,10 +12,17 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
 import com.vazquez.meliton.antonio.badasalud.R;
 import com.vazquez.meliton.antonio.badasalud.controladores.CitaController;
+import com.vazquez.meliton.antonio.badasalud.controladores.EliminarController;
 import com.vazquez.meliton.antonio.badasalud.entidad.Cita;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -25,7 +32,7 @@ public class ListaCitasAdapter extends BaseAdapter {
     private Context context;
     private View view;
     private TextView tituloTx, especialidadTx, hospitalTx, fechaTx, horaTx, buttonViewOption;
-    private ImageView imagenVista;
+    private ImageView imagenVista, del;
     private int citaId;
     private ListView listado;
 
@@ -70,6 +77,8 @@ public class ListaCitasAdapter extends BaseAdapter {
         hospitalTx.setText(temp.getHospital());
         fechaTx.setText(temp.getFecha());
         horaTx.setText(temp.getHora());
+
+
 
         return vista;
     }

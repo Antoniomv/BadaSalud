@@ -24,7 +24,7 @@ public class Constantes {
     /**
      * Dirección IP de genymotion o AVD
      */
-    private static final String IP = "http://www.badasalud.es/";
+    private static final String IP = "http://badasalud.es/";
     /**
      * URLs del Web Service
      */
@@ -34,7 +34,6 @@ public class Constantes {
     public static final String INSERT_USUARIO = IP + PUERTO_HOST + "webservice/conexion/registro.php";
     public static final String LOGIN = IP + PUERTO_HOST + "webservice/conexion/login.php";
     public static final String PRINCIPAL = IP + PUERTO_HOST + "webservice/conexion/principal.php?id=";
-
 
 
     //CITAS

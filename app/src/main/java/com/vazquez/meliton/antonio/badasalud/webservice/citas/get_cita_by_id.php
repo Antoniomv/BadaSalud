@@ -1,37 +1,21 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: antonio
- * Date: 23/01/18
- * Time: 23:03
- */
 
-require 'DAOcita.php';
-
-if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-
-    if (isset($_GET['id'])) {
-        $parametro = $_GET['id'];
-        $resultado = DAOcita::getById($parametro);
-        if ($resultado == 1) {
-            $dato["estado"] = "1";
-            $dato["citas"] = $resultado;
-            print json_encode($dato);
-        } else {  //error
-            print json_encode(
-                array(
-                    'estado' => '2',
-                    'mensaje' => 'No se obtuvo el registro'
-                )
-            );
+    require 'conexion.php';
+    
+    if(isset($_GET["id"])){
+        $id = $_GET["id"];
+        $sql = "SELECT c.id, c.titulo, c.fecha, c.hora, h.nombre, e.especialidad FROM citas c, usuarios u, hospitales h, especialidades e WHERE c.usuario_id = u.id AND c.hospital_id = h.id AND c.especialidad_id = e.id AND c.usuario_id = $id";
+        $result = $conn->query($sql);
+        if($result->num_rows > 0){
+            while($row = $result->fetch_assoc()){
+                $response[] = $row;
+            }
+        }else{
+            $response["success"] = false;
         }
-
-    } else {
-        print json_encode( //Otro error
-            array(
-                'estado' => '3',
-                'mensaje' => 'Se necesita un identificador'
-            )
-        );
     }
-}
+    
+    $conn->close();
+    
+    echo json_encode($response, JSON_UNESCAPED_UNICODE);
+?>

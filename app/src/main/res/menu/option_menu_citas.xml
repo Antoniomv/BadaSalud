@@ -8,6 +8,6 @@
     <item
         android:id="@+id/eliminarCita"
         android:background="@drawable/borde_titulo"
-        android:title="Eliminar Cita" />
+        android:title="Eliminar Cita"/>
 
 </menu>

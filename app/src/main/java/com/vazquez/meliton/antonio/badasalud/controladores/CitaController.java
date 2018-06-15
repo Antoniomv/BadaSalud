@@ -84,28 +84,4 @@ public class CitaController {
 
     }
 
-
-    //Mapeamos, Eliminamos datos, procesamos y guardamos
-    public void eliminarCita(String id) {
-            HashMap<String, String> map = new HashMap<>();
-            map.put("id",id);
-            JSONObject jsonObject = new JSONObject(map); // Crear nuevo objeto Json basado en el mapa
-
-            //Volley
-            VolleySingleton.getIntanciaVolley(context).addToRequestQueue(
-                    new JsonObjectRequest(Request.Method.POST, Constantes.DELETE_CITA, jsonObject,
-                            new Response.Listener<JSONObject>() {
-                                @Override
-                                public void onResponse(JSONObject response) {
-                                    System.out.println("Borrado Correctamente");
-                                }
-                            },
-                            new Response.ErrorListener() {
-                                @Override
-                                public void onErrorResponse(VolleyError error) {
-                                    System.out.println("fallo en el borrado");
-                                }
-                            })  //Fin de JsonObjectRequest
-            );
-        }
 }

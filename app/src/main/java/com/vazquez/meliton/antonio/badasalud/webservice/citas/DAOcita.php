@@ -45,7 +45,7 @@ class DAOcita {
     }
 
     public static function insert($titulo, $usuario_id, $hospital_id, $especialidad_id, $fecha, $hora  ) {
-        $comando = "INSERT INTO citas (titulo,usuario_id, hospital_id, especiliadad_id, fecha, hora) VALUES(?,?,?,?,?,?)";
+        $comando = "INSERT INTO citas (titulo,usuario_id, hospital_id, especialidad_id, fecha, hora) VALUES(?,?,?,?,?,?)";
 
         $sentencia = Database::getInstance()->getDb()->prepare($comando);
         return $sentencia->execute(array($titulo, $usuario_id, $hospital_id, $especialidad_id,  $fecha, $hora));
