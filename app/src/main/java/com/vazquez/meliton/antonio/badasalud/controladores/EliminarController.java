@@ -12,9 +12,8 @@ public class EliminarController extends StringRequest {
     private Map<String, String> params;
 
     public EliminarController(String id, Response.Listener<String> listener) {
-        super(Method.POST, url, listener, null);
-        params = new HashMap<>();
-        params.put("id",id);
+        super(Method.GET, url+id, listener, null);
+
     }
 
     @Override

@@ -140,7 +140,7 @@ public class ListaCitaFragment extends Fragment {
                                             boolean success = jsonObject.getBoolean("success");
                                             if(success){
                                                 Toast.makeText(getContext(),
-                                                        "This appointment was deleted !",Toast.LENGTH_LONG).show();
+                                                        "Cita Eliminada Correctamente!",Toast.LENGTH_LONG).show();
                                             }else{
                                                 Toast.makeText(getContext(),"Error !", Toast.LENGTH_LONG).show();
                                             }
