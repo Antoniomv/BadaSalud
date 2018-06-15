@@ -133,26 +133,26 @@ public class ListaCitaFragment extends Fragment {
                                 temp = citas.get(position);
 
                                 EliminarController delCitas = new EliminarController(temp.getId(), new Response.Listener<String>() {
-                                            @Override
-                                            public void onResponse(String response) {
-                                                try {
-                                                    JSONObject jsonObject = new JSONObject(response);
-                                                    boolean success = jsonObject.getBoolean("success");
-                                                    if(success){
-                                                        Toast.makeText(getContext(),
-                                                                "This appointment was deleted !",Toast.LENGTH_LONG).show();
-                                                    }else{
-                                                        Toast.makeText(getContext(),"Error !", Toast.LENGTH_LONG).show();
-                                                    }
-                                                } catch (JSONException e) {
-                                                    e.printStackTrace();
-                                                }
-
+                                    @Override
+                                    public void onResponse(String response) {
+                                        try {
+                                            JSONObject jsonObject = new JSONObject(response);
+                                            boolean success = jsonObject.getBoolean("success");
+                                            if(success){
+                                                Toast.makeText(getContext(),
+                                                        "This appointment was deleted !",Toast.LENGTH_LONG).show();
+                                            }else{
+                                                Toast.makeText(getContext(),"Error !", Toast.LENGTH_LONG).show();
                                             }
-                                        });
-                                        Volley.newRequestQueue(getContext()).add(delCitas);
-                                        getActivity().finish();
-                                        startActivity(getActivity().getIntent());
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+
+                                    }
+                                });
+                                Volley.newRequestQueue(getContext()).add(delCitas);
+                                getActivity().finish();
+                                startActivity(getActivity().getIntent());
 
                                 break;
                         }

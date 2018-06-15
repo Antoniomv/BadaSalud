@@ -9,5 +9,4 @@
         android:id="@+id/menu_mapa"
         android:title="Ver en el Mapa" />
 
-
 </menu>
