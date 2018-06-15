@@ -40,7 +40,7 @@
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="title_activity_dasadsfdasf" translatable="false">dasadsfdasf</string>
     <string name="nombre_hospital">Nombre Hospital</string>
-    <string name="direccionhospital">DireccionHospital</string>
+    <string name="direccionhospital">Direccion Hospital</string>
     <string name="tel_fono_hospital">Teléfono Hospital</string>
     <string name="_8942" translatable="false">⋮</string>
     <string name="actualizar_datos">Actualizar Datos:</string>
@@ -65,7 +65,7 @@
     <string name="registrate_por_email">Registrate por email</string>
     <string name="entrar">Entrar</string>
     <string name="bienvenido">Bienvenido/a</string>
-    <string name="todo">TODO</string>
+    <string name="todo" translatable="false">TODO</string>
     <string name="nombre_del_usuario">nombre del usuario</string>
     <string name="nombreusuario">Nombre:</string>
     <string name="apellidosusuario">Apellidos:</string>

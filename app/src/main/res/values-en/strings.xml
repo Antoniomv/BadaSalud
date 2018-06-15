@@ -35,4 +35,9 @@
     <string name="con_ctate">Conecting!</string>
     <string name="reg_strate">Register</string>
     <string name="especialidad">specialty</string>
+    <string name="bienvenido">Welcome</string>
+    <string name="nombre_del_usuario">Username</string>
+    <string name="nombreusuario">Name:</string>
+    <string name="apellidosusuario">LastName:</string>
+    <string name="apellidos_del_usuario">UserLastname</string>
 </resources>
