@@ -1,13 +1,6 @@
 package com.vazquez.meliton.antonio.badasalud.entidad;
 
-import org.json.JSONObject;
-
-import java.io.Serializable;
-import java.sql.Time;
-import java.util.ArrayList;
-import java.util.Date;
-
-public class Cita  {
+public class Cita {
 
     //creamos variables
     private String id;

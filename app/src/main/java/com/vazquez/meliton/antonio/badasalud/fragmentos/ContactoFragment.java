@@ -4,17 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.vazquez.meliton.antonio.badasalud.R;
 
@@ -76,9 +72,9 @@ public class ContactoFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_contacto, container, false);
 
         final EditText emailNombre = view.findViewById(R.id.tu_nombre);
-        final EditText emailEmail= view.findViewById(R.id.tu_email);
-        final EditText emailAsunto= view.findViewById(R.id.tu_asunto);
-        final EditText emailMensaje= view.findViewById(R.id.tu_mensaje);
+        final EditText emailEmail = view.findViewById(R.id.tu_email);
+        final EditText emailAsunto = view.findViewById(R.id.tu_asunto);
+        final EditText emailMensaje = view.findViewById(R.id.tu_mensaje);
 
 
         Button emailBoton = (Button) view.findViewById(R.id.enviar_mensaje);
@@ -92,26 +88,26 @@ public class ContactoFragment extends Fragment {
                 String asunto = emailAsunto.getText().toString();
                 String mensaje = emailMensaje.getText().toString();
 
-                if (TextUtils.isEmpty(nombre)){
+                if (TextUtils.isEmpty(nombre)) {
                     emailNombre.setError("Escribe tu nombre");
                     emailNombre.requestFocus();
                     return;
                 }
 
                 Boolean onError = false;
-                if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                     emailEmail.setError("Escribe tu email");
                     emailEmail.requestFocus();
                     return;
                 }
 
-                if (TextUtils.isEmpty(asunto)){
+                if (TextUtils.isEmpty(asunto)) {
                     emailAsunto.setError("Escribe un asunto");
                     emailAsunto.requestFocus();
                     return;
                 }
 
-                if (TextUtils.isEmpty(mensaje)){
+                if (TextUtils.isEmpty(mensaje)) {
                     emailMensaje.setError("Escribe un mensaje");
                     emailMensaje.requestFocus();
                     return;
@@ -124,7 +120,7 @@ public class ContactoFragment extends Fragment {
                 sendEmail.putExtra(Intent.EXTRA_EMAIL, new String[]{"amelitonvazquez@gmail.com"});
                 sendEmail.putExtra(Intent.EXTRA_SUBJECT, asunto);
                 sendEmail.putExtra(Intent.EXTRA_TEXT,
-                        "Nombre:"+nombre+'\n'+"Email:"+email+'\n'+"Mensaje:"+'\n'+mensaje);
+                        "Nombre:" + nombre + '\n' + "Email:" + email + '\n' + "Mensaje:" + '\n' + mensaje);
 
                 /* Send it off to the Activity-Chooser */
                 startActivity(Intent.createChooser(sendEmail, "Enviando Email..."));
@@ -133,7 +129,6 @@ public class ContactoFragment extends Fragment {
 
         return view;
     }
-
 
 
     // TODO: Rename method, update argument and hook method into UI event

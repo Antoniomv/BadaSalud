@@ -4,7 +4,6 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.vazquez.meliton.antonio.badasalud.constantes.Constantes;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class EliminarController extends StringRequest {
@@ -12,7 +11,7 @@ public class EliminarController extends StringRequest {
     private Map<String, String> params;
 
     public EliminarController(String id, Response.Listener<String> listener) {
-        super(Method.GET, url+id, listener, null);
+        super(Method.GET, url + id, listener, null);
 
     }
 

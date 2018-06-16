@@ -1,10 +1,8 @@
 package com.vazquez.meliton.antonio.badasalud.fragmentos;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,11 +12,9 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.google.gson.JsonObject;
 import com.vazquez.meliton.antonio.badasalud.R;
 import com.vazquez.meliton.antonio.badasalud.adaptadores.ListaHospitalAdapter;
 import com.vazquez.meliton.antonio.badasalud.constantes.Constantes;
@@ -44,16 +40,13 @@ public class ListaHospitalFragment extends Fragment implements Response.Listener
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    private OnFragmentInteractionListener mListener;
-
     RecyclerView reciclyerhospitales;
     ArrayList<Hospital> listaHospitales;
     JsonObjectRequest jsonObjectRequest;
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
+    private OnFragmentInteractionListener mListener;
 
 
     public ListaHospitalFragment() {
@@ -105,8 +98,8 @@ public class ListaHospitalFragment extends Fragment implements Response.Listener
     }
 
     private void webService() {
-        String URL= Constantes.GET_HOSPITALES;
-        jsonObjectRequest=new JsonObjectRequest(Request.Method.GET,URL,null,this,this);
+        String URL = Constantes.GET_HOSPITALES;
+        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL, null, this, this);
         VolleySingleton.getIntanciaVolley(getContext()).addToRequestQueue(jsonObjectRequest);
 
     }
@@ -139,13 +132,13 @@ public class ListaHospitalFragment extends Fragment implements Response.Listener
     public void onResponse(JSONObject response) {
         Hospital hospital = null;
 
-        JSONArray json=response.optJSONArray("hospitales");
+        JSONArray json = response.optJSONArray("hospitales");
 
-        try{
-            for (int i=0;i<json.length();i++){
-                hospital=new Hospital();
-                JSONObject jsonObject=null;
-                jsonObject=json.getJSONObject(i);
+        try {
+            for (int i = 0; i < json.length(); i++) {
+                hospital = new Hospital();
+                JSONObject jsonObject = null;
+                jsonObject = json.getJSONObject(i);
 
                 hospital.setNombre(jsonObject.optString("nombre"));
                 hospital.setDireccion(jsonObject.optString("direccion"));
@@ -158,7 +151,7 @@ public class ListaHospitalFragment extends Fragment implements Response.Listener
         } catch (JSONException e) {
             e.printStackTrace();
             Toast.makeText(getContext(), "No se ha podido establecer conexión con el servidor" +
-                    " "+response, Toast.LENGTH_LONG).show();
+                    " " + response, Toast.LENGTH_LONG).show();
         }
 
     }

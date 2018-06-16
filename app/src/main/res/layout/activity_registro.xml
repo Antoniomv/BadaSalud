@@ -31,8 +31,8 @@
                 android:id="@+id/logoRegistro"
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
-                app:srcCompat="@drawable/iconofinal"
-                android:contentDescription="@string/todo" />
+                android:contentDescription="@string/todo"
+                app:srcCompat="@drawable/iconofinal" />
 
             <TextView
                 android:id="@+id/tv_registrate"

@@ -9,8 +9,8 @@ import com.android.volley.toolbox.Volley;
 public class VolleySingleton {
 
     private static VolleySingleton intanciaVolley;
-    private RequestQueue request;
     private static Context contexto;
+    private RequestQueue request;
 
     private VolleySingleton(Context context) {
         contexto = context;

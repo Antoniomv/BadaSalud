@@ -1,13 +1,10 @@
 package com.vazquez.meliton.antonio.badasalud.fragmentos;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,12 +20,9 @@ import com.vazquez.meliton.antonio.badasalud.LoginActivity;
 import com.vazquez.meliton.antonio.badasalud.R;
 import com.vazquez.meliton.antonio.badasalud.constantes.Constantes;
 import com.vazquez.meliton.antonio.badasalud.controladores.ActualizarController;
-import com.vazquez.meliton.antonio.badasalud.entidad.Usuario;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,17 +37,13 @@ public class PanelUsuarioFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    EditText nombre, apellidos, telefono;
+    Button actualizar;
+    String usuarioId, nuevoNombre, nuevoApellido, nuevoTelefono, nombreSend, apellidosSend, telefonoSend;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
-
     private SharedPreferences sharedPreferences;
-    EditText nombre, apellidos, telefono;
-    Button actualizar;
-    String usuarioId,nuevoNombre, nuevoApellido, nuevoTelefono, nombreSend, apellidosSend,telefonoSend;
-
     private OnFragmentInteractionListener mListener;
 
     public PanelUsuarioFragment() {
@@ -94,7 +84,7 @@ public class PanelUsuarioFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_panel_usuario, container, false);
 
         sharedPreferences = getContext().getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
-        usuarioId = sharedPreferences.getString("idKey",null);
+        usuarioId = sharedPreferences.getString("idKey", null);
         cargarDatos();
         nombre = view.findViewById(R.id.et_nombre_act);
         nombre.setText(nombreSend);
@@ -118,9 +108,9 @@ public class PanelUsuarioFragment extends Fragment {
 
     private void actualizarUsuario() {
 
-        String nuevoNombre =nombre.getText().toString();
-        String nuevoApellido =apellidos.getText().toString();
-        String nuevoTelefono =telefono.getText().toString();
+        String nuevoNombre = nombre.getText().toString();
+        String nuevoApellido = apellidos.getText().toString();
+        String nuevoTelefono = telefono.getText().toString();
         String id = usuarioId;
         ActualizarController actualizarController = new ActualizarController(id, nuevoNombre, nuevoApellido, nuevoTelefono, new Response.Listener<String>() {
             @Override
@@ -128,15 +118,15 @@ public class PanelUsuarioFragment extends Fragment {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     boolean success = jsonObject.getBoolean("success");
-                    if(success){
+                    if (success) {
                         Toast.makeText(getContext(), "Actualización correcta", Toast.LENGTH_LONG).show();
-                        Fragment fragment=new InicioFragment();
+                        Fragment fragment = new InicioFragment();
                         getFragmentManager().beginTransaction()
-                                .replace(R.id.contenido,fragment)
+                                .replace(R.id.contenido, fragment)
                                 .commit();
-                    }else{
+                    } else {
                         String error = jsonObject.getString("error");
-                        if(error.equals("TELEFONO_DUPLICATE")){
+                        if (error.equals("TELEFONO_DUPLICATE")) {
                             telefono.setError("El Teléfono ya existe en la base de datos");
                             Toast.makeText(getContext(), "El Teléfono ya existe en la base de datos", Toast.LENGTH_LONG).show();
                         }
@@ -146,40 +136,41 @@ public class PanelUsuarioFragment extends Fragment {
                 }
             }
         });
-        if(nuevoNombre.isEmpty()) nombre.setError("Introduce tu nombre");
-        else if(nuevoApellido.isEmpty()) apellidos.setError("Introduce tus apellidos");
-        else if(nuevoTelefono.isEmpty() || nuevoTelefono.length() < 9 || nuevoTelefono.length() > 9) telefono.setError("Teléfono Erroneo");
+        if (nuevoNombre.isEmpty()) nombre.setError("Introduce tu nombre");
+        else if (nuevoApellido.isEmpty()) apellidos.setError("Introduce tus apellidos");
+        else if (nuevoTelefono.isEmpty() || nuevoTelefono.length() < 9 || nuevoTelefono.length() > 9)
+            telefono.setError("Teléfono Erroneo");
         else Volley.newRequestQueue(getContext()).add(actualizarController);
     }
 
-    private void cargarDatos(){
-            final String url = Constantes.PRINCIPAL+usuarioId;
-            //muestro por consola la url para saber si la trae correctamente
-            System.out.println(url);
-            StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    try {
-                        JSONObject jsonObject= new JSONObject(response);
-                        boolean success = jsonObject.getBoolean("success");
-                        if(success){
-                            JSONObject jsonObject1 = jsonObject.getJSONObject("data");
-                            nombreSend   =   jsonObject1.getString("nombre");
-                            apellidosSend =   jsonObject1.getString("apellidos");
-                            telefonoSend  =   jsonObject1.getString("telefono");
+    private void cargarDatos() {
+        final String url = Constantes.PRINCIPAL + usuarioId;
+        //muestro por consola la url para saber si la trae correctamente
+        System.out.println(url);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean success = jsonObject.getBoolean("success");
+                    if (success) {
+                        JSONObject jsonObject1 = jsonObject.getJSONObject("data");
+                        nombreSend = jsonObject1.getString("nombre");
+                        apellidosSend = jsonObject1.getString("apellidos");
+                        telefonoSend = jsonObject1.getString("telefono");
 
-                            //muestro por consola  los datos para saber si la trae correctamente
-                            System.out.println("nombre: "+nombreSend + "\n apellidos: " + apellidosSend + "\n telefono: "+ telefonoSend);
+                        //muestro por consola  los datos para saber si la trae correctamente
+                        System.out.println("nombre: " + nombreSend + "\n apellidos: " + apellidosSend + "\n telefono: " + telefonoSend);
 
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
                     }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-            },null);
+            }
+        }, null);
 
-            Volley.newRequestQueue(getContext()).add(stringRequest);
-        }
+        Volley.newRequestQueue(getContext()).add(stringRequest);
+    }
 
 
     // TODO: Rename method, update argument and hook method into UI event

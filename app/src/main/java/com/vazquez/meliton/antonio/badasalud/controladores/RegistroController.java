@@ -12,15 +12,15 @@ public class RegistroController extends StringRequest {
     private static final String url = Constantes.INSERT_USUARIO;
     private Map<String, String> params;
 
-    public RegistroController(String nombre, String apellidos,String telefono, String email, String password, Response.Listener<String> listener) {
+    public RegistroController(String nombre, String apellidos, String telefono, String email, String password, Response.Listener<String> listener) {
         super(Method.POST, url, listener, null);
 
         params = new HashMap<>();
-        params.put("nombre",nombre);
-        params.put("apellidos",apellidos);
-        params.put("telefono",telefono);
-        params.put("email",email);
-        params.put("password",password);
+        params.put("nombre", nombre);
+        params.put("apellidos", apellidos);
+        params.put("telefono", telefono);
+        params.put("email", email);
+        params.put("password", password);
     }
 
     @Override

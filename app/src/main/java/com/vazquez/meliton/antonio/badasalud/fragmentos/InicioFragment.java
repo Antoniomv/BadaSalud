@@ -1,7 +1,6 @@
 package com.vazquez.meliton.antonio.badasalud.fragmentos;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,7 +15,6 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.vazquez.meliton.antonio.badasalud.LoginActivity;
-import com.vazquez.meliton.antonio.badasalud.PrincipalActivity;
 import com.vazquez.meliton.antonio.badasalud.R;
 import com.vazquez.meliton.antonio.badasalud.constantes.Constantes;
 
@@ -85,7 +83,7 @@ public class InicioFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_inicio, container, false);
         sharedPreferences = getContext().getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
-        usuarioId = sharedPreferences.getString("idKey",null);
+        usuarioId = sharedPreferences.getString("idKey", null);
         //muestro por consola la id para saber si la trae correctamente
         System.out.println(usuarioId);
 
@@ -100,24 +98,24 @@ public class InicioFragment extends Fragment {
     }
 
 
-    public void cargarDatosUsuario(){
-        final String url = Constantes.PRINCIPAL+usuarioId;
+    public void cargarDatosUsuario() {
+        final String url = Constantes.PRINCIPAL + usuarioId;
         //muestro por consola la url para saber si la trae correctamente
         System.out.println(url);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
-                    JSONObject jsonObject= new JSONObject(response);
+                    JSONObject jsonObject = new JSONObject(response);
                     boolean success = jsonObject.getBoolean("success");
-                    if(success){
+                    if (success) {
                         JSONObject jsonObject1 = jsonObject.getJSONObject("data");
-                        String nombreSend   =   jsonObject1.getString("nombre");
-                        String apellidosSend =   jsonObject1.getString("apellidos");
-                        String telefonoSend  =   jsonObject1.getString("telefono");
+                        String nombreSend = jsonObject1.getString("nombre");
+                        String apellidosSend = jsonObject1.getString("apellidos");
+                        String telefonoSend = jsonObject1.getString("telefono");
 
                         //muestro por consola  los datos para saber si la trae correctamente
-                        System.out.println("nombre: "+nombreSend + "\n apellidos: " + apellidosSend + "\n telefono: "+ telefonoSend);
+                        System.out.println("nombre: " + nombreSend + "\n apellidos: " + apellidosSend + "\n telefono: " + telefonoSend);
 
 
                         vernombre.setText(nombreSend);
@@ -129,7 +127,7 @@ public class InicioFragment extends Fragment {
                     e.printStackTrace();
                 }
             }
-        },null);
+        }, null);
 
         Volley.newRequestQueue(getContext()).add(stringRequest);
     }

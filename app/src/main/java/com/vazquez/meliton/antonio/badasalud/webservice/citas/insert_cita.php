@@ -1,29 +1,26 @@
 <?php
 
-require 'DAOcita.php';
+    require 'conexion.php';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $body = json_decode(file_get_contents("php://input"), true);
+    $title = $_POST["titulo"];
+    $u_id = $_POST["usuario_id"];
+    $h_id = $_POST["hospital_id"];
+    $e_id = $_POST["especialidad_id"];
+    $fecha = $_POST["fecha"];
+    $hora = $_POST["hora"]);
 
-    $resultado = DAOcita::insert(
-        $body['titulo'],
-        $body['usuario_id'],
-        $body['hospital_id'],
-        $body['especialidad_id'],
-        $body['fecha'],
-        $body['hora']);
+    $sql = "INSERT INTO `citas`(`titulo`, `usuario_id`, `hospital_id`, `especialidad_id`, `fecha`, `hora`)"
+     ."VALUES ('$title',$u_id,$h_id,$e_id,$fecha,$hora)";
 
-    if ($resultado) {
-        print json_encode(
-            array(
-                'estado' => '1',
-                'mensaje' => 'Operación correcta')
-        );
+    if ($conn->query($sql) === TRUE) {
+        $response["success"] = TRUE;
     } else {
-        print json_encode(
-            array(
-                'estado' => '2',
-                'mensaje' => 'Error en la operación')
-        );
+        $response["success"] = false;
+        $response["error"] = "ERROR_FATAL";
     }
-}
+
+     $conn->close();
+
+    echo json_encode($response, JSON_UNESCAPED_UNICODE);
+
+?>

@@ -5,14 +5,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -33,8 +32,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 
 /**
@@ -66,6 +68,7 @@ public class ListaCitaFragment extends Fragment {
     private String citaId;
     private int position;
     private Cita temp;
+
     public ListaCitaFragment() {
         // Required empty public constructor
     }
@@ -138,11 +141,11 @@ public class ListaCitaFragment extends Fragment {
                                         try {
                                             JSONObject jsonObject = new JSONObject(response);
                                             boolean success = jsonObject.getBoolean("success");
-                                            if(success){
+                                            if (success) {
                                                 Toast.makeText(getContext(),
-                                                        "Cita Eliminada Correctamente!",Toast.LENGTH_LONG).show();
-                                            }else{
-                                                Toast.makeText(getContext(),"Error !", Toast.LENGTH_LONG).show();
+                                                        "Cita Eliminada Correctamente!", Toast.LENGTH_LONG).show();
+                                            } else {
+                                                Toast.makeText(getContext(), "Error !", Toast.LENGTH_LONG).show();
                                             }
                                         } catch (JSONException e) {
                                             e.printStackTrace();
@@ -174,23 +177,34 @@ public class ListaCitaFragment extends Fragment {
         String hospital = citas.get(position).getHospital();
         String especialidad = citas.get(position).getEspecialidad();
         String fecha = citas.get(position).getFecha();
+        System.out.println(fecha);
         String hora = citas.get(position).getHora();
-        int year = Integer.parseInt(fecha.substring(0,3));
-        int mes = Integer.parseInt(fecha.substring(5,6));
-        int dia = Integer.parseInt(fecha.substring(8,9));
-        int horaComienzo= Integer.parseInt(hora.substring(0,1));
-        int minutoComienzo= Integer.parseInt(hora.substring(3,4));
+        System.out.println(hora);
+        int year = Integer.parseInt(fecha.substring(0, 4));
+        System.out.println(year);
+        int mes = Integer.parseInt(fecha.substring(5, 7));
+        System.out.println(mes);
+        int dia = Integer.parseInt(fecha.substring(8, 10));
+        System.out.println(dia);
+        int horaComienzo = Integer.parseInt(hora.substring(0, 2));
+        System.out.println(horaComienzo);
+        int minutoComienzo = Integer.parseInt(hora.substring(3, 5));
+        System.out.println(minutoComienzo);
 
         //enviamos datos al calendario en modo evento desde un intent implícito
-        Calendar cal = Calendar.getInstance();
-        cal.set(year,mes,dia,horaComienzo,minutoComienzo);
-        Intent intent = new Intent(Intent.ACTION_EDIT);
-        intent.setType("vnd.android.cursor.item/event");
-        intent.putExtra("description", hospital + "\n" + especialidad);
-        intent.putExtra("rrule", "FREQ=YEARLY");
-        intent.putExtra("endTime", cal.getTimeInMillis()+60*60*1000);
-        intent.putExtra("title", titulo);
-        startActivity(intent);
+        Intent calIntent = new Intent(Intent.ACTION_INSERT);
+        calIntent.setData(CalendarContract.Events.CONTENT_URI);
+        calIntent.putExtra(CalendarContract.Events.TITLE, titulo);
+        calIntent.putExtra(CalendarContract.Events.DESCRIPTION, hospital + "\n" + especialidad);
+        Calendar startTime = Calendar.getInstance();
+        startTime.set(year,mes,dia,horaComienzo,minutoComienzo);
+        Calendar endTime = Calendar.getInstance();
+        endTime.set(year,mes,dia,horaComienzo+2,minutoComienzo);
+        calIntent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,
+                startTime.getTimeInMillis());
+        calIntent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME,
+                endTime.getTimeInMillis());
+        startActivity(calIntent);
     }
 
 
@@ -199,7 +213,7 @@ public class ListaCitaFragment extends Fragment {
         //traemos el id desde el login
         String usuarioId = sharedPreferences.getString("idKey", null);
         //llamamos a la url
-        String url = Constantes.GET_CITA_BY_ID+usuarioId;
+        String url = Constantes.GET_CITA_BY_ID + usuarioId;
 
         System.out.println(usuarioId);
 
@@ -210,11 +224,10 @@ public class ListaCitaFragment extends Fragment {
                 JSONArray jsonArray;
                 try {
                     jsonArray = new JSONArray(response);
-                    if(jsonArray.length() == 0) {
+                    if (jsonArray.length() == 0) {
                         ((TextView) getView().findViewById(R.id.mensaje_vacio)).setText("No tienes citas pendientes.");
-                    }
-                    else{
-                        for (int i=0; i<jsonArray.length(); i++){
+                    } else {
+                        for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
                             String id = jsonObject.getString("id");
                             String titulo = jsonObject.getString("titulo");
@@ -222,7 +235,7 @@ public class ListaCitaFragment extends Fragment {
                             String hospital = jsonObject.getString("nombre");
                             String fecha = jsonObject.getString("fecha");
                             String hora = jsonObject.getString("hora");
-                            citas.add(new Cita(id,titulo,fecha,hora,hospital,especialidad));
+                            citas.add(new Cita(id, titulo, fecha, hora, hospital, especialidad));
                         }
                     }
                     citaAdapter.notifyDataSetChanged();

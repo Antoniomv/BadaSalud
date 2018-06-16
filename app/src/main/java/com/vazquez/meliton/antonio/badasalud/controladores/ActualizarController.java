@@ -11,7 +11,7 @@ public class ActualizarController extends StringRequest {
     private static final String url = Constantes.UPDATE_USUARIO;
     private Map<String, String> params;
 
-    public ActualizarController(String id,String nombre, String apellidos, String telefono, Response.Listener<String> listener){
+    public ActualizarController(String id, String nombre, String apellidos, String telefono, Response.Listener<String> listener) {
         super(Method.POST, url, listener, null);
         params = new HashMap<>();
         params.put("id", id);

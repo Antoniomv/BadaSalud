@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="hospitales">
-            <item>Hospital Perpetuo Socorro</item>
-            <item>Hospital Materno Infantil</item>
-            <item>Hospital Infanta Cristina</item>
-            <item>Hospital QuironSalud Clideba</item>
-            <item>Clínica de la Salud</item>
-            <item>Centro de Salud la Paz</item>
-            <item>Centro de Salud Valdepasillas</item>
-            <item>Centro de Salud Ciudad Jardín</item>
-            <item>Centro de Salud Suerte de Saavedra</item>
-            <item>Centro de Salud de Cerro Gordo</item>
-            <item>Centro de Salud San Roque</item>
-            <item>Centro de Salud San Fernando</item>
-            <item>Centro de Salud El Progreso</item>
+        <item>Hospital Perpetuo Socorro</item>
+        <item>Hospital Materno Infantil</item>
+        <item>Hospital Infanta Cristina</item>
+        <item>Hospital QuironSalud Clideba</item>
+        <item>Clínica de la Salud</item>
+        <item>Centro de Salud la Paz</item>
+        <item>Centro de Salud Valdepasillas</item>
+        <item>Centro de Salud Ciudad Jardín</item>
+        <item>Centro de Salud Suerte de Saavedra</item>
+        <item>Centro de Salud de Cerro Gordo</item>
+        <item>Centro de Salud San Roque</item>
+        <item>Centro de Salud San Fernando</item>
+        <item>Centro de Salud El Progreso</item>
     </string-array>
 
     <string-array name="especialidades">

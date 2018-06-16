@@ -15,7 +15,7 @@ public class LoginController extends StringRequest {
         super(Method.POST, url, listener, null);
         params = new HashMap<>();
         params.put("email", email);
-        params.put("password",password);
+        params.put("password", password);
     }
 
     @Override
