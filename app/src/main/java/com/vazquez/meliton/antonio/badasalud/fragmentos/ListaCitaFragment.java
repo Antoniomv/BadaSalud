@@ -32,11 +32,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 
 /**
@@ -177,19 +174,12 @@ public class ListaCitaFragment extends Fragment {
         String hospital = citas.get(position).getHospital();
         String especialidad = citas.get(position).getEspecialidad();
         String fecha = citas.get(position).getFecha();
-        System.out.println(fecha);
         String hora = citas.get(position).getHora();
-        System.out.println(hora);
         int year = Integer.parseInt(fecha.substring(0, 4));
-        System.out.println(year);
         int mes = Integer.parseInt(fecha.substring(5, 7));
-        System.out.println(mes);
         int dia = Integer.parseInt(fecha.substring(8, 10));
-        System.out.println(dia);
         int horaComienzo = Integer.parseInt(hora.substring(0, 2));
-        System.out.println(horaComienzo);
         int minutoComienzo = Integer.parseInt(hora.substring(3, 5));
-        System.out.println(minutoComienzo);
 
         //enviamos datos al calendario en modo evento desde un intent implícito
         Intent calIntent = new Intent(Intent.ACTION_INSERT);
@@ -225,7 +215,7 @@ public class ListaCitaFragment extends Fragment {
                 try {
                     jsonArray = new JSONArray(response);
                     if (jsonArray.length() == 0) {
-                        ((TextView) getView().findViewById(R.id.mensaje_vacio)).setText("No tienes citas pendientes.");
+                        ((TextView) view.findViewById(R.id.mensaje_vacio)).setText("No tienes citas pendientes.");
                     } else {
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonObject = jsonArray.getJSONObject(i);

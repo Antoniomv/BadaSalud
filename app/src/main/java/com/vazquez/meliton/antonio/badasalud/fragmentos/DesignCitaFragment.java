@@ -26,27 +26,31 @@ import com.vazquez.meliton.antonio.badasalud.controladores.CitaController;
  * Use the {@link DesignCitaFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DesignCitaFragment extends Fragment {
-    public static final int DEFAULT_POSITION = 3;
+public class DesignCitaFragment extends Fragment  {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    //datos para hospitales
-    JsonObjectRequest jsonObjectRequestHospitales;
-    String tituloCita, fechaSeleccionada, horaSeleccionada;
-    int hospitalSeleccionado, especialidadSeleccoinado, usuarioId;
-    Button agregar;
-    SharedPreferences sharedPreferences;
-    CitaController citaController;
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    //datos para hospitales
+    JsonObjectRequest jsonObjectRequestHospitales;
     private View view;
     private Context context;
+    String tituloCita,  fechaSeleccionada, horaSeleccionada;
+    int hospitalSeleccionado, especialidadSeleccoinado, usuarioId;
+    Button agregar;
     private OnFragmentInteractionListener mListener;
+    SharedPreferences sharedPreferences;
+
     private EditText titulodelacita;
-    private Spinner sp_hospital, sp_especialidad, sp_year, sp_mes, sp_dia, sp_hora, sp_minuto;
+    private Spinner sp_hospital, sp_especialidad, sp_year, sp_mes,sp_dia, sp_hora, sp_minuto;
+
+    CitaController citaController;
+    public static final int DEFAULT_POSITION = 3;
 
     public DesignCitaFragment() {
         // Required empty public constructor
@@ -89,37 +93,38 @@ public class DesignCitaFragment extends Fragment {
         titulodelacita = view.findViewById(R.id.titulo_cita);
         sp_hospital = view.findViewById(R.id.spinner_hospitales);
         sp_especialidad = view.findViewById(R.id.spinner_especialidades);
-        sp_year = view.findViewById(R.id.year);
-        sp_mes = view.findViewById(R.id.mes);
-        sp_dia = view.findViewById(R.id.dia);
-        sp_hora = view.findViewById(R.id.hora);
-        sp_minuto = view.findViewById(R.id.minutos);
+        sp_year=view.findViewById(R.id.year);
+        sp_mes=view.findViewById(R.id.mes);
+        sp_dia=view.findViewById(R.id.dia);
+        sp_hora=view.findViewById(R.id.hora);
+        sp_minuto=view.findViewById(R.id.minutos);
+
 
         String usuariopasado = sharedPreferences.getString("idKey", null);
-        usuarioId = Integer.valueOf(usuariopasado);
-        System.out.println("CITA = " + usuarioId);
+        usuarioId = Integer.parseInt(usuariopasado);
+        System.out.println("CITA = " +usuarioId);
         agregar = view.findViewById(R.id.boton_cita);
         agregar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 tituloCita = titulodelacita.getText().toString();
-                hospitalSeleccionado = sp_hospital.getSelectedItemPosition() + 1;
-                especialidadSeleccoinado = sp_especialidad.getSelectedItemPosition() + 1;
-                fechaSeleccionada = sp_year.getSelectedItem().toString() + "-"
+                hospitalSeleccionado = sp_hospital.getSelectedItemPosition() +1;
+                especialidadSeleccoinado = sp_especialidad.getSelectedItemPosition()+1;
+                fechaSeleccionada = sp_year.getSelectedItem().toString() +"-"
                         + sp_mes.getSelectedItem().toString() + "-"
                         + sp_dia.getSelectedItem().toString();
-                horaSeleccionada = sp_hora.getSelectedItem().toString() + ":"
-                        + sp_minuto.getSelectedItem().toString();
+                horaSeleccionada = sp_hora.getSelectedItem().toString()+":"
+                        + sp_minuto.getSelectedItem().toString()+":00";
 
-                citaController = new CitaController(getContext(), v);
-                citaController.nuevaCita(tituloCita, usuarioId, hospitalSeleccionado, especialidadSeleccoinado, fechaSeleccionada, horaSeleccionada);
-
+                citaController= new CitaController(getContext(), v);
+                citaController.nuevaCita(tituloCita,usuarioId,hospitalSeleccionado,especialidadSeleccoinado,fechaSeleccionada,horaSeleccionada);
             }
         });
 
         retornoDatos();
         return view;
     }
+
 
 
     private void retornoDatos() {

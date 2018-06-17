@@ -38,7 +38,7 @@ public class Constantes {
 
     //CITAS
     public static final String GET_CITA_BY_ID = IP + PUERTO_HOST + "webservice/citas/get_cita_by_id.php?id=";
-    public static final String DELETE_CITA = IP + PUERTO_HOST + "webservice/citas/delete_cita.php";
+    public static final String DELETE_CITA = IP + PUERTO_HOST + "webservice/citas/delete_cita.php?id=";
     public static final String INSERT_CITA = IP + PUERTO_HOST + "webservice/citas/insert_cita.php";
 
 
