@@ -127,7 +127,7 @@ public class ListaCitaFragment extends Fragment {
                         switch (item.getItemId()) {
 
                             case R.id.agregarAlarma:
-                                agregarAlarma();
+                                agregarAlarma(position);
                                 break;
                             case R.id.eliminarCita:
                                 temp = citas.get(position);
@@ -168,7 +168,7 @@ public class ListaCitaFragment extends Fragment {
         return view;
     }
 
-    private void agregarAlarma() {
+    private void agregarAlarma(int position) {
         //recogemos datos de la cita
         String titulo = citas.get(position).getTitulo();
         String hospital = citas.get(position).getHospital();
@@ -187,9 +187,9 @@ public class ListaCitaFragment extends Fragment {
         calIntent.putExtra(CalendarContract.Events.TITLE, titulo);
         calIntent.putExtra(CalendarContract.Events.DESCRIPTION, hospital + "\n" + especialidad);
         Calendar startTime = Calendar.getInstance();
-        startTime.set(year,mes,dia,horaComienzo,minutoComienzo);
+        startTime.set(year, mes, dia, horaComienzo, minutoComienzo);
         Calendar endTime = Calendar.getInstance();
-        endTime.set(year,mes,dia,horaComienzo+2,minutoComienzo);
+        endTime.set(year, mes, dia, horaComienzo + 2, minutoComienzo);
         calIntent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,
                 startTime.getTimeInMillis());
         calIntent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME,

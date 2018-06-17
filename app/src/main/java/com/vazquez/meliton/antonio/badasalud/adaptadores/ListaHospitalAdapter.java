@@ -78,13 +78,6 @@ public class ListaHospitalAdapter extends RecyclerView.Adapter<ListaHospitalAdap
         });
     }
 
-    private void vermapa(int position) {
-        String direccion = listaHospital.get(position).getDireccion();
-        Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse("https://www.google.es/maps/place/" + direccion));
-        intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
-        context.startActivity(intent);
-    }
-
     private void llamar(int position) {
         String phoneNumer = String.valueOf(listaHospital.get(position).getTelefono());
         dialPhoneNumber(phoneNumer);
@@ -98,6 +91,12 @@ public class ListaHospitalAdapter extends RecyclerView.Adapter<ListaHospitalAdap
         }
     }
 
+    private void vermapa(int position) {
+        String direccion = listaHospital.get(position).getDireccion();
+        Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse("https://www.google.es/maps/place/" + direccion));
+        intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
+        context.startActivity(intent);
+    }
 
     @Override
     public int getItemCount() {

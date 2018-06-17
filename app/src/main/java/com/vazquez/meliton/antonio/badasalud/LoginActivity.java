@@ -1,10 +1,10 @@
 package com.vazquez.meliton.antonio.badasalud;
 
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Patterns;
 import android.view.View;
@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.JsonObject;
 import com.vazquez.meliton.antonio.badasalud.constantes.Constantes;
@@ -33,9 +32,7 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
     Button loginButton;
     EditText loginEmail, loginPassword;
     TextView registro;
-    JsonObjectRequest jsonObjectRequest;
     JsonObject jsonObject;
-    private Snackbar snackbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,7 +107,7 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
                 }
             }
         });
-        //EVITO QUE ESTÉ VACÍO
+        //miro que no este vacio
         if (emailText.isEmpty() || passwordText.isEmpty()) {
             loginEmail.setError("Introduce el Email");
             loginPassword.setError("Introduce una contraseña");
@@ -119,12 +116,6 @@ public class LoginActivity extends AppCompatActivity implements Response.ErrorLi
         else if (emailText.length() < 8) loginPassword.setError("Password Incorrecto");
         else Volley.newRequestQueue(this).add(login);
 
-    }
-
-    public void showSnackbar(String stringSnackbar) {
-        Snackbar.make(findViewById(android.R.id.content), stringSnackbar, Snackbar.LENGTH_SHORT)
-                .setActionTextColor(getResources().getColor(R.color.colorPrimary))
-                .show();
     }
 
 

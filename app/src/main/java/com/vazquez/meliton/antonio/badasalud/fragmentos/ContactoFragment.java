@@ -117,7 +117,7 @@ public class ContactoFragment extends Fragment {
 
                 /* Fill it with Data */
                 sendEmail.setType("plain/text");
-                sendEmail.putExtra(Intent.EXTRA_EMAIL, new String[]{"info@badasalud.com"});
+                sendEmail.putExtra(Intent.EXTRA_EMAIL, new String[]{"info@badasalud.es"});
                 sendEmail.putExtra(Intent.EXTRA_SUBJECT, asunto);
                 sendEmail.putExtra(Intent.EXTRA_TEXT,
                         "Nombre:" + nombre + '\n' + "Email:" + email + '\n' + "Mensaje:" + '\n' + mensaje);

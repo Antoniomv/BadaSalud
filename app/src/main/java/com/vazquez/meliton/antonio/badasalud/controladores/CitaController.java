@@ -14,8 +14,6 @@ import com.vazquez.meliton.antonio.badasalud.constantes.Constantes;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Map;
-
 public class CitaController {
 
     //nos traemos el contexto y la vista
@@ -28,8 +26,6 @@ public class CitaController {
         this.context = context;
     }
 
-    //Mapeamos para traernos los datos del formulario y poder crear usuario y guardarlo
-    Map<String, String> map;
     public void nuevaCita(String titulo, int usuarioid, int hospitalid, int especialidadid, String fecha, String hora) {
 
         String url = Constantes.INSERT_CITA;
