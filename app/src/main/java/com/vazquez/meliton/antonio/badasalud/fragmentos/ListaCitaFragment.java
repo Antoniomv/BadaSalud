@@ -187,9 +187,9 @@ public class ListaCitaFragment extends Fragment {
         calIntent.putExtra(CalendarContract.Events.TITLE, titulo);
         calIntent.putExtra(CalendarContract.Events.DESCRIPTION, hospital + "\n" + especialidad);
         Calendar startTime = Calendar.getInstance();
-        startTime.set(year, mes, dia, horaComienzo, minutoComienzo);
+        startTime.set(year, mes-1, dia, horaComienzo, minutoComienzo);
         Calendar endTime = Calendar.getInstance();
-        endTime.set(year, mes, dia, horaComienzo + 2, minutoComienzo);
+        endTime.set(year, mes-1, dia, horaComienzo + 2, minutoComienzo);
         calIntent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,
                 startTime.getTimeInMillis());
         calIntent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME,
